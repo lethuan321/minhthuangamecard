@@ -1,0 +1,767 @@
+--- before/index.html
++++ after/index.html
+@@ -19,8 +19,8 @@
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap&subset=vietnamese,latin-ext" rel="stylesheet">
+-  <style>html{background:#07070b}body{margin:0;color:#f4f4ef}.preloader[hidden]{display:none}.hero{min-height:100svh}#webgl{position:fixed;inset:0;pointer-events:none}@media(max-width:1099px){.preloader{display:none!important}}@media(max-width:767px){.hero h1{font-size:clamp(3rem,16vw,6rem)}.hero__art{height:240px}}</style>
+-  <link rel="stylesheet" href="style.css?v=20261014c.1">
++  <style>html{background:#07070b}body{margin:0;color:#f4f4ef}.preloader[hidden]{display:none}.hero{min-height:100svh}#webgl{position:fixed;inset:0;pointer-events:none}@media(max-width:767px){.hero h1{font-size:clamp(3rem,16vw,6rem)}.hero__art{height:240px}}</style>
++  <link rel="stylesheet" href="style.css?v=20261015arrow.1">
+   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js">
+   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js">
+   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js">
+@@ -28,8 +28,8 @@
+   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+-  <script defer src="mobile-policy.js?v=20261014c.1"></script>
+-  <script defer src="script.js?v=20261014c.1"></script>
++  <script defer src="mobile-policy.js?v=20261015arrow.1"></script>
++  <script defer src="script.js?v=20261015arrow.1"></script>
+ </head>
+ <body>
+   <canvas id="webgl" aria-hidden="true" data-status="loading"></canvas>
+@@ -40,12 +40,12 @@
+ 
+   <header class="header" id="header">
+     <div class="header__inner wrap">
+-      <a href="#top" class="wordmark" aria-label="Minh Thuận GameCard — về đầu trang"><span class="wordmark__symbol" aria-hidden="true">m<span>↗</span></span><span>MINHTHUAN<span class="wordmark__sub">GAMECARD</span></span></a>
++      <a href="#top" class="wordmark" aria-label="Minh Thuận GameCard — về đầu trang"><span class="wordmark__symbol" aria-hidden="true">m<span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></span><span>MINHTHUAN<span class="wordmark__sub">GAMECARD</span></span></a>
+       <nav class="desktop-nav" aria-label="Điều hướng chính"><a href="#bang-gia">Bảng giá</a><a href="#ly-do">Lý do chọn</a><a href="#thanh-toan">Thanh toán</a><a href="#lien-he">Liên hệ</a></nav>
+-      <div class="header__actions"><a class="social-icon" data-social="instagram" aria-label="Instagram của Minh Thuận" target="_blank" rel="noopener noreferrer" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a><a class="social-icon" data-social="facebook" aria-label="Facebook của Minh Thuận" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr"><span aria-hidden="true">f</span></a><a class="button button--small header__buy" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Mua thẻ ngay <span aria-hidden="true">↗</span></a><button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Mở menu"><span></span><span></span></button></div>
++      <div class="header__actions"><a class="social-icon" data-social="instagram" aria-label="Instagram của Minh Thuận" target="_blank" rel="noopener noreferrer" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a><a class="social-icon" data-social="facebook" aria-label="Facebook của Minh Thuận" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr"><span aria-hidden="true">f</span></a><a class="button button--small header__buy" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Mua thẻ ngay <span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Mở menu"><span></span><span></span></button></div>
+     </div>
+   </header>
+-  <dialog aria-modal="true" class="mobile-menu" id="mobile-menu" aria-label="Menu điều hướng" data-lenis-prevent><div class="mobile-menu__top"><span class="micro">MINHTHUAN GAMECARD</span><button class="icon-button" id="menu-close" aria-label="Đóng menu">×</button></div><nav aria-label="Điều hướng trên điện thoại"><a href="#bang-gia">Bảng giá <span>↗</span></a><a href="#ly-do">Lý do chọn <span>↗</span></a><a href="#thanh-toan">Thanh toán <span>↗</span></a><a href="#lien-he">Liên hệ <span>↗</span></a></nav><a data-contact target="_blank" rel="noopener noreferrer" class="button button--red" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Mua thẻ ngay ↗</a><div class="mobile-menu__socials"><a class="social-icon" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y" data-social="instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram của Minh Thuận"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a><a class="social-icon" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" data-social="facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook của Minh Thuận"><span aria-hidden="true">f</span></a></div></dialog>
++  <dialog aria-modal="true" class="mobile-menu" id="mobile-menu" aria-label="Menu điều hướng" data-lenis-prevent><div class="mobile-menu__top"><span class="micro">MINHTHUAN GAMECARD</span><button class="icon-button" id="menu-close" aria-label="Đóng menu">×</button></div><nav aria-label="Điều hướng trên điện thoại"><a href="#bang-gia">Bảng giá <span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a href="#ly-do">Lý do chọn <span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a href="#thanh-toan">Thanh toán <span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a href="#lien-he">Liên hệ <span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></nav><a data-contact target="_blank" rel="noopener noreferrer" class="button button--red" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Mua thẻ ngay <svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a><div class="mobile-menu__socials"><a class="social-icon" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y" data-social="instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram của Minh Thuận"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a><a class="social-icon" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" data-social="facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook của Minh Thuận"><span aria-hidden="true">f</span></a></div></dialog>
+ 
+   <main id="noi-dung">
+     <section data-3d-zone="right" class="hero wrap" id="top" aria-labelledby="hero-title">
+@@ -55,15 +55,15 @@
+           <h1 id="hero-title"><span class="line-mask"><span data-copy="heroLine1">BẢNG GIÁ</span></span><span class="line-mask"><span class="red" data-copy="heroLine2">THẺ GAME</span></span></h1>
+           <p class="hero__tagline" data-copy="heroTagline">Nạp game rẻ hơn.<br>Tiết kiệm hơn mỗi ngày.</p>
+           <p class="hero__description" data-copy="heroDescription">Chọn thẻ bạn cần, xem ngay giá thật.<br>Phần còn lại, để Minh Thuận lo.</p>
+-          <div class="hero__buttons"><a class="button button--red magnetic" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr"><span>Mua thẻ ngay</span><span aria-hidden="true">↗</span></a><a class="button button--outline" href="#bang-gia">Xem bảng giá <span aria-hidden="true">↓</span></a></div>
++          <div class="hero__buttons"><a class="button button--red magnetic" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr"><span>Mua thẻ ngay</span><span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a class="button button--outline" href="#bang-gia">Xem bảng giá <span aria-hidden="true">↓</span></a></div>
+           <div class="hero__proof"><span class="check" aria-hidden="true">✓</span><span data-copy="heroProof">Giá công khai. Thanh toán rõ ràng.</span></div>
+         </div>
+         <div class="hero__art" aria-label="Minh họa thẻ Garena, Zing và VCoin">
+           <div class="art-orbit art-orbit--one" aria-hidden="true"></div><div class="art-orbit art-orbit--two" aria-hidden="true"></div>
+           <span class="art-coordinate micro" aria-hidden="true">YOUR NEXT LEVEL<br>STARTS HERE.</span>
+-          <div class="game-card game-card--zing" data-brand-card="zing" aria-hidden="true"><div class="game-card__top"><span>MINHTHUAN / GAMECARD</span><span>↗</span></div><span class="game-card__word">ZING</span><span class="game-card__contour"></span><div class="game-card__bottom"><span>THẺ GAME ĐIỆN TỬ</span><span>02 / Z</span></div></div>
+-          <div class="game-card game-card--vcoin" data-brand-card="vcoin" aria-hidden="true"><div class="game-card__top"><span>MINHTHUAN / GAMECARD</span><span>↗</span></div><span class="game-card__word">VCOIN</span><span class="game-card__contour"></span><div class="game-card__bottom"><span>THẺ GAME ĐIỆN TỬ</span><span>03 / V</span></div></div>
+-          <div class="game-card game-card--garena" data-brand-card="garena" aria-hidden="true"><div class="game-card__top"><span>MINHTHUAN / GAMECARD</span><span>↗</span></div><span class="game-card__word">GARENA</span><span class="game-card__contour"></span><div class="game-card__bottom"><span>THẺ GAME ĐIỆN TỬ</span><span>01 / G</span></div></div>
++          <div class="game-card game-card--zing" data-brand-card="zing" aria-hidden="true"><div class="game-card__top"><span>MINHTHUAN / GAMECARD</span><span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div><span class="game-card__word">ZING</span><span class="game-card__contour"></span><div class="game-card__bottom"><span>THẺ GAME ĐIỆN TỬ</span><span>02 / Z</span></div></div>
++          <div class="game-card game-card--vcoin" data-brand-card="vcoin" aria-hidden="true"><div class="game-card__top"><span>MINHTHUAN / GAMECARD</span><span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div><span class="game-card__word">VCOIN</span><span class="game-card__contour"></span><div class="game-card__bottom"><span>THẺ GAME ĐIỆN TỬ</span><span>03 / V</span></div></div>
++          <div class="game-card game-card--garena" data-brand-card="garena" aria-hidden="true"><div class="game-card__top"><span>MINHTHUAN / GAMECARD</span><span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div><span class="game-card__word">GARENA</span><span class="game-card__contour"></span><div class="game-card__bottom"><span>THẺ GAME ĐIỆN TỬ</span><span>01 / G</span></div></div>
+           <div class="saving-note"><span class="saving-note__arrow" aria-hidden="true">↙</span><span>GIỮ LẠI NHIỀU HƠN<br><strong>CHO CUỘC CHƠI.</strong></span></div>
+           <div class="circle-badge" aria-label="Mua nhiều, ưu đãi nhiều"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="badge-path" d="M60,60m-43,0a43,43 0 1,1 86,0a43,43 0 1,1 -86,0"/></defs><text><textPath href="#badge-path" textLength="265">MUA NHIỀU · ƯU ĐÃI NHIỀU · </textPath></text></svg><span aria-hidden="true">✳</span></div>
+         </div>
+@@ -71,7 +71,7 @@
+       <div class="hero__bottom"><a class="micro scroll-cue" href="#bang-gia"><span aria-hidden="true">↓</span> KÉO XUỐNG. CHỌN THẺ.</a><span class="micro hero__bottom-note">NẠP NHẸ VÍ. CHƠI HẾT MÌNH.</span><button id="motion-toggle" class="motion-toggle" aria-pressed="false" aria-label="Tạm dừng hiệu ứng chuyển động"><span aria-hidden="true">Ⅱ</span> HIỆU ỨNG</button></div>
+     </section>
+ 
+-    <section data-3d-zone="background" class="marquee" aria-label="Thẻ game giá tốt, giao mã qua tin nhắn"><div class="marquee__track" aria-hidden="true"><span>NẠP GAME RẺ HƠN <i>✳</i> GIAO THẺ SIÊU TỐC <i>✳</i> UY TÍN – AN TOÀN <i>✳</i> HỖ TRỢ TẬN TÌNH <i>✳</i> </span><span>NẠP GAME RẺ HƠN <i>✳</i> GIAO THẺ SIÊU TỐC <i>✳</i> UY TÍN – AN TOÀN <i>✳</i> HỖ TRỢ TẬN TÌNH <i>✳</i> </span></div><div class="marquee__track marquee__track--reverse" aria-hidden="true"><span>GARENA <i>↗</i> ZING <i>↗</i> VCOIN <i>↗</i> CHỌN THẺ. VÀO GAME. <i>↗</i> </span><span>GARENA <i>↗</i> ZING <i>↗</i> VCOIN <i>↗</i> CHỌN THẺ. VÀO GAME. <i>↗</i> </span></div></section>
++    <section data-3d-zone="background" class="marquee" aria-label="Thẻ game giá tốt, giao mã qua tin nhắn"><div class="marquee__track" aria-hidden="true"><span>NẠP GAME RẺ HƠN <i>✳</i> GIAO THẺ SIÊU TỐC <i>✳</i> UY TÍN – AN TOÀN <i>✳</i> HỖ TRỢ TẬN TÌNH <i>✳</i> </span><span>NẠP GAME RẺ HƠN <i>✳</i> GIAO THẺ SIÊU TỐC <i>✳</i> UY TÍN – AN TOÀN <i>✳</i> HỖ TRỢ TẬN TÌNH <i>✳</i> </span></div><div class="marquee__track marquee__track--reverse" aria-hidden="true"><span>GARENA <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> ZING <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> VCOIN <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> CHỌN THẺ. VÀO GAME. <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> </span><span>GARENA <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> ZING <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> VCOIN <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> CHỌN THẺ. VÀO GAME. <i><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></i> </span></div></section>
+ 
+     <section data-3d-zone="background" class="benefits wrap" aria-label="Lợi ích khi mua thẻ"><div id="benefit-list" class="benefits__grid"></div></section>
+ 
+@@ -85,28 +85,28 @@
+             <p class="pricing__footnote"><span aria-hidden="true">↳</span> <span data-copy="pricingFootnote">Giá tính cho 01 thẻ. Mua số lượng lớn? Nhắn shop để hỏi ưu đãi.</span></p>
+             <noscript><p class="noscript-note">Bật JavaScript để xem bảng giá và ghép đơn. Bạn cũng có thể liên hệ <a href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook Minh Thuận</a> để hỏi giá.</p></noscript>
+           </div>
+-          <div id="order-slot"><aside class="order-panel" id="order-panel" data-3d-anchor="order-panel" aria-labelledby="order-title" data-lenis-prevent><div class="order-panel__heading"><span class="micro">CHỐT ĐƠN CỦA BẠN</span><span aria-hidden="true">↗</span></div><h3 id="order-title">THẺ CỦA BẠN<span class="order-count" id="order-count">0</span></h3><div id="cart-items" class="cart-items" data-lenis-prevent></div><div class="order-totals" aria-live="polite" aria-atomic="true"><div><span>Tổng mệnh giá</span><span id="cart-face">0đ</span></div><div class="order-totals__saving"><span>Bạn tiết kiệm</span><span id="cart-saved">0đ</span></div><div class="order-totals__total"><span>Thanh toán</span><strong id="cart-total">0đ</strong></div></div><fieldset class="payment-choice"><legend>Chọn cách thanh toán</legend><label><input type="radio" name="method" value="momo" checked><span>MoMo</span></label><label><input type="radio" name="method" value="vcb"><span>Vietcombank</span></label></fieldset><a class="button button--red order-send" id="send-order" data-contact target="_blank" rel="noopener noreferrer" aria-disabled="true" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Gửi đơn qua Facebook <span aria-hidden="true">↗</span></a><button class="text-button order-preview-button" id="preview-order" disabled>Xem & sao chép nội dung đơn</button><p class="order-panel__note">Nội dung đơn được sao chép để bạn dán vào tin nhắn. Shop xác nhận đơn trước khi bạn chuyển khoản.</p></aside></div>
++          <div id="order-slot"><aside class="order-panel" id="order-panel" data-3d-anchor="order-panel" aria-labelledby="order-title" data-lenis-prevent><div class="order-panel__heading"><span class="micro">CHỐT ĐƠN CỦA BẠN</span><span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div><h3 id="order-title">THẺ CỦA BẠN<span class="order-count" id="order-count">0</span></h3><div id="cart-items" class="cart-items" data-lenis-prevent></div><div class="order-totals" aria-live="polite" aria-atomic="true"><div><span>Tổng mệnh giá</span><span id="cart-face">0đ</span></div><div class="order-totals__saving"><span>Bạn tiết kiệm</span><span id="cart-saved">0đ</span></div><div class="order-totals__total"><span>Thanh toán</span><strong id="cart-total">0đ</strong></div></div><fieldset class="payment-choice"><legend>Chọn cách thanh toán</legend><label><input type="radio" name="method" value="momo" checked><span>MoMo</span></label><label><input type="radio" name="method" value="vcb"><span>Vietcombank</span></label></fieldset><a class="button button--red order-send" id="send-order" data-contact target="_blank" rel="noopener noreferrer" aria-disabled="true" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Gửi đơn qua Facebook <span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><button class="text-button order-preview-button" id="preview-order" disabled>Xem & sao chép nội dung đơn</button><p class="order-panel__note">Nội dung đơn được sao chép để bạn dán vào tin nhắn. Shop xác nhận đơn trước khi bạn chuyển khoản.</p></aside></div>
+         </div>
+       </div>
+     </section>
+ 
+-    <section data-3d-zone="background" class="why wrap section-space" id="ly-do" aria-labelledby="why-title"><div class="why__heading"><p class="micro section-kicker">RÕ RÀNG TỪ GIÁ ĐẾN CÁCH MUA</p><h2 id="why-title">VÌ SAO CHỌN<br>MINH THUẬN<span class="red">?</span></h2><p data-copy="whyIntro">Chuyện nạp game nên đơn giản.<br>Và sự tin tưởng bắt đầu từ những điều rõ ràng.</p><a class="text-link" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Trò chuyện cùng Minh Thuận <span aria-hidden="true">↗</span></a></div><div class="why__list" id="why-list"></div></section>
++    <section data-3d-zone="background" class="why wrap section-space" id="ly-do" aria-labelledby="why-title"><div class="why__heading"><p class="micro section-kicker">RÕ RÀNG TỪ GIÁ ĐẾN CÁCH MUA</p><h2 id="why-title">VÌ SAO CHỌN<br>MINH THUẬN<span class="red">?</span></h2><p data-copy="whyIntro">Chuyện nạp game nên đơn giản.<br>Và sự tin tưởng bắt đầu từ những điều rõ ràng.</p><a class="text-link" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Trò chuyện cùng Minh Thuận <span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div><div class="why__list" id="why-list"></div></section>
+ 
+     <section data-3d-zone="background" class="how" aria-labelledby="how-title"><div class="wrap"><div class="how__heading"><p class="micro">TỪ CHỌN THẺ ĐẾN VÀO GAME</p><h2 id="how-title">BA BƯỚC.<br>LÀ XONG.</h2><p data-copy="howIntro">Không cần tạo tài khoản.<br>Chỉ cần một tin nhắn.</p></div><ol class="how__steps" id="how-steps"></ol></div></section>
+ 
+-    <section data-3d-zone="background" class="payment wrap section-space" id="thanh-toan" aria-labelledby="payment-title"><div class="section-heading"><div><p class="micro section-kicker">THÔNG TIN THANH TOÁN</p><h2 id="payment-title">ĐÚNG SỐ.<br>ĐÚNG NGƯỜI.</h2></div><p class="section-heading__note">Xác nhận đơn với shop trước khi chuyển.<br>Đừng quên giữ lại bill của bạn nhé.</p></div><div class="payment__grid" id="payment-cards"></div><p id="holder-note" class="holder-note"></p><div class="payment__banner"><span aria-hidden="true">↗</span><p data-copy="paymentBanner">Chuyển tiền xong, gửi bill.<br><strong>Minh Thuận gửi mã thẻ cho bạn!</strong></p><span class="micro">UY TÍN · CHẤT LƯỢNG<br>TẠO NIỀM TIN</span></div><p class="payment__safety" data-copy="paymentSafety">Chỉ chuyển khoản đúng số tài khoản trên trang này và kiểm tra lại trước khi xác nhận.</p></section>
+-
+-    <section data-3d-zone="background" class="faq wrap section-space" aria-labelledby="faq-title"><div><p class="micro section-kicker">CÓ THỂ BẠN ĐANG THẮC MẮC</p><h2 id="faq-title">HỎI NHANH.<br>ĐÁP GỌN.</h2><a class="text-link" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Cần hỗ trợ thêm? Nhắn shop ↗</a></div><div class="faq__list" id="faq-list"></div></section>
+-
+-    <section data-3d-zone="center" class="closing" id="lien-he" aria-labelledby="closing-title"><div class="wrap"><div class="closing__top micro"><span>CUỘC CHƠI CỦA BẠN. GIÁ TỐT CỦA CHÚNG MÌNH.</span><span aria-hidden="true">↗</span></div><h2 id="closing-title"><span>TIẾT KIỆM</span><span>NGAY HÔM NAY<span class="closing__star" aria-hidden="true">✳</span></span></h2><div class="closing__bottom"><p data-copy="closingText">Nhận ưu đãi mỗi ngày!<br>Minh Thuận luôn sẵn lòng hỗ trợ bạn.</p><div class="closing__actions"><a class="button button--light magnetic" data-social="facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Facebook <span aria-hidden="true">↗</span></a><a class="button button--outline" data-social="instagram" target="_blank" rel="noopener noreferrer" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y">Instagram <span aria-hidden="true">↗</span></a></div></div></div></section>
++    <section data-3d-zone="background" class="payment wrap section-space" id="thanh-toan" aria-labelledby="payment-title"><div class="section-heading"><div><p class="micro section-kicker">THÔNG TIN THANH TOÁN</p><h2 id="payment-title">ĐÚNG SỐ.<br>ĐÚNG NGƯỜI.</h2></div><p class="section-heading__note">Xác nhận đơn với shop trước khi chuyển.<br>Đừng quên giữ lại bill của bạn nhé.</p></div><div class="payment__grid" id="payment-cards"></div><p id="holder-note" class="holder-note"></p><div class="payment__banner"><span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span><p data-copy="paymentBanner">Chuyển tiền xong, gửi bill.<br><strong>Minh Thuận gửi mã thẻ cho bạn!</strong></p><span class="micro">UY TÍN · CHẤT LƯỢNG<br>TẠO NIỀM TIN</span></div><p class="payment__safety" data-copy="paymentSafety">Chỉ chuyển khoản đúng số tài khoản trên trang này và kiểm tra lại trước khi xác nhận.</p></section>
++
++    <section data-3d-zone="background" class="faq wrap section-space" aria-labelledby="faq-title"><div><p class="micro section-kicker">CÓ THỂ BẠN ĐANG THẮC MẮC</p><h2 id="faq-title">HỎI NHANH.<br>ĐÁP GỌN.</h2><a class="text-link" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Cần hỗ trợ thêm? Nhắn shop <svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div><div class="faq__list" id="faq-list"></div></section>
++
++    <section data-3d-zone="center" class="closing" id="lien-he" aria-labelledby="closing-title"><div class="wrap"><div class="closing__top micro"><span>CUỘC CHƠI CỦA BẠN. GIÁ TỐT CỦA CHÚNG MÌNH.</span><span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div><h2 id="closing-title"><span>TIẾT KIỆM</span><span>NGAY HÔM NAY<span class="closing__star" aria-hidden="true">✳</span></span></h2><div class="closing__bottom"><p data-copy="closingText">Nhận ưu đãi mỗi ngày!<br>Minh Thuận luôn sẵn lòng hỗ trợ bạn.</p><div class="closing__actions"><a class="button button--light magnetic" data-social="facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Facebook <span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a class="button button--outline" data-social="instagram" target="_blank" rel="noopener noreferrer" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y">Instagram <span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div></div></div></section>
+   </main>
+ 
+-  <footer class="footer wrap"><div class="footer__top"><a class="wordmark" href="#top"><span class="wordmark__symbol" aria-hidden="true">m<span>↗</span></span><span>MINHTHUAN<span class="wordmark__sub">GAMECARD</span></span></a><span class="micro">NẠP GAME DỄ DÀNG. TRẢI NGHIỆM TRỌN VẸN.</span><a href="#top" class="back-top" aria-label="Về đầu trang">↑</a></div><div class="footer__bottom"><span id="copyright">© 2026 minhthuangamecard</span><p>Cửa hàng bán lẻ độc lập, không trực thuộc Garena, Zing hay VNG/VTC.</p><div><a data-social="facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Facebook ↗</a><a data-social="instagram" target="_blank" rel="noopener noreferrer" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y">Instagram ↗</a></div></div></footer>
+-
+-  <nav class="mobile-actions" id="mobile-actions" aria-label="Liên hệ mua thẻ"><a class="button button--red" data-contact href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Mua thẻ ngay <span aria-hidden="true">↗</span></a><a class="social-icon" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y" data-social="instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram của Minh Thuận"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a><a class="social-icon" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" data-social="facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook của Minh Thuận"><span aria-hidden="true">f</span></a></nav>
++  <footer class="footer wrap"><div class="footer__top"><a class="wordmark" href="#top"><span class="wordmark__symbol" aria-hidden="true">m<span><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></span><span>MINHTHUAN<span class="wordmark__sub">GAMECARD</span></span></a><span class="micro">NẠP GAME DỄ DÀNG. TRẢI NGHIỆM TRỌN VẸN.</span><a href="#top" class="back-top" aria-label="Về đầu trang">↑</a></div><div class="footer__bottom"><span id="copyright">© 2026 minhthuangamecard</span><p>Cửa hàng bán lẻ độc lập, không trực thuộc Garena, Zing hay VNG/VTC.</p><div><a data-social="facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Facebook <svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a><a data-social="instagram" target="_blank" rel="noopener noreferrer" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y">Instagram <svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div></div></footer>
++
++  <nav class="mobile-actions" id="mobile-actions" aria-label="Liên hệ mua thẻ"><a class="button button--red" data-contact href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Mua thẻ ngay <span aria-hidden="true"><svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a class="social-icon" href="https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y" data-social="instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram của Minh Thuận"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a><a class="social-icon" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr" data-social="facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook của Minh Thuận"><span aria-hidden="true">f</span></a></nav>
+   <button id="cart-toggle" class="cart-toggle" aria-expanded="false" aria-controls="cart-dialog"><span>Đơn của bạn <b id="mobile-count">0</b></span><span><strong id="mobile-total">0đ</strong> ↑</span></button>
+   <dialog aria-modal="true" class="cart-dialog" id="cart-dialog" aria-label="Đơn thẻ của bạn" data-lenis-prevent><button type="button" class="sheet-handle" id="sheet-handle" aria-label="Đóng bảng đơn thẻ"><span></span></button><div class="cart-dialog__bar"><span class="micro">ĐƠN THẺ CỦA BẠN</span><button class="icon-button" id="cart-close" aria-label="Đóng đơn thẻ">×</button></div><div id="cart-dialog-content" data-lenis-prevent></div></dialog>
+-  <dialog aria-modal="true" class="message-dialog" id="message-dialog" aria-labelledby="message-title" data-lenis-prevent><div class="dialog-heading"><h2 id="message-title">Nội dung đơn của bạn</h2><button class="icon-button" id="message-close" aria-label="Đóng nội dung đơn">×</button></div><p>Sao chép nội dung bên dưới rồi dán vào tin nhắn cho shop.</p><textarea id="order-message" readonly aria-label="Nội dung đặt thẻ" rows="8"></textarea><div class="message-dialog__actions"><button class="button button--light" id="copy-order">Sao chép nội dung</button><a class="button button--red" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Mở Facebook ↗</a></div></dialog>
++  <dialog aria-modal="true" class="message-dialog" id="message-dialog" aria-labelledby="message-title" data-lenis-prevent><div class="dialog-heading"><h2 id="message-title">Nội dung đơn của bạn</h2><button class="icon-button" id="message-close" aria-label="Đóng nội dung đơn">×</button></div><p>Sao chép nội dung bên dưới rồi dán vào tin nhắn cho shop.</p><textarea id="order-message" readonly aria-label="Nội dung đặt thẻ" rows="8"></textarea><div class="message-dialog__actions"><button class="button button--light" id="copy-order">Sao chép nội dung</button><a class="button button--red" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Mở Facebook <svg class="icon-arrow-up-right" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div></dialog>
+   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+   <button id="fx-toggle" class="fx-toggle" type="button" aria-pressed="false">Tạm dừng hiệu ứng</button>
+   <!-- Inline module: no local-module fetch, so the document remains file:// compatible. -->
+@@ -122,7 +122,7 @@
+       window.dispatchEvent(new CustomEvent('scene-ready', { detail: { status } }));
+     }
+     async function bootScene() {
+-      if(innerWidth>=1100&&(navigator.hardwareConcurrency||4)>4)loadDesktopModules().catch(()=>{});
++      loadDesktopModules().catch(()=>{});
+       const id = ++bootId;
+       if(new URLSearchParams(location.search).get('3d')==='off'){canvas.dataset.tier='OFF';reportScene('fallback');return;}
+       try {
+@@ -168,9 +168,9 @@
+       snap(value){this.value=this.target=value;this.velocity=0;return value;}
+     }
+     class PerformanceGovernor {
+-      constructor(apply){this.level=0;this.bad=0;this.good=0;this.seconds=0;this.frames=0;this.apply=apply;}
+-      sample(dt){this.seconds+=dt;this.frames++;if(this.seconds<.5)return;const fps=this.frames/this.seconds;this.bad=fps<45?this.bad+this.seconds:0;this.good=fps>=58?this.good+this.seconds:0;this.seconds=0;this.frames=0;if((this.bad>=2)&&this.level<7){this.level++;this.bad=this.good=0;this.apply(this.level);}else if(this.good>=10&&this.level>0){this.level--;this.bad=this.good=0;this.apply(this.level);}}
+-      reset(){this.bad=this.good=this.seconds=this.frames=0;}
++      constructor(apply){this.level=0;this.apply=apply;this.reset();}
++      sample(dt){this.seconds+=dt;this.frames++;this.level=0;}
++      reset(){this.level=0;this.bad=this.good=this.seconds=this.frames=0;}
+     }
+ 
+     /* D0 / Desktop showpiece: augments Part B and uses its single render loop. */
+@@ -182,10 +182,12 @@
+       const original={fog:scene.fog,clearColor:renderer.getClearColor(new T.Color()).clone(),clearAlpha:renderer.getClearAlpha(),autoReset:renderer.info.autoReset,particleOpacity:particleMaterial.opacity};
+       const listen=(target,name,fn,options)=>{target.addEventListener(name,fn,options);removeListeners.push(()=>target.removeEventListener(name,fn,options));};
+       const roots=[],ownedPasses=[],tweens=[];
+-      const hud=C.hud,originalChildren=cards.map(card=>new Set(card.children));
++      const hud=C.hud,originalLights=lights.map(light=>({color:light.color.clone(),intensity:light.intensity,visible:light.visible})),originalChildren=cards.map(card=>new Set(card.children));
+       let composer=null,stepTrigger=null;
+       const safely=fn=>{try{fn();}catch{}};
++      function restoreLights(){lights.forEach((light,i)=>{light.color.copy(originalLights[i].color);light.intensity=originalLights[i].intensity;light.visible=originalLights[i].visible;});}
+       function rollbackConstruction(){
++        restoreLights();
+         for(const remove of removeListeners)safely(remove);
+         safely(()=>stepTrigger?.kill());
+         for(const tween of tweens)safely(()=>tween.kill());
+@@ -203,7 +205,7 @@
+       const backgroundColor=new T.Color(0x07070b);
+       const colorTemp=new T.Color(),themeColor=new T.Color(0xf5c542);
+       const params=new URLSearchParams(location.search),flag=params.get('fx');
+-      const baseTier=flag==='std'?'MEDIUM':flag==='max'?'HIGH':(navigator.hardwareConcurrency||4)>=8?'HIGH':'MEDIUM';
++      const baseTier='HIGH';
+       const S={progress:0,velocity:0,direction:0,pointer:screenPointer,isDragging:false,activeBrand:'garena',hoveredRow:null,cartCount:0,tier:baseTier};
+       const anchors=new Map(),scenes=[],sceneByName=new Map(),materials=[];
+       let active=false,disposedFX=false,moving=true,time=0,theme='hero',themeTween=null,themeKey='',hoverCard=-1,dragCard=-1,downX=0,downY=0,lastX=0,lastY=0,held=false,pointerValid=false;
+@@ -282,7 +284,7 @@
+             if(on!==r.live){r.live=on;r.age=0;if(on)r.enter();else r.exit();}
+             r.group.visible=on;
+             if(!on)continue;
+-            r.update(dt,S,r);
++            try{r.update(dt,S,r);}catch(error){if(/webgl|shader|context lost/i.test(error.message||''))throw error;if(r.lastError!==error.message){console.error('[Full FX] '+r.name+':',error);r.lastError=error.message;}}
+             const d=Math.abs(r.rect.top+r.rect.height*.5-metrics.height*.5);
+             if(d<best){best=d;focus=r.name;}
+           }
+@@ -297,8 +299,8 @@
+       const arcs=own(new T.InstancedMesh(own(new T.TorusGeometry(1.86,.012,4,12,.14)),soft,28));heroRoot.add(arcs);
+       for(let i=0;i<28;i++){scratch.position.set(0,0,-.65);scratch.rotation.set(0,0,i/28*Math.PI*2);scratch.scale.setScalar(1);scratch.updateMatrix();arcs.setMatrixAt(i,scratch.matrix);}
+       const lightningData=new Float32Array(18*6),lightningGeo=own(new T.BufferGeometry());lightningGeo.setAttribute('position',new T.BufferAttribute(lightningData,3));const lightningMat=own(new T.LineBasicMaterial({color:new T.Color(1.4,1.8,2.5),transparent:true,opacity:0,blending:T.AdditiveBlending}));const lightning=new T.LineSegments(lightningGeo,lightningMat);heroRoot.add(lightning);let boltStamp=-1;
+-      const introAllowed=!!window.gamecardIntro?.desktop&&performance.now()<window.gamecardIntro.deadline;
+-      const introStart=performance.now(),introLength=introAllowed?Math.min(1.65,(window.gamecardIntro.deadline-introStart)/1000):0;
++      const introAllowed=true;
++      let introStart=null,introClock=0;const introLength=1.65;
+       const deals=cards.map((card,i)=>({depth:new Spring(introAllowed?-9:0,11,.62),hover:new Spring(0,13,.7),rx:new Spring(),ry:new Spring(),spin:new Spring(introAllowed?Math.PI*3:0,10,.7),flip:new Spring(),landed:!introAllowed,index:i}));
+       const backTexture=canvasTexture(1024,1448,(ctx,w,h)=>{ctx.fillStyle='#120d14';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#d9b77144';for(let i=-h;i<w;i+=70){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i+h,h);ctx.stroke();}ctx.fillStyle='#f5dcab';ctx.textAlign='center';ctx.font='80px Anton';ctx.fillText('MINHTHUAN',w/2,h*.47);ctx.fillText('GAMECARD',w/2,h*.55);ctx.font='26px sans-serif';ctx.fillText('YOUR NEXT LEVEL',w/2,h*.7);});
+       const foilUniform={value:0};
+@@ -308,11 +310,12 @@
+       const slot=mesh(own(new T.TorusGeometry(.6,.025,6,48)),bright,heroRoot);slot.scale.set(1.8,.16,1);slot.position.set(0,1.5,.3);slot.visible=introAllowed;
+       const stack=own(new T.InstancedMesh(coinGeometry,[coinSide,coinCap,coinCap],30));heroRoot.add(stack);stack.visible=introAllowed;
+       const coinTrailData=new Float32Array(10*10*3),coinTrailGeo=own(new T.BufferGeometry());coinTrailGeo.setAttribute('position',new T.BufferAttribute(coinTrailData,3));const coinTrails=new T.Points(coinTrailGeo,own(new T.PointsMaterial({color:0xf5c542,size:.028,map:sparkleTexture,transparent:true,opacity:.25,blending:T.AdditiveBlending,depthWrite:false})));coinTrails.frustumCulled=false;heroRoot.add(coinTrails);
+-      function updateHero(dt){cards[1].visible=cards[2].visible=true;domToWorld('hero-art',0,cardsGroup.position);cardsGroup.scale.setScalar(anchorScale('hero-art',510)/3.65);heroRoot.position.copy(cardsGroup.position);heroRoot.scale.copy(cardsGroup.scale);portal.rotation.z=time*.12;arcs.rotation.z=-time*.17;portal.scale.setScalar(1+Math.sin(time*Math.PI/2)*.025);foilUniform.value=time;
+-        const introT=introLength?Math.min(1,(performance.now()-introStart)/1000/introLength):1;
++      function updateHero(dt){cards[1].visible=cards[2].visible=true;domToWorld('hero-art',0,cardsGroup.position);const art=anchors.get('hero-art').rect;cardsGroup.scale.setScalar(Math.min(art.width/3.65,art.height/3.6)*pxRatio(cardsGroup.position));heroRoot.position.copy(cardsGroup.position);heroRoot.scale.copy(cardsGroup.scale);portal.rotation.z=time*.12;arcs.rotation.z=-time*.17;portal.scale.setScalar(1+Math.sin(time*Math.PI/2)*.025);foilUniform.value=time;
++        if(introStart===null){introStart=performance.now();hud.intro='playing';window.dispatchEvent(new CustomEvent('desktop-intro-start'));}
++        introClock+=dt;const introT=Math.min(1,introClock/introLength);
+         if(slot.visible){for(let i=0;i<30;i++){const x=(i%6-2.5)*.22,y=(Math.floor(i/6)-2)*.25;const k=T.MathUtils.smoothstep(introT,i*.012,.65+i*.009);scratch.position.set(x, T.MathUtils.lerp(3.5+i*.12,y,k),.35);scratch.rotation.set(Math.PI/2,0,introT*3);scratch.scale.setScalar(.42);scratch.updateMatrix();stack.setMatrixAt(i,scratch.matrix);}stack.instanceMatrix.needsUpdate=true;slot.visible=stack.visible=introT<.85;}
+-        for(let i=0;i<cards.length;i++){const d=deals[i],card=cards[i];d.depth.target=(performance.now()-introStart)/1000>i*.12?0:-9;d.spin.target=0;d.hover.target=hoverCard===i?1:0;const lift=moving?d.hover.step(dt):0;if(moving){card.position.z+=d.depth.step(dt);card.rotation.z+=d.spin.step(dt);card.rotation.x+=d.rx.step(dt);card.rotation.y+=d.ry.step(dt)+d.flip.step(dt);}card.position.y+=lift*.16;card.scale.setScalar(1+lift*.06);card.userData.rim.material.opacity=.2+lift*.65;if(moving&&!d.landed&&Math.abs(d.depth.value)<.035){d.landed=true;cardsGroup.updateMatrixWorld(true);card.getWorldPosition(v0);bursts.emit(v0,12,1.2,.23);shock(v0);}}
+-        if(introT>=1&&!hero.introDone){hero.introDone=true;window.dispatchEvent(new CustomEvent('desktop-intro-ready'));}
++        for(let i=0;i<cards.length;i++){const d=deals[i],card=cards[i];d.depth.target=introClock>i*.12?0:-9;d.spin.target=0;d.hover.target=hoverCard===i?1:0;const lift=moving?d.hover.step(dt):0;if(moving){card.position.z+=d.depth.step(dt);card.rotation.z+=d.spin.step(dt);card.rotation.x+=d.rx.step(dt);card.rotation.y+=d.ry.step(dt)+d.flip.step(dt);}card.position.y+=lift*.16;card.scale.setScalar(1+lift*.06);card.userData.rim.material.opacity=.2+lift*.65;if(moving&&!d.landed&&Math.abs(d.depth.value)<.035){d.landed=true;cardsGroup.updateMatrixWorld(true);card.getWorldPosition(v0);bursts.emit(v0,12,1.2,.23);shock(v0);}}
++        if(introT>=1&&!hero.introDone){hero.introDone=true;hud.intro='complete';window.dispatchEvent(new CustomEvent('desktop-intro-ready'));}
+         const pulse=time%4.4,stamp=Math.floor(time*10);lightningMat.opacity=pulse<.28&&moving?.55:0;if(lightningMat.opacity&&stamp!==boltStamp){boltStamp=stamp;for(let i=0;i<18;i++){const a=i*6,x=-1.9+i*.21;lightningData[a]=x;lightningData[a+1]=Math.sin(i*1.7+stamp)*.24;lightningData[a+2]=-.6;lightningData[a+3]=x+.21;lightningData[a+4]=Math.sin((i+1)*1.7+stamp)*.24;lightningData[a+5]=-.6;}lightningGeo.attributes.position.needsUpdate=true;}
+         for(let i=0;i<10;i++)for(let j=0;j<10;j++){const k=(i*10+j)*3,a=i/10*Math.PI*2+time*.17-j*.018;coinTrailData[k]=Math.cos(a)*2.15;coinTrailData[k+1]=Math.sin(a)*1.4;coinTrailData[k+2]=.2-j*.012;}coinTrailGeo.attributes.position.needsUpdate=true;
+       }
+@@ -329,7 +332,7 @@
+       for(let i=0;i<4;i++){const g=new T.Group();benefits.group.add(g);const icon={group:g,pop:new Spring(1,12,.58),spin:new Spring(0,9,.7),hover:false,index:i,check:null};icons.push(icon);if(i===0){mesh(discountGeo,red,g);text3D('%',.43,gold,g).position.set(-.07,-.17,.13);}else if(i===1){mesh(extrude([[-.05,.55],[-.39,-.05],[-.08,-.05],[-.19,-.52],[.4,.15],[.08,.15]]),bright,g);const arc=mesh(ringGeo,soft,g);arc.scale.setScalar(.56);}else if(i===2){mesh(extrude([[-.4,.4],[0,.53],[.4,.4],[.3,-.14],[0,-.5],[-.3,-.14]]),blue,g);icon.check=mesh(tube([[-.2,0,.15],[-.04,-.17,.15],[.24,.22,.15]],.04),bright,g);}else{const bubble=mesh(cardGeometry,green,g);bubble.scale.set(.48,.27,.7);mesh(extrude([[-.3,-.15],[-.26,-.4],[-.02,-.15]]),green,g);for(let j=0;j<3;j++){const dot=mesh(own(new T.SphereGeometry(.055,8,6)),white,g);dot.position.set((j-1)*.2,0,.14);dot.userData.dot=j;}const ring=mesh(ringGeo,soft,g);ring.scale.setScalar(.55);text3D('24/7',.17,white,g).position.set(0,-.26,.14);}
+         const el=anchors.get(`benefit-${i+1}`).element;const enter=()=>{if(!active||!moving)return;icon.hover=true;icon.spin.target+=Math.PI*2;domToWorld(`benefit-${i+1}`,0,v0,.06,.2);bursts.emit(v0,8,.6,.15);};const leave=()=>icon.hover=false;listen(el,'pointerenter',enter);listen(el,'pointerleave',leave);listen(el,'focus',enter);listen(el,'blur',leave);
+       }
+-      function updateBenefits(dt){for(let i=0;i<icons.length;i++){const icon=icons[i],anchor=anchors.get(`benefit-${i+1}`),rect=anchor.rect;screenToWorld(rect.left+(i?41:14),rect.top+14,0,icon.group.position);icon.pop.target=benefits.age>=i*.09?1:0;const pop=moving?icon.pop.step(dt):1;icon.group.scale.setScalar(40*pxRatio(icon.group.position)*pop);icon.group.rotation.set(icon.hover?screenPointer.y*.1:0,(moving?icon.spin.step(dt)+Math.sin(time*.4+i)*.15:0),-(1-pop)*Math.PI/2);if(icon.check)icon.check.geometry.setDrawRange(0,Math.floor(icon.check.geometry.index.count*Math.min(1,benefits.age*1.8)));if(i===3&&moving)for(const child of icon.group.children)if(child.userData.dot!==undefined)child.position.y=Math.sin(time*4+child.userData.dot)*.035;}}
++      function updateBenefits(dt){for(let i=0;i<icons.length;i++){const icon=icons[i],anchor=anchors.get(`benefit-${i+1}`),rect=anchor.rect;const svg=anchor.element.querySelector('svg').getBoundingClientRect();screenToWorld(svg.left+svg.width/2,svg.top+svg.height/2,0,icon.group.position);icon.pop.target=benefits.age>=i*.09?1:0;const pop=moving?icon.pop.step(dt):1;icon.group.scale.setScalar(40*pxRatio(icon.group.position)*pop);icon.group.rotation.set(icon.hover?screenPointer.y*.1:0,(moving?icon.spin.step(dt)+Math.sin(time*.4+i)*.15:0),-(1-pop)*Math.PI/2);if(icon.check)icon.check.geometry.setDrawRange(0,Math.floor(icon.check.geometry.index.count*Math.min(1,benefits.age*1.8)));if(i===3&&moving)for(const child of icon.group.children)if(child.userData.dot!==undefined)child.position.y=Math.sin(time*4+child.userData.dot)*.035;}}
+ 
+       /* D6 / Brand stages, denomination crossfade, savings column and order chest. */
+       const pricing=director.add('pricing','.pricing',updatePricing,function(){this.group.visible=true;},()=>{stageParticles.clear();S.hoveredRow=null;rowStamp='';faceMix.snap(0);savingsSpring.snap(0);if(shownLabel)shownLabel.visible=false;}),stage=pricing.group;
+@@ -339,8 +342,8 @@
+       const rays=own(new T.InstancedMesh(own(new T.PlaneGeometry(.015,2.5)),soft,8));stage.add(rays);
+       const stageParticles=new Pool(sparkGeo,bright,72,stage);let emberAt=0;
+       const wipeMaterial=own(new T.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{t:{value:2},color:{value:new T.Color(colors.garena)}},vertexShader:vertex,fragmentShader:'uniform float t;uniform vec3 color;varying vec2 vUv;void main(){float r=length(vUv-.5)*2.;float a=(1.-smoothstep(.025,.15,abs(r-t)))*(1.-smoothstep(.8,1.2,t));gl_FragColor=vec4(color*1.4,a*.6);}'}));const wipe=mesh(own(new T.PlaneGeometry(4.4,4.4)),wipeMaterial,stage);wipe.position.z=.6;
+-      const savingsSpring=new Spring(0,11,.6),stackCoins=own(new T.InstancedMesh(coinGeometry,[coinSide,coinCap,coinCap],20));stage.add(stackCoins);
+-      const priceLabels=new Map();for(const label of ['-1K','-2K','-4K','-5K','-8K','-10K','-12K','-15K','-20K','-30K','-40K']){const object=text3D(label,.19,gold,stage);object.visible=false;priceLabels.set(label,object);}
++      const savingsSpring=new Spring(0,11,.6),stackCoins=own(new T.InstancedMesh(coinGeometry,[coinSide,coinCap,coinCap],20));stackCoins.frustumCulled=false;stage.add(stackCoins);
++      const priceLabels=new Map();for(const label of ['-1K','-2K','-4K','-5K','-8K','-10K','-12K','-15K','-20K','-30K','-40K']){const object=text3D(label,.34,bright,stage);object.visible=false;priceLabels.set(label,object);}
+       let shownLabel=null,rowStamp='',faceMix=new Spring(0,10,.9),faceOverlay=null,denominationTextures=new Map();
+       // Build once: 20 small, mipmapped denomination overlays, never redraw textures in a frame.
+       for(const brand of window.gamecardApp.cards)for(const [face,sale] of brand.items){const tex=canvasTexture(512,256,(ctx,w,h)=>{ctx.fillStyle='#'+colors[brand.id].toString(16).padStart(6,'0');ctx.fillRect(0,0,w,h);ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='600 65px "Be Vietnam Pro"';ctx.fillText(new Intl.NumberFormat('vi-VN').format(face)+'đ',w/2,100);ctx.font='24px "Be Vietnam Pro"';ctx.fillText('Giá bán '+new Intl.NumberFormat('vi-VN').format(sale)+'đ',w/2,172);});denominationTextures.set(brand.id+face,tex);}
+@@ -351,29 +354,32 @@
+       const chestLid=new T.Group();chestLid.position.set(0,.2,-.17);chest.add(chestLid);const lid=mesh(unitBox,gold,chestLid);lid.scale.set(.54,.075,.36);lid.position.z=.15;for(const x of [-.17,.17]){const band=mesh(unitBox,gold,chest);band.scale.set(.045,.34,.4);band.position.set(x,.03,0);}const lidSpring=new Spring(0,12,.62);let chestLife=0;
+       function onRow(event){if(!active||!event.detail)return;const d=event.detail,key=d.id+d.face;if(key===rowStamp)return;rowStamp=key;S.hoveredRow=d;savingsSpring.target=(d.saved/d.face)*55;shownLabel&&(shownLabel.visible=false);shownLabel=priceLabels.get('-'+d.saved/1000+'K')||null;if(shownLabel)shownLabel.visible=d.saved>0;overlayMaterial.map=denominationTextures.get(key);faceMix.snap(0);faceMix.target=1;requestStaticFX();}
+       listen(window,'rowhover',onRow);
+-      listen(window,'tabchange',event=>{S.activeBrand=event.detail.id;rowStamp='';overlayMaterial.opacity=0;faceMix.snap(0);savingsSpring.target=0;wipeMaterial.uniforms.t.value=0;wipeMaterial.uniforms.color.value.set(colors[S.activeBrand]);themeKey='';if(shownLabel)shownLabel.visible=false;});
+-      function updatePricing(dt){const r=pricing.rect,order=anchors.get('order-panel').rect;const x=order.left+order.width*.5;const y=order.top+105;screenToWorld(x,y,0,stage.position);cardsGroup.position.copy(stage.position);cardsGroup.position.y+=.15;cardsGroup.scale.setScalar(Math.min(1,195*pxRatio(cardsGroup.position)/2.4));cards[1].visible=cards[2].visible=false;
++      listen(window,'tabchange',event=>{rowStamp='';S.hoveredRow=null;overlayMaterial.opacity=0;faceMix.snap(0);savingsSpring.target=0;wipeMaterial.uniforms.t.value=0;wipeMaterial.uniforms.color.value.set(colors[S.activeBrand]);themeKey='';if(shownLabel)shownLabel.visible=false;});
++      function updatePricing(dt){const r=pricing.rect,order=innerWidth<1100?document.querySelector('#panel-'+S.activeBrand+' .catalog-brand').getBoundingClientRect():anchors.get('order-panel').rect;const x=order.left+order.width*.5;const y=order.top+115;
++        screenToWorld(x,y,0,stage.position);screenToWorld(x+35,y,0,cardsGroup.position);cardsGroup.rotation.set(0,0,0);cards[0].position.set(0,0,.38);cards[0].rotation.z=0;cardsGroup.scale.setScalar(Math.min(1,180*pxRatio(cardsGroup.position)/2.4));cards[1].visible=cards[2].visible=false;
++        if(!S.hoveredRow||S.hoveredRow.id!==S.activeBrand){const row=document.querySelector('#panel-'+S.activeBrand+' tr[data-face="100000"]')||bestRows.get(S.activeBrand);if(row)onRow({detail:{id:S.activeBrand,face:+row.dataset.face,sale:+row.dataset.sale,saved:+row.dataset.saved,row}});}
+         stage.scale.setScalar(Math.min(1,200*pxRatio(stage.position)/4.4));stage.updateMatrixWorld(true);grid.visible=S.activeBrand==='garena';stageShards.visible=rays.visible=S.activeBrand==='zing';stageCoins.visible=S.activeBrand==='vcoin';grid.material.color.set(colors[S.activeBrand]);grid.position.y=Math.sin(time*1.8)*.06;
+         for(let i=0;i<18;i++){const a=i/12*Math.PI*2+time*.35;scratch.position.set(Math.cos(a)*1.15,Math.sin(a)*.7,Math.sin(a)*.5-.3);scratch.rotation.set(time*.3+i,time*.2+i,0);scratch.scale.setScalar(.6);scratch.updateMatrix();if(i<12)stageShards.setMatrixAt(i,scratch.matrix);scratch.position.set((i%3-1)*.55,1.6-((time*.7+i*.19)%3),-.7);scratch.rotation.x=Math.PI/2;scratch.scale.setScalar(.32);scratch.updateMatrix();stageCoins.setMatrixAt(i,scratch.matrix);if(i<8){scratch.position.set((i-3.5)*.23,0,-.8);scratch.rotation.set(0,0,.16);scratch.scale.set(1,1,1);scratch.updateMatrix();rays.setMatrixAt(i,scratch.matrix);}}
+         stageShards.instanceMatrix.needsUpdate=stageCoins.instanceMatrix.needsUpdate=rays.instanceMatrix.needsUpdate=true;
+         if(moving&&time>emberAt){emberAt=time+.15;v0.set((Math.random()-.5)*2,-1.1,.1);stageParticles.emit(v0,2,.3,.4);}stageParticles.update(dt,-.13);
+-        wipeMaterial.uniforms.t.value=moving?wipeMaterial.uniforms.t.value+dt*1.4:2;overlayMaterial.opacity=moving?faceMix.step(dt):faceMix.target;const height=moving?savingsSpring.step(dt):savingsSpring.target;stackCoins.count=Math.max(0,Math.min(20,Math.ceil(height*6)));for(let i=0;i<stackCoins.count;i++){scratch.position.set(-.95,-.8+i*.07,0);scratch.rotation.set(Math.PI/2,0,0);scratch.scale.setScalar(.65);scratch.updateMatrix();stackCoins.setMatrixAt(i,scratch.matrix);}stackCoins.instanceMatrix.needsUpdate=true;if(shownLabel)shownLabel.position.set(-.95,-.6+stackCoins.count*.07,.12);
++        wipeMaterial.uniforms.t.value=moving?wipeMaterial.uniforms.t.value+dt*1.4:2;overlayMaterial.opacity=moving?faceMix.step(dt):faceMix.target;const height=moving?savingsSpring.step(dt):savingsSpring.target;stackCoins.count=Math.max(0,Math.min(20,Math.ceil(height*6)));for(let i=0;i<stackCoins.count;i++){scratch.position.set(-1.65,-.8+i*.07,.5);scratch.rotation.set(Math.PI/2,0,0);scratch.scale.setScalar(.65);scratch.updateMatrix();stackCoins.setMatrixAt(i,scratch.matrix);}stackCoins.instanceMatrix.needsUpdate=true;if(shownLabel)shownLabel.position.set(-1.65,-.45+stackCoins.count*.07,.55);
+         const best=bestRows.get(S.activeBrand);if(best){const b=best.getBoundingClientRect();star.visible=b.top>0&&b.bottom<metrics.height;if(star.visible){screenToWorld(b.left-16,b.top+b.height*.5,0,v0);const starSize=65*pxRatio(v0)/stage.scale.x;stage.worldToLocal(v0);star.position.copy(v0);star.scale.setScalar(starSize);star.rotation.y=time;}}else star.visible=false;
+       }
+-      listen(window,'addtocart',event=>{S.cartCount=event.detail.count;if(!active||!moving)return;const d=event.detail,f=flights[flightCursor++%flights.length],r=d.origin?.getBoundingClientRect();if(!r)return;screenToWorld(r.right-20,r.top+r.height*.5,.4,f.from);domToWorld('order-panel',.4,f.to,.5,.08);f.age=0;f.object.visible=f.line.visible=true;f.object.material.map=textures.get(d.id);f.object.scale.setScalar(.18);});
++      function flightTarget(out){const el=innerWidth<1100?document.querySelector('#cart-toggle'):anchors.get('order-panel').element;const r=el.getBoundingClientRect();return screenToWorld(r.left+r.width*.5,r.top+Math.min(105,r.height*.5),.4,out);}
++      listen(window,'addtocart',event=>{S.cartCount=event.detail.count;if(!active||!moving)return;const d=event.detail,f=flights[flightCursor++%flights.length],r=d.origin?.getBoundingClientRect();if(!r)return;screenToWorld(r.right-20,r.top+r.height*.5,.4,f.from);flightTarget(f.to);f.age=0;f.object.visible=f.line.visible=true;f.object.material.map=textures.get(d.id);f.object.scale.setScalar(.18);});
+ 
+       /* D7 / Three-station timeline; camera rail is scrubbed without changing layout height. */
+       let stationProgress=0;const steps=director.add('steps','.how',updateSteps,function(){this.group.visible=true;},()=>{for(const el of stepNodes){el.style.removeProperty('--station-emphasis');delete el._e;}}),stations=[];
+       const routeGeometry=own(new T.BufferGeometry()),routeData=new Float32Array(61*3);routeGeometry.setAttribute('position',new T.BufferAttribute(routeData,3));const route=new T.Line(routeGeometry,lineMaterial);route.frustumCulled=false;steps.group.add(route);
+       const stepRail=new T.CatmullRomCurve3([new T.Vector3(-.15,.03,0),new T.Vector3(0,.08,-.12),new T.Vector3(.15,.02,0)]);
+       const phoneTexture=canvasTexture(512,800,(ctx,w,h)=>{ctx.fillStyle='#08291d';ctx.fillRect(0,0,w,h);ctx.fillStyle='#92ffce';ctx.textAlign='center';ctx.font='bold 48px sans-serif';ctx.fillText('CHUYEN TIEN',w/2,340);ctx.fillText('OK',w/2,410);});
+-      for(let i=0;i<3;i++){const g=new T.Group();steps.group.add(g);stations.push(g);if(i===0){for(let j=0;j<3;j++){const material=own(new T.MeshStandardMaterial({map:textures.get(['garena','zing','vcoin'][j]),metalness:.25,roughness:.4}));const card=mesh(faceGeometry,material,g);card.scale.setScalar(.25);card.userData.carousel=j;}}else{const phone=mesh(cardGeometry,metal(0x20232b),g);phone.scale.set(.32,.36,2);const screen=mesh(faceGeometry,own(new T.MeshBasicMaterial({map:phoneTexture})),g);screen.scale.set(.28,.32,1);screen.position.z=.1;if(i===1){const bank=mesh(cardGeometry,green,g);bank.scale.set(.3,.15,1);bank.rotation.z=-.15;bank.position.set(-.85,.22,0);}else{text3D('XXXX-XXXX-XXXX',.07,white,g).position.set(0,0,.12);}}}
++      for(let i=0;i<3;i++){const g=new T.Group();steps.group.add(g);stations.push(g);if(i===0){for(let j=0;j<3;j++){const material=own(new T.MeshBasicMaterial({map:textures.get(['garena','zing','vcoin'][j]),side:T.DoubleSide}));const card=mesh(faceGeometry,material,g);card.frustumCulled=false;card.scale.setScalar(.36);card.userData.carousel=j;}}else{const phone=mesh(cardGeometry,metal(0x20232b),g);phone.scale.set(.32,.36,2);const screen=mesh(faceGeometry,own(new T.MeshBasicMaterial({map:phoneTexture})),g);screen.scale.set(.28,.32,1);screen.position.z=.1;if(i===1){const bank=mesh(cardGeometry,green,g);bank.scale.set(.3,.15,1);bank.rotation.z=-.15;bank.position.set(-.85,.22,0);}else{text3D('XXXX-XXXX-XXXX',.07,white,g).position.set(0,0,.12);}}}
+       const transferCoins=own(new T.InstancedMesh(coinGeometry,[coinSide,coinCap,coinCap],16));stations[1].add(transferCoins);
+       const codeTexture=canvasTexture(1024,512,(ctx,w,h)=>{ctx.fillStyle='#083528';ctx.fillRect(0,0,w,h);ctx.fillStyle='#baffdd';ctx.textAlign='center';ctx.font='bold 53px monospace';ctx.fillText('XXXX-XXXX-XXXX',w/2,h/2);});const delivered=mesh(faceGeometry,own(new T.MeshStandardMaterial({map:codeTexture,metalness:.4,roughness:.3})),stations[2]);delivered.scale.set(.38,.19,1);delivered.position.z=.2;
+       const glyphs=[];for(let i=0;i<12;i++){const glyph=text3D(i%3?'X':'-',.09,bright,stations[2]);glyphs.push(glyph);}
+       const stepNodes=Array.from(document.querySelectorAll('.how-step'));
+       stepTrigger=window.ScrollTrigger?.create({trigger:steps.element,start:'top bottom',end:'bottom top',scrub:.5,onUpdate:self=>{stationProgress=self.progress;}});
+-      function updateSteps(){const p=stationProgress||steps.local;stepRail.getPoint(p,v3);for(let i=0;i<3;i++){const a=anchors.get(`step-${i+1}`),r=a.rect;screenToWorld(r.left+r.width*.68,r.top+59,0,stations[i].position);stations[i].scale.setScalar(90*pxRatio(stations[i].position));stations[i].rotation.y=(p*3-i-1)*.16+v3.x;const selected=Math.max(0,1-Math.abs(p*3-i-.5));const e=(.82+selected*.18).toFixed(2);if(stepNodes[i]._e!==e){stepNodes[i]._e=e;stepNodes[i].style.setProperty('--station-emphasis',e);}if(i===0){for(const card of stations[0].children){const angle=card.userData.carousel*Math.PI*2/3+time*.45;card.position.set(Math.cos(angle)*.45,0,Math.sin(angle)*.3);card.rotation.y=-angle*.2;}}}
++      function updateSteps(){const p=stationProgress||steps.local;stepRail.getPoint(p,v3);for(let i=0;i<3;i++){const a=anchors.get(`step-${i+1}`),r=a.rect;screenToWorld(r.left+r.width*.68,r.top+59,0,stations[i].position);stations[i].scale.setScalar(Math.min(90,r.width*.3)*pxRatio(stations[i].position));stations[i].rotation.y=(p*3-i-1)*.16+v3.x;const selected=Math.max(0,1-Math.abs(p*3-i-.5));const e=(.82+selected*.18).toFixed(2);if(stepNodes[i]._e!==e){stepNodes[i]._e=e;stepNodes[i].style.setProperty('--station-emphasis',e);}if(i===0){for(const card of stations[0].children){const angle=card.userData.carousel*Math.PI*2/3+time*.45;card.position.set(Math.cos(angle)*.45,0,Math.sin(angle)*.3);card.rotation.y=-angle*.2;}}}
+         for(let i=0;i<16;i++){const t=(time*.45+i/16)%1;scratch.position.set(-.8*(1-t),.2+Math.sin(t*Math.PI)*.4,.1);scratch.rotation.set(Math.PI/2,time+i,0);scratch.scale.setScalar(.18);scratch.updateMatrix();transferCoins.setMatrixAt(i,scratch.matrix);}transferCoins.instanceMatrix.needsUpdate=true;delivered.rotation.y=Math.PI*2*T.MathUtils.smoothstep(p,.66,.9);for(let i=0;i<glyphs.length;i++){const t=T.MathUtils.smoothstep(p,.6+i*.006,.86+i*.006);glyphs[i].position.set((i-5.5)*.037*t,Math.sin(time+i)*(1-t)*.45,.15);glyphs[i].scale.setScalar(1-t);}
+         for(let i=0;i<61;i++){const t=i/60,from=stations[t<.5?0:1].position,to=stations[t<.5?1:2].position,k=t<.5?t*2:(t-.5)*2;v0.copy(from).lerp(to,k);routeData[i*3]=v0.x;routeData[i*3+1]=v0.y-.4+Math.sin(k*Math.PI)*.1;routeData[i*3+2]=-.2;}routeGeometry.attributes.position.needsUpdate=true;routeGeometry.setDrawRange(0,Math.max(2,Math.floor(p*61)));}
+ 
+@@ -384,7 +390,7 @@
+       function updatePayment(dt){for(const obj of paymentObjects){const a=anchors.get('payment-'+obj.id),r=a.rect;screenToWorld(r.right-75,r.top+80,0,obj.group.position);obj.group.scale.setScalar(95*pxRatio(obj.group.position)*(moving?obj.pulse.step(dt):1));obj.group.rotation.set(moving?screenPointer.y*.08:0,moving?Math.sin(time*.5)*.12+screenPointer.x*.1:0,-.1);obj.age+=dt;obj.check.visible=obj.age<1.8;obj.check.geometry.setDrawRange(0,Math.floor(obj.check.geometry.index.count*Math.min(1,obj.age*3)));obj.check.scale.setScalar(Math.min(1,(1.8-obj.age)*3));}}
+ 
+       /* D9 / Calm reading region; Director still gives it a real group and theme. */
+-      function updateReading(){cursorLight.intensity=0;streaks.visible=comet.visible=false;warp.uniforms.amount.value=0;}
++      function updateReading(){}
+       const faq=director.add('faq','.faq',updateReading),reading=director.add('reading','.why',updateReading);
+ 
+       /* D10 / Finale: ASCII title, pooled 400-piece celebration, repeat only on CTA intent. */
+@@ -407,22 +413,28 @@
+ 
+       /* D11 / Degrade one feature at a time; recover only after ten stable seconds. */
+       const governor=new PerformanceGovernor(applyGovernor);
+-      function applyGovernor(level){if(disposedFX)return;level=Math.max(0,Math.min(7,Math.trunc(Number(level)||0)));governorLevel=governor.level=level;bloom.enabled=level<1;glass.visible=baseTier==='HIGH'&&level<2;warp.enabled=level<3;ambient.count=level<4?(baseTier==='HIGH'?60:40):30;const dpr=level>=5?1:Math.min(devicePixelRatio,baseTier==='HIGH'?1.5:1.25);renderer.setPixelRatio(dpr);renderer.setSize(metrics.width,metrics.height,false);composer.setPixelRatio(dpr);composer.setSize(metrics.width,metrics.height);particleGeometry.setDrawRange(0,level>=6?350:700);comet.visible=level<7&&pointerValid;S.tier=level>=4?'MEDIUM':baseTier;hud.governor=String(level);hud.tier=S.tier;hud.particles=String(particleGeometry.drawRange.count);}
++      function applyGovernor(level){
++        if(disposedFX)return;governorLevel=governor.level=0;bloom.enabled=true;glass.visible=true;warp.enabled=true;ambient.count=60;
++        const dpr=Math.min(devicePixelRatio,innerWidth<1100?2:1.5);renderer.setPixelRatio(dpr);renderer.setSize(metrics.width,metrics.height,false);composer.setPixelRatio(dpr);composer.setSize(metrics.width,metrics.height);
++        particleGeometry.setDrawRange(0,700);particles.visible=true;comet.visible=true;S.tier=baseTier;hud.governor='0';hud.tier='HIGH';hud.particles='700';canvas.dataset.dpr=String(dpr);
++        hud.fxFeatures='bloom:1 glass:1 warp:1 ambient:60 particles:700 comet:1';
++      }
++
+       function setTheme(name){const key=name==='pricing'?S.activeBrand:name;if(key===themeKey)return;themeKey=key;const value=name==='pricing'?colors[S.activeBrand]:name==='steps'?0x49dc9c:0xf5c542;colorTemp.set(value);themeTween?.kill();const dest={r:colorTemp.r,g:colorTemp.g,b:colorTemp.b};if(moving&&window.gsap)themeTween=window.gsap.to(themeColor,{...dest,duration:1.2,ease:'power2.inOut'});else themeColor.copy(colorTemp);}
+       const fog=new T.FogExp2(0x151014,.025);scene.fog=fog;
+-      function updateGlobals(dt){const calm=theme==='faq'||theme==='reading',speed=Math.min(1,Math.abs(S.velocity)/55);curve.getPoint(T.MathUtils.clamp(S.progress,0,1),cameraPoint);if(theme==='steps'){stepRail.getPoint(T.MathUtils.clamp(stationProgress,0,1),v3);cameraPoint.add(v3);}rig.x.target=cameraPoint.x;rig.y.target=cameraPoint.y;rig.z.target=cameraPoint.z;rig.roll.target=moving&&!calm?S.direction*speed*.009:0;rig.fov.target=moving?45+speed*7:45;camera.position.set(rig.x.step(dt),rig.y.step(dt),rig.z.step(dt));camera.rotation.z=rig.roll.step(dt);if(moving&&!calm){camera.position.x+=Math.sin(time*31)*speed*.003;camera.position.y+=Math.cos(time*27)*speed*.002;}camera.fov=rig.fov.step(dt);cameraDirty=true;syncCamera();screenToWorld((screenPointer.x+1)*metrics.width/2,(1-screenPointer.y)*metrics.height/2,.25,pointerWorld);
++      function updateGlobals(dt){const calm=false,speed=Math.min(1,Math.abs(S.velocity)/55);curve.getPoint(T.MathUtils.clamp(S.progress,0,1),cameraPoint);if(theme==='steps'){stepRail.getPoint(T.MathUtils.clamp(stationProgress,0,1),v3);cameraPoint.add(v3);}rig.x.target=cameraPoint.x;rig.y.target=cameraPoint.y;rig.z.target=cameraPoint.z;rig.roll.target=moving&&!calm?S.direction*speed*.009:0;rig.fov.target=moving?45+speed*7:45;camera.position.set(rig.x.step(dt),rig.y.step(dt),rig.z.step(dt));camera.rotation.z=rig.roll.step(dt);if(moving&&!calm){camera.position.x+=Math.sin(time*31)*speed*.003;camera.position.y+=Math.cos(time*27)*speed*.002;}camera.fov=rig.fov.step(dt);cameraDirty=true;syncCamera();screenToWorld((screenPointer.x+1)*metrics.width/2,(1-screenPointer.y)*metrics.height/2,.25,pointerWorld);
+         fog.color.copy(themeColor).multiplyScalar(.0004).add(backgroundColor);renderer.setClearColor(fog.color,1);glowMaterial.color.copy(themeColor);brandLight.color.copy(themeColor);ambientMat.color.copy(themeColor);for(let i=0;i<lights.length;i++){lights[i].color.copy(themeColor);lights[i].intensity=calm?.6:2.4;}cursorLight.position.copy(pointerWorld);cursorLight.intensity=pointerValid&&moving&&!calm?1.7:0;glow.visible=hero.live||pricing.live||closing.live;
+-        for(let i=0;i<ambient.count;i++){const a=ambientSeed[i];scratch.position.set(a.x+camera.position.x,a.y+Math.sin(time*.15+a.spin)*.16,a.z);scratch.rotation.set(time*.08+a.spin,time*.06+a.spin,0);scratch.scale.setScalar(a.size*(calm?.45:1));scratch.updateMatrix();ambient.setMatrixAt(i,scratch.matrix);if(i<12){scratch.scale.setScalar(a.size*.23);scratch.updateMatrix();rings.setMatrixAt(i,scratch.matrix);}if(i<4){scratch.position.z=-1;scratch.scale.setScalar(1.4);scratch.updateMatrix();glass.setMatrixAt(i,scratch.matrix);}}ambient.instanceMatrix.needsUpdate=rings.instanceMatrix.needsUpdate=glass.instanceMatrix.needsUpdate=true;
++        for(let i=0;i<ambient.count;i++){const a=ambientSeed[i];screenToWorld(metrics.width*((a.x<0?.08:.92)+Math.sin(a.spin)*.035),metrics.height*((a.y+6)/12+Math.sin(time*.15+a.spin)*.02),a.z,scratch.position);scratch.rotation.set(time*.08+a.spin,time*.06+a.spin,0);scratch.scale.setScalar(a.size*45*pxRatio(scratch.position));scratch.updateMatrix();ambient.setMatrixAt(i,scratch.matrix);if(i<12){scratch.scale.setScalar(a.size*12*pxRatio(scratch.position));scratch.updateMatrix();rings.setMatrixAt(i,scratch.matrix);}if(i<4){scratch.scale.setScalar(80*pxRatio(scratch.position));scratch.updateMatrix();glass.setMatrixAt(i,scratch.matrix);}}ambient.instanceMatrix.needsUpdate=rings.instanceMatrix.needsUpdate=glass.instanceMatrix.needsUpdate=true;
+         const warpAmount=moving&&!calm?Math.min(1,speed+warpBoost):0;streaks.visible=warpAmount>.008;streakMat.opacity=warpAmount*.45;for(let i=0;i<48&&streaks.visible;i++){const a=i*2.39996,r=1.1+(i%7)*.46,z=2-((i*.37+time*(1+warpAmount*7))%7);scratch.position.set(Math.cos(a)*r,Math.sin(a)*r,z);scratch.rotation.set(0,0,-a+Math.PI/2);scratch.scale.set(1,.05+warpAmount*1.2,1);scratch.updateMatrix();streaks.setMatrixAt(i,scratch.matrix);}streaks.instanceMatrix.needsUpdate=true;warpBoost=Math.max(0,warpBoost-dt*1.2);warp.uniforms.amount.value=governorLevel<3?warpAmount*.0025:0;grade.uniforms.time.value=time;grade.uniforms.grain.value=moving?.024:0;
+-        comet.visible=moving&&pointerValid&&!calm&&governorLevel<7;if(comet.visible){for(let i=23;i>0;i--){const k=i*3,p=(i-1)*3;cometPositions[k]+=(cometPositions[p]-cometPositions[k])*.5;cometPositions[k+1]+=(cometPositions[p+1]-cometPositions[k+1])*.5;cometPositions[k+2]=.3;}cometPositions[0]=pointerWorld.x;cometPositions[1]=pointerWorld.y;cometPositions[2]=.3;cometGeometry.attributes.position.needsUpdate=true;}
++        comet.visible=true;if(!pointerValid)screenToWorld(metrics.width*(.5+Math.sin(time*.35)*.38),metrics.height*(.5+Math.cos(time*.27)*.32),.3,pointerWorld);if(comet.visible){for(let i=23;i>0;i--){const k=i*3,p=(i-1)*3;cometPositions[k]+=(cometPositions[p]-cometPositions[k])*.5;cometPositions[k+1]+=(cometPositions[p+1]-cometPositions[k+1])*.5;cometPositions[k+2]=.3;}cometPositions[0]=pointerWorld.x;cometPositions[1]=pointerWorld.y;cometPositions[2]=.3;cometGeometry.attributes.position.needsUpdate=true;}
+         if(moving&&pointerValid&&!calm){for(let i=0;i<particleGeometry.drawRange.count*3;i+=3){const dx=particlePositions[i]-pointerWorld.x,dy=particlePositions[i+1]-pointerWorld.y,d2=dx*dx+dy*dy+.05;if(d2<2){const force=(held?-1:1)*.2/d2;particleSpeed[i]+=dx*force*dt;particleSpeed[i+1]+=dy*force*dt;}particleSpeed[i]*=.96;particleSpeed[i+1]*=.96;particlePositions[i]+=particleSpeed[i]*dt;particlePositions[i+1]+=particleSpeed[i+1]*dt;}}particleMaterial.opacity=calm?.13:.4;
+       }
+       function updateEvents(dt){bursts.update(dt,.6);coinBursts.update(dt,2.8);confetti.update(dt,1.8);for(const ring of shocks){ring.age+=dt;ring.object.visible=ring.age<ring.duration;if(ring.object.visible){const t=ring.age/ring.duration;ring.object.scale.setScalar(.12+t*2);ring.object.material.opacity=(1-t)*.6;}}
+-        for(const f of flights){if(f.age>=1)continue;f.age=Math.min(1,f.age+dt/.85);const t=f.age,k=1-Math.pow(1-t,3);domToWorld('order-panel',.4,f.to,.5,.08);f.object.position.copy(f.from).lerp(f.to,k);f.object.position.y+=Math.sin(k*Math.PI)*1.1;f.object.rotation.set(k*.5,k*Math.PI*2,-k*.2);for(let i=0;i<24;i++){const u=Math.max(0,k-i*.015);v0.copy(f.from).lerp(f.to,u);v0.y+=Math.sin(u*Math.PI)*1.1;f.trail[i*3]=v0.x;f.trail[i*3+1]=v0.y;f.trail[i*3+2]=v0.z;}f.line.geometry.attributes.position.needsUpdate=true;if(t>=1){f.object.visible=f.line.visible=false;bursts.emit(f.to,18,1,.2);shock(f.to);chestLife=1.8;lidSpring.target=-1.25;const el=anchors.get('order-panel').element;el.classList.remove('fx-order-pulse');void el.offsetWidth;el.classList.add('fx-order-pulse');clearTimeout(orderPulseTimer);orderPulseTimer=setTimeout(()=>el.classList.remove('fx-order-pulse'),700);}}
+-        chestLife=Math.max(0,chestLife-dt);chest.visible=chestLife>0;if(chest.visible){domToWorld('order-panel',.2,chest.position,.86,.08);chest.position.x+=.18;chest.scale.setScalar(.65);if(chestLife<.8)lidSpring.target=0;chestLid.rotation.x=lidSpring.step(dt);}}
++        for(const f of flights){if(f.age>=1)continue;f.age=Math.min(1,f.age+dt/.85);const t=f.age,k=1-Math.pow(1-t,3);flightTarget(f.to);f.object.position.copy(f.from).lerp(f.to,k);f.object.position.y+=Math.sin(k*Math.PI)*1.1;f.object.rotation.set(k*.5,k*Math.PI*2,-k*.2);for(let i=0;i<24;i++){const u=Math.max(0,k-i*.015);v0.copy(f.from).lerp(f.to,u);v0.y+=Math.sin(u*Math.PI)*1.1;f.trail[i*3]=v0.x;f.trail[i*3+1]=v0.y;f.trail[i*3+2]=v0.z;}f.line.geometry.attributes.position.needsUpdate=true;if(t>=1){f.object.visible=f.line.visible=false;bursts.emit(f.to,18,1,.2);shock(f.to);chestLife=1.8;lidSpring.target=-1.25;const el=anchors.get('order-panel').element;el.classList.remove('fx-order-pulse');void el.offsetWidth;el.classList.add('fx-order-pulse');clearTimeout(orderPulseTimer);orderPulseTimer=setTimeout(()=>el.classList.remove('fx-order-pulse'),700);}}
++        chestLife=Math.max(0,chestLife-dt);chest.visible=chestLife>0;if(chest.visible){flightTarget(chest.position);chest.position.x+=.18;chest.scale.setScalar(.65);if(chestLife<.8)lidSpring.target=0;chestLid.rotation.x=lidSpring.step(dt);}}
+       function setCardMode(on){for(let i=0;i<cards.length;i++){const card=cards[i],saved=savedMaterials[i];if(on){desktopFaces[i].map=saved.face.map;desktopBodies[i].color.copy(saved.body.color);card.userData.faceMaterial=desktopFaces[i];card.userData.material=desktopBodies[i];card.children[2].material=desktopBacks[i];}else{saved.face.map=desktopFaces[i].map;saved.body.color.copy(desktopBodies[i].color);card.userData.faceMaterial=saved.face;card.userData.material=saved.body;card.children[2].material=saved.back;}card.children[0].material=card.userData.material;card.children[1].material=card.userData.faceMaterial;}}
+-      function enabled(){return innerWidth>=1100&&(navigator.hardwareConcurrency||4)>4&&(navigator.deviceMemory||8)>4&&flag!=='min';}
+-      function update(dt,clock,smoothed,isMoving){if(disposedFX)return false;const next=enabled();if(next!==active){active=next;document.body.classList.toggle('showpiece-ready',active);for(const root of roots)root.visible=active;if(active){setCardMode(true);applyGovernor(governorLevel);director.measure();}else{for(const r of scenes){if(r.live)r.exit();r.live=false;}setCardMode(false);camera.fov=42;camera.position.x=camera.position.y=camera.rotation.z=0;camera.updateProjectionMatrix();scene.fog=null;renderer.setClearColor(0x07070b,0);hud.tier='LOW';cards.forEach((card,i)=>{card.visible=true;card.scale.setScalar(1);card.userData.faceMaterial.iridescence=0;card.userData.faceMaterial.sheen=0;card.children[2].material=savedMaterials[i].back;card.userData.rim.visible=false;});faceOverlay.visible=false;}}
++      function enabled(){return flag!=='min';}
++      function update(dt,clock,smoothed,isMoving){if(disposedFX)return false;const next=enabled();if(next!==active){active=next;document.body.classList.toggle('showpiece-ready',active);for(const root of roots)root.visible=active;if(active){setCardMode(true);applyGovernor(governorLevel);director.measure();}else{for(const r of scenes){if(r.live)r.exit();r.live=false;}setCardMode(false);restoreLights();camera.fov=42;camera.position.x=camera.position.y=camera.rotation.z=0;camera.updateProjectionMatrix();scene.fog=null;renderer.setClearColor(0x07070b,0);hud.tier='LOW';cards.forEach((card,i)=>{card.visible=true;card.scale.setScalar(1);card.userData.faceMaterial.iridescence=0;card.userData.faceMaterial.sheen=0;card.children[2].material=savedMaterials[i].back;card.userData.rim.visible=false;});faceOverlay.visible=false;}}
+         if(!active)return false;scene.fog=fog;moving=isMoving;time=clock;S.progress=smoothed.progress;S.velocity=smoothed.velocity;S.direction=Math.sign(S.velocity);S.activeBrand=canvas.dataset.brand||S.activeBrand;for(const a of anchors.values())a.rect=a.element.getBoundingClientRect();
+         if(!moving){held=false;S.isDragging=false;hoverCard=-1;themeTween?.kill();}
+         // The base brand tween advances in half turns; keep the new branded front facing out after its edge-on texture swap.
+@@ -431,7 +443,16 @@
+         if(moving)updateEvents(dt);else{eventRoot.visible=false;streaks.visible=comet.visible=false;cursorLight.intensity=0;}if(moving)eventRoot.visible=true;
+         hud.phase=theme;hud.tier=S.tier;return true;
+       }
+-      function render(dt,wallDt=dt){if(disposedFX||!active)return;renderer.info.reset();composer.render(dt);frameCalls=renderer.info.render.calls;frameTriangles=renderer.info.render.triangles;hud.drawCalls=String(frameCalls);hud.triangles=String(frameTriangles);if(moving)governor.sample(wallDt);}
++      const debugFX=params.has('debug'),debugSeen=new Set();let debugAt=0;
++      function debugCheck(){
++        if(!debugFX||performance.now()-debugAt<1000)return;debugAt=performance.now();hud.reducedMotion=String(matchMedia('(prefers-reduced-motion: reduce)').matches);hud.fxFeatures=`bloom:${+bloom.enabled} glass:${+glass.visible} warp:${+warp.enabled} ambient:${ambient.count} particles:${particleGeometry.drawRange.count} comet:${+comet.visible}`;
++        const check=(name,ok)=>{if(!ok&&!debugSeen.has(name)){debugSeen.add(name);console.warn('[Full FX] missing: '+name);}};
++        check('station 01 anchor',!!anchors.get('step-1')?.element);check('station 01 cards',stations[0].children.length===3);
++        check('saving data',!!document.querySelector('#panel-'+S.activeBrand+' [data-saved]'));
++        if(steps.live){steps.group.updateMatrixWorld(true);for(const card of stations[0].children)check('station 01 finite transform',card.matrixWorld.elements.every(Number.isFinite));hud.reducedMotion=String(matchMedia('(prefers-reduced-motion: reduce)').matches);hud.station01=stations[0].children.filter(c=>c.visible&&c.matrixWorld.elements.every(Number.isFinite)).length;}
++        if(pricing.live){check('coin column',stackCoins.count>0||!S.hoveredRow?.saved);check('saving badge',!!shownLabel?.visible||!S.hoveredRow?.saved);hud.savings=(S.hoveredRow?.saved||0)+':'+stackCoins.count+':'+!!shownLabel?.visible;}
++      }
++      function render(dt,wallDt=dt){if(disposedFX||!active)return;renderer.info.reset();composer.render(dt);frameCalls=renderer.info.render.calls;frameTriangles=renderer.info.render.triangles;hud.drawCalls=String(frameCalls);hud.triangles=String(frameTriangles);if(moving)governor.sample(wallDt);debugCheck();}
+       function layoutBand(){const s=document.querySelector('.how__steps');if(!s)return;const h=steps.element.getBoundingClientRect(),r=s.getBoundingClientRect();steps.element.style.setProperty('--band-a',(r.top-h.top-8)+'px');steps.element.style.setProperty('--band-b',(r.top-h.top+128)+'px');}
+       function resize(){if(disposedFX)return;cameraDirty=true;syncCamera();director.measure();layoutBand();if(active)applyGovernor(governorLevel);}
+       function dispose(){
+@@ -462,7 +483,7 @@
+       };
+       let renderer, environment;
+       try {
+-        renderer = new T.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:innerWidth<1100?'low-power':'high-performance' });
++        renderer = new T.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+         renderer.outputColorSpace = T.SRGBColorSpace;
+         renderer.toneMapping = T.ACESFilmicToneMapping;
+         renderer.toneMappingExposure = 1.1;
+@@ -491,13 +512,12 @@
+       const random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+       const mobile = () => innerWidth < 1100;
+       const fxFlag=new URLSearchParams(location.search).get('3d');
+-      let mobileTier=window.MobileFX.chooseTier({flag:fxFlag,memory:navigator.deviceMemory??4,cores:navigator.hardwareConcurrency??6,saveData:navigator.connection?.saveData,effectiveType:navigator.connection?.effectiveType});
+-      const textureSize=mobile()&&mobileTier!=='HIGH'?512:1024;
++      const mobileTier=fxFlag==='off'?'OFF':'HIGH';
++      const textureSize=1024;
+       let overlayOpen=!!document.querySelector('dialog[open]'),lastActivity=performance.now(),orientationTimer,resizeWidth=innerWidth,resizeHeight=innerHeight;
+-      const mobileMonitor=new window.MobileFX.Monitor(mobileTier,tier=>{mobileTier=tier;if(tier==='OFF'){dispose();hud.tier='OFF';reportScene('fallback');}else applyQuality();});
+-      const constrained = (navigator.hardwareConcurrency || 4) <= 4 || (navigator.deviceMemory || 8) <= 4;
+-      let quality = mobile() || constrained ? 'low' : 'high';
+-      let downgraded = false, disposed = false, contextLost = false;
++      let visualWidth=window.visualViewport?.width||innerWidth,visualHeight=window.visualViewport?.height||innerHeight;
++      const quality='high';
++      let disposed=false,contextLost=false,canvasVisible=true,hardFailure=false,lastError='';
+       let frame = 0, lastTime = 0, elapsed = 0, resizeTimer, staticPending = false;
+       let currentBrand = 'garena', assignedBrand = 'garena', flipTween, colorTween;
+       let animate = window.gamecardApp.motionEnabled();
+@@ -506,7 +526,7 @@
+       const target = { progress:0, scroll:0, velocity:0 }, smooth = { progress:0, scroll:0, velocity:0 };
+       const flip = { angle:0 };
+       const metrics = { width:innerWidth, height:innerHeight, heroTop:0, heroBottom:0, artX:.72, artTop:0, artHeight:500, artWidth:500, pricingX:.9 };
+-      let fpsFrames=0,fpsTime=0,slowSeconds=0,hudAt=-Infinity,hudTimer=0;
++      let fpsFrames=0,fpsTime=0,hudAt=-Infinity,hudTimer=0;
+       const hud={};
+       function flushHUD(now){
+         if(now-hudAt<250){if(!animate&&!hudTimer)hudTimer=setTimeout(()=>{hudTimer=0;if(!disposed)flushHUD(performance.now());},Math.ceil(250-(now-hudAt)));return;}
+@@ -517,8 +537,9 @@
+       const scratch = new T.Object3D();
+       const particleTint = new T.Color(), white = new T.Color(0xffffff);
+       let detachScroll,desktopFX=null,desktopLoading=false;
+-      let desktopFailed=false;
+       try {
++      const mobileMonitor={sample(){},reset(){}};
++      window.MobileFX ||= {chooseTier:({flag}={})=>flag==='off'?'OFF':'HIGH',budgets:{HIGH:{dpr:2,cards:3,coins:10,particles:700,texture:1024},MEDIUM:{dpr:2,cards:3,coins:10,particles:700,texture:1024},LOW:{dpr:2,cards:3,coins:10,particles:700,texture:1024}},resizeNeeded:(w,h,pw,ph)=>w!==pw||Math.abs(h-ph)>=150,frameRate:()=>Infinity,Monitor:class{constructor(tier="HIGH",apply){this.tier=tier;this.apply=apply;}sample(){}reset(){}}};
+ 
+       function canvasTexture(width, height, paint) {
+         const surface = document.createElement('canvas'); surface.width = width; surface.height = height;
+@@ -526,9 +547,8 @@
+         paint(ctx, width, height);
+         const texture = own(new T.CanvasTexture(surface));
+         texture.colorSpace = T.SRGBColorSpace;
+-        texture.anisotropy = Math.min(mobile()?4:Infinity,renderer.capabilities.getMaxAnisotropy());
++        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+         texture.generateMipmaps=true;
+-        if(mobile())texture.onUpdate=()=>{surface.width=surface.height=1;texture.onUpdate=null;};
+         return texture;
+       }
+       function cardTexture(id) {
+@@ -549,7 +569,7 @@
+           ctx.strokeStyle = '#ffffff35'; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(28,28,w-56,h-56,43); ctx.stroke();
+           ctx.fillStyle = '#ffffff'; ctx.font = '500 29px "Be Vietnam Pro", sans-serif';
+           ctx.fillText('MINHTHUAN / GAMECARD', 72, 118);
+-          ctx.font = '400 50px "Be Vietnam Pro", sans-serif'; ctx.fillText('↗', 888, 126);
++          ctx.save(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.beginPath(); ctx.moveTo(892, 123); ctx.lineTo(920, 95); ctx.moveTo(892, 95); ctx.lineTo(920, 95); ctx.lineTo(920, 123); ctx.stroke(); ctx.restore();
+           ctx.font = '400 197px Anton, sans-serif'; ctx.textAlign = 'center';
+           ctx.fillText(id.toUpperCase(), w/2, h*.54, w-135);
+           const denomination = cardData.find(item=>item.id===id).items.find(([face])=>face===100000)?.[0] || 100000;
+@@ -601,20 +621,14 @@
+       const glow=new T.Sprite(glowMaterial);scene.add(glow);
+ 
+       function applyQuality() {
+-        if(mobile()){const budget=window.MobileFX.budgets[mobileTier];if(!budget)return;renderer.setPixelRatio(Math.min(devicePixelRatio,budget.dpr));renderer.setSize(metrics.width,metrics.height,false);particleGeometry.setDrawRange(0,budget.particles);coins.count=budget.coins;cards.forEach((card,i)=>card.visible=i<budget.cards);for(const light of lights)light.visible=mobileTier==='HIGH';hud.tier=mobileTier;canvas.dataset.quality=mobileTier;hud.particles=String(budget.particles);canvas.dataset.dpr=String(renderer.getPixelRatio());document.body.classList.toggle('mobile-low',mobileTier==='LOW');return;}
+         document.body.classList.remove('mobile-low');cards.forEach(card=>card.visible=true);for(const light of lights)light.visible=true;
+-        const count=quality==='high'?700:quality==='low'?250:100;
+-        renderer.setPixelRatio(quality==='high'?Math.min(devicePixelRatio,1.75):1);
+-        renderer.setSize(metrics.width,metrics.height,false);
+-        particleGeometry.setDrawRange(0,count);coins.count=quality==='minimal'?8:coinCount;
+-        canvas.dataset.quality=quality;hud.particles=String(count);canvas.dataset.dpr=String(renderer.getPixelRatio());
+-      }
+-      function downgrade() {
+-        if(quality==='minimal')return;
+-        quality=quality==='high'?'low':'minimal';downgraded=true;slowSeconds=0;applyQuality();
+-      }
++        renderer.setPixelRatio(Math.min(devicePixelRatio,mobile()?2:1.5));renderer.setSize(metrics.width,metrics.height,false);
++        particleGeometry.setDrawRange(0,700);coins.count=coinCount;particles.visible=true;
++        canvas.dataset.quality=quality;hud.tier='HIGH';hud.particles='700';canvas.dataset.dpr=String(renderer.getPixelRatio());
++      }
++
+       function measure() {
+-        metrics.width=innerWidth;metrics.height=mobile()?Math.round(canvas.getBoundingClientRect().height)||innerHeight:innerHeight;resizeWidth=innerWidth;resizeHeight=innerHeight;
++        const canvasRect=canvas.getBoundingClientRect();metrics.width=canvasRect.width||innerWidth;metrics.height=canvasRect.height||innerHeight;resizeWidth=innerWidth;resizeHeight=innerHeight;
+         const scroll=window.lenis?.scroll || 0;
+         const hero=document.querySelector('.hero').getBoundingClientRect();
+         const art=document.querySelector('.hero__art').getBoundingClientRect();
+@@ -623,8 +637,7 @@
+         const catalog=document.querySelector('.catalog').getBoundingClientRect();
+         metrics.pricingX=Math.min(.95,(catalog.right+65)/metrics.width);
+         camera.aspect=metrics.width/metrics.height;camera.updateProjectionMatrix();
+-        if(!downgraded)quality=mobile()||constrained?'low':'high';
+-        applyQuality();desktopFX?.resize();if(mobile())applyQuality();ensureDesktop();requestStatic();
++        applyQuality();desktopFX?.resize();ensureDesktop();requestStatic();
+       }
+       function assignBrand(id) {
+         const order=[id,...brandIds.filter(brand=>brand!==id)];
+@@ -704,7 +717,7 @@
+           group.scale.setScalar(Math.min(metrics.artWidth/metrics.width*vw/2.85,metrics.artHeight/metrics.height*vh/2.95)*(portrait?.85:1));
+           group.rotation.set(0,animate?Math.sin(smooth.progress*Math.PI*2)*.12:0,0);
+           for(let i=0;i<cards.length;i++){const side=i===1?-1:i===2?1:0;cards[i].visible=mobileTier!=='LOW'||i===0;cards[i].position.x=side*spread;cards[i].position.z=side?-.32:.3;cards[i].rotation.z=side*-.16;}
+-          group.visible=metrics.artTop-smooth.scroll<innerHeight&&metrics.artTop+metrics.artHeight-smooth.scroll>0;coins.visible=group.visible;particles.visible=animate&&group.visible&&mobileTier!=='LOW';
++          group.visible=metrics.artTop-smooth.scroll<innerHeight&&metrics.artTop+metrics.artHeight-smooth.scroll>0;coins.visible=group.visible;particles.visible=true;
+           glow.visible=group.visible;glow.position.copy(group.position);glow.position.z=-2;glow.scale.set(4*group.scale.x,3*group.scale.x,1);
+           for(let i=0;i<coins.count;i++){const c=coinSeeds[i],angle=c.angle+(animate?time*c.speed:0);scratch.position.set(group.position.x+Math.cos(angle)*group.scale.x*1.35,group.position.y+Math.sin(angle)*group.scale.x*1.1,c.depth);scratch.rotation.set(Math.PI/2,angle,0);scratch.scale.setScalar(group.scale.x*.45);scratch.updateMatrix();coins.setMatrixAt(i,scratch.matrix);}coins.instanceMatrix.needsUpdate=true;
+           if(mobileTier!=='HIGH')for(const light of lights)light.visible=false;
+@@ -712,36 +725,27 @@
+         particleTint.set(colors[assignedBrand]).lerp(white,.65);particleMaterial.color.lerp(particleTint,.02);
+       }
+       function draw(now) {
+-        frame=0;if(disposed||contextLost||document.hidden)return;
+-        const idle=now-lastActivity>30000;
+-        if(mobile()&&animate){const cap=window.MobileFX.frameRate(mobileTier,overlayOpen,idle);if(lastTime&&now-lastTime<1000/cap-.5){frame=requestAnimationFrame(draw);return;}}
+-        const wallDt=lastTime?Math.max(.001,(now-lastTime)/1000):1/60;const dt=Math.min(wallDt,.1);lastTime=now;
+-        if(animate)elapsed+=dt;
+-        renderer.info.reset();
+-        pose(dt,elapsed);
+-        let desktopActive=false;
+-        if(desktopFX){try{desktopActive=desktopFX.update(dt,elapsed,smooth,animate);if(desktopActive)desktopFX.render(dt,wallDt);}catch(error){failDesktop(error);desktopActive=false;}}
+-        if(!desktopActive)renderer.render(scene,camera);
+-        if(canvas.dataset.status==='loading'||canvas.dataset.status==='restoring')reportScene(animate?'running':'static');
+-        if(mobile()&&animate){mobileMonitor.sample(wallDt,overlayOpen||idle);if(disposed)return;}
+-        if(animate){
+-          fpsFrames++;fpsTime+=wallDt;
+-          if(fpsTime>=.5){const fps=fpsFrames/fpsTime;hud.fps=String(Math.round(fps));slowSeconds=fps<40?slowSeconds+fpsTime:0;fpsFrames=0;fpsTime=0;if(!desktopActive&&!mobile()&&slowSeconds>=2)downgrade();}
+-          frame=requestAnimationFrame(draw);
+-        }else{hud.fps='static';}
+-        flushHUD(performance.now());
+-      }
++        frame=0;if(disposed||contextLost||hardFailure||document.hidden||!canvasVisible)return;
++        const wallDt=lastTime?Math.max(.001,(now-lastTime)/1000):1/60,dt=Math.min(wallDt,.1);lastTime=now;elapsed+=dt;
++        try{
++          renderer.info.reset();pose(dt,elapsed);
++          let desktopActive=false;
++          if(desktopFX){try{desktopActive=desktopFX.update(dt,elapsed,smooth,true);if(desktopActive)desktopFX.render(dt,wallDt);}catch(error){failDesktop(error);}}
++          if(!desktopActive&&!hardFailure)renderer.render(scene,camera);
++          if(!hardFailure&&(canvas.dataset.status==='loading'||canvas.dataset.status==='restoring'))reportScene('running');
++        }catch(error){failDesktop(error);}
++        fpsFrames++;fpsTime+=wallDt;if(fpsTime>=.5){hud.fps=String(Math.round(fpsFrames/fpsTime));fpsFrames=0;fpsTime=0;}
++        flushHUD(performance.now());if(!hardFailure&&!contextLost)frame=requestAnimationFrame(draw);
++      }
++
+       function requestStatic() {
+         if(disposed||contextLost||document.hidden||animate||staticPending)return;
+         staticPending=true;frame=requestAnimationFrame(now=>{staticPending=false;draw(now);});
+       }
+-      function start() { if(disposed||contextLost||document.hidden||frame)return;lastTime=0;frame=requestAnimationFrame(draw); }
++      function start() { if(disposed||contextLost||hardFailure||!canvasVisible||document.hidden||frame)return;lastTime=0;frame=requestAnimationFrame(draw); }
+       function stop() { cancelAnimationFrame(frame);frame=0;lastTime=0;staticPending=false; }
+-      function syncPreference() {
+-        stop();animate=window.gamecardApp.motionEnabled();
+-        if(!animate){flipTween?.kill();colorTween?.kill();assignBrand(currentBrand);flip.angle=Math.round(flip.angle/Math.PI)*Math.PI;pointer.set(0,0);pointerSmooth.set(0,0);}
+-        reportScene(animate?'running':'static');start();
+-      }
++      function syncPreference(){if(hardFailure||contextLost)return;animate=true;reportScene('running');start();}
++
+       function connectLenis() {
+         detachScroll?.();const lenis=window.lenis;
+         if(!lenis?.on)return;
+@@ -751,23 +755,33 @@
+       listen(window,'lenisready',connectLenis);
+       listen(window,'brandchange',onBrandChange);
+       listen(window,'motionchange',syncPreference);
+-      listen(window,'resize',()=>{if(mobile()&&!window.MobileFX.resizeNeeded(innerWidth,innerHeight,resizeWidth,resizeHeight))return;clearTimeout(resizeTimer);resizeTimer=setTimeout(measure,150);},{passive:true});
++      const scheduleMeasure=()=>{if(mobile()&&!window.MobileFX.resizeNeeded(innerWidth,innerHeight,resizeWidth,resizeHeight))return;clearTimeout(resizeTimer);resizeTimer=setTimeout(measure,150);};
++      listen(window,'resize',scheduleMeasure,{passive:true});if(window.visualViewport)listen(window.visualViewport,'resize',()=>{const v=window.visualViewport;if(v.width===visualWidth&&Math.abs(v.height-visualHeight)<150)return;visualWidth=v.width;visualHeight=v.height;clearTimeout(resizeTimer);resizeTimer=setTimeout(measure,150);},{passive:true});
++      if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{canvasVisible=entries[0].isIntersecting;if(canvasVisible)start();else stop();});observer.observe(canvas);cleanup.push(()=>observer.disconnect());}
+       listen(window,'orientationchange',()=>{clearTimeout(orientationTimer);orientationTimer=setTimeout(measure,250);},{passive:true});
+       listen(window,'layoutready',measure);
+       listen(window,'modalchange',event=>{overlayOpen=event.detail.open;mobileMonitor.reset();lastActivity=performance.now();});
+       listen(window,'pointerdown',()=>lastActivity=performance.now(),{passive:true});
+       listen(window,'keydown',()=>lastActivity=performance.now());
+-      listen(document,'visibilitychange',()=>{if(document.hidden)stop();else{fpsFrames=0;fpsTime=0;slowSeconds=0;mobileMonitor.reset();lastActivity=performance.now();start();}});
++      listen(document,'visibilitychange',()=>{if(document.hidden)stop();else{fpsFrames=0;fpsTime=0;mobileMonitor.reset();lastActivity=performance.now();start();}});
+       listen(document.querySelector('.hero'),'pointermove',event=>{if(!animate||event.pointerType==='touch'||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;const rect=document.querySelector('.hero').getBoundingClientRect();pointer.set(T.MathUtils.clamp((event.clientX-rect.left)/rect.width*2-1,-1,1),T.MathUtils.clamp((event.clientY-rect.top)/rect.height*2-1,-1,1));},{passive:true});
+       listen(document.querySelector('.hero'),'pointerleave',()=>pointer.set(0,0));
+-      listen(canvas,'webglcontextlost',event=>{event.preventDefault();contextLost=true;stop();reportScene('fallback');});
++      listen(canvas,'webglcontextlost',event=>{event.preventDefault();contextLost=true;stop();document.body.classList.remove('showpiece-ready');reportScene('fallback');});
+       listen(canvas,'webglcontextrestored',()=>{canvas.dataset.status='restoring';bootScene();});
+-      function failDesktop(error){console.error('[Desktop FX] disabled:',error);desktopFailed=true;try{desktopFX?.dispose();}catch{}desktopFX=null;applyQuality();window.dispatchEvent(new CustomEvent('desktop-intro-ready'));}
++      function failDesktop(error){
++        const message=String(error?.message||error),hard=renderer.getContext().isContextLost()||/webgl|shader|context lost/i.test(message);
++        if(message!==lastError){console.error('[Full FX] '+(hard?'WebGL failure':'scene error')+':',error);lastError=message;}
++        if(hard){hardFailure=true;stop();try{desktopFX?.dispose();}catch{}desktopFX=null;document.body.classList.remove('showpiece-ready');reportScene('fallback');}
++        window.dispatchEvent(new CustomEvent('desktop-intro-ready'));
++      }
++      renderer.debug.onShaderError=(gl,program,vertex,fragment)=>failDesktop(new Error('WebGL shader compile error: '+gl.getProgramInfoLog(program)));
++
+       function ensureDesktop(){
+-        if(disposed||desktopFX||desktopLoading||desktopFailed||fxFlag||innerWidth<1100||constrained||new URLSearchParams(location.search).get('fx')==='min')return;
++        if(disposed||hardFailure||desktopFX||desktopLoading||fxFlag==='off'||fxFlag==='lite'||new URLSearchParams(location.search).get('fx')==='min')return;
+         desktopLoading=true;
+         loadDesktopModules().then(modules=>{
+           if(disposed)return;
++          if(window.gamecardIntro?.pending){window.gamecardIntro.pending=false;window.lenis?.scrollTo(0,{immediate:true,force:true});window.scrollTo(0,0);}
+           try{desktopFX=createDesktopFX(T,modules,{hud,renderer,scene,camera,group,cards,coins,particles,particleGeometry,particlePositions,particleMaterial,glow,glowMaterial,brandLight,lights,textures,cardGeometry,faceGeometry,coinGeometry,coinSide,coinCap,sparkleTexture,canvasTexture,colors,metrics,own,listen,requestStatic,release:resource=>resources.delete(resource)});}catch(error){failDesktop(error);}
+           requestStatic();
+         }).catch(error=>{failDesktop(error);requestStatic();}).finally(()=>desktopLoading=false);
+@@ -787,9 +801,10 @@
+         throw error;
+       }
+     }
++    loadDesktopModules().catch(()=>{});
+     window.addEventListener('pagehide',()=>{pageInactive=true;bootId++;sceneController?.dispose();sceneController=null;});
+     window.addEventListener('pageshow',event=>{if(event.persisted){pageInactive=false;bootScene();}});
+-    function scheduleScene(){if(new URLSearchParams(location.search).get('3d')==='off'){canvas.dataset.tier='OFF';reportScene('fallback');return;}if('requestIdleCallback' in window)requestIdleCallback(()=>bootScene(),{timeout:1800});else setTimeout(bootScene,80);}
++    function scheduleScene(){if(new URLSearchParams(location.search).get('3d')==='off'){canvas.dataset.tier='OFF';reportScene('fallback');return;}bootScene();}
+     if(document.readyState==='complete')scheduleScene();else window.addEventListener('load',scheduleScene,{once:true});
+   </script>
+ </body>
+--- before/style.css
++++ after/style.css
+@@ -43,7 +43,7 @@
+ .webgl-ready .closing{background:linear-gradient(100deg,rgba(225,29,29,.98),rgba(225,29,29,.82))}
+ .debug-hud{position:fixed;z-index:95;left:12px;bottom:12px;margin:0;padding:12px 15px;pointer-events:none;background:#07070bef;color:#e5f5df;border:1px solid #ffffff40;border-radius:6px;font:11px/1.5 Consolas,monospace;white-space:pre;max-width:calc(100vw - 24px)}
+ @media(max-width:1099px){.debug-hud{bottom:86px;font-size:10px}}
+-@media(forced-colors:active){#webgl{display:none!important}.webgl-ready .game-card{visibility:visible}.debug-hud{background:Canvas;color:CanvasText}.webgl-ready .catalog{background:Canvas;box-shadow:none}}
++@media(forced-colors:active){.debug-hud{background:Canvas;color:CanvasText}.webgl-ready .catalog{background:Canvas;box-shadow:none}}
+ /* 13 / Responsive */
+ @media(min-width:1440px){.hero{padding-top:140px}.hero__grid{grid-template-columns:1.12fr 1fr;gap:36px}.hero__art{height:550px}.game-card{width:282px;height:365px}.game-card--garena{top:144px;left:70px}.game-card--vcoin{top:93px;right:3px}.game-card--zing{left:22px}.circle-badge{top:334px;left:-15px}.hero h1{font-size:144px}.hero__tagline{margin-top:30px}.hero__buttons{margin-top:30px}}
+ @media(max-width:1199px){.wrap{width:calc(100% - 64px)}.desktop-nav{gap:17px}.header__inner{gap:18px}.header__actions .social-icon{display:none}.shop-layout{gap:24px;grid-template-columns:minmax(0,1fr) 285px}.order-panel{padding:20px}.game-card{width:235px;height:315px}.game-card--garena{left:45px}.game-card--zing{left:15px}.game-card--vcoin{right:-5px}.art-orbit{width:350px;height:400px}.hero__art{height:480px}.circle-badge{top:300px;left:-17px}.hero__tagline{font-size:22px}.hero__buttons .button{padding-inline:20px;gap:20px}.why,.faq{gap:60px}.price-table th{font-size:7px}.price-table td{padding-inline:5px}.price-table td:nth-child(2){font-size:15px}.save-pill{font-size:8px;padding:4px 6px}.compare-price{font-size:8px}.best-tag{font-size:6px}}
+@@ -63,8 +63,7 @@
+ /* D12 / Desktop safe zones. No extra layout boxes or mobile overrides. */
+ .fx-toggle{display:none;position:fixed;right:18px;bottom:18px;z-index:85;border:1px solid #ffffff42;border-radius:30px;background:#101017e8;color:var(--text);padding:11px 17px;font:500 11px var(--body);min-height:44px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+ .preloader--continuous{background:transparent;inset:auto 28px 28px auto;padding:12px 18px;font:12px var(--body);gap:25px;border:1px solid #ffffff30;border-radius:30px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+-@media(min-width:1100px){
+-.showpiece-ready .fx-toggle{display:block}
++.showpiece-ready .fx-toggle{display:none}
+ .showpiece-ready .marquee{background:transparent;border-color:transparent}
+ .showpiece-ready .marquee__track{visibility:hidden;animation-play-state:paused}
+ .showpiece-ready .benefit svg{visibility:hidden}
+@@ -77,7 +76,6 @@
+ .showpiece-ready .closing h2,.showpiece-ready .closing__bottom{position:relative;background:linear-gradient(90deg,#e11d1dbb,#e11d1d00)}
+ .fx-order-pulse{animation:order-pulse .65s ease-out}
+ .fx-order-pulse .order-count{animation:counter-bump .6s ease-out}
+-}
+ @keyframes order-pulse{40%{border-color:#f5c542;box-shadow:0 0 22px #f5c54238}}
+ @keyframes counter-bump{40%{transform:scale(1.25)}}
+ @media(forced-colors:active){.showpiece-ready .marquee__track,.showpiece-ready .benefit svg{visibility:visible}.showpiece-ready .how{background:Canvas}}
+@@ -157,14 +155,35 @@
+ @media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}.magnetic{transform:none!important}.price-table tr:focus-within{box-shadow:inset 2px 0 var(--accent);background:var(--surface)}}
+ 
+ /* Targeted desktop fixes C1–C4. */
+-@media(min-width:1100px){
+ .showpiece-ready .order-panel{padding-top:234px;background:linear-gradient(#0000 210px,#111116 210px)}
+ .showpiece-ready .payment{background:linear-gradient(90deg,rgba(7,7,11,.9),rgba(7,7,11,.3))}
+ .showpiece-ready .payment-card{background:linear-gradient(100deg,#14141bf5 52%,#14141b22)}
+ .showpiece-ready .how{background:linear-gradient(var(--text) var(--band-a,55%),transparent var(--band-a,55%) var(--band-b,70%),var(--text) var(--band-b,70%))}
+ .showpiece-ready .how-step{border-top-color:#ffffff40}
+ .showpiece-ready .how-step__arrow{color:var(--text)}
+-}
+ html{scrollbar-gutter:stable}
+ .webgl-ready .catalog{backdrop-filter:none;background:linear-gradient(#ffffff0f,#ffffff0f),linear-gradient(#09090ef2,#09090eef)}
+ .showpiece-ready .grain{display:none}
++
++/* Full effects: the same scenes, with clear DOM anchor windows on narrow screens. */
++#motion-toggle,#fx-toggle{display:none!important}
++.preloader--continuous:not([hidden]){display:flex!important}
++@media(max-width:1099px){
++  .showpiece-ready .catalog{background:transparent;box-shadow:none}
++  .showpiece-ready .catalog-brand{padding-top:240px;background:linear-gradient(transparent 232px,#111116 232px)}
++  .showpiece-ready .price-table{background:#111116}
++  .showpiece-ready .how{background:transparent}
++  .showpiece-ready .how__heading{background:var(--text);padding:24px 16px}
++  .showpiece-ready .how__steps{grid-template-columns:1fr;gap:24px}
++  .showpiece-ready .how-step{display:block;padding:12px 16px 24px;background:linear-gradient(transparent 136px,var(--text) 136px)}
++  .showpiece-ready .how-step__number{display:block;height:120px}
++  .showpiece-ready .how-step h3{margin:12px 0}
++  .showpiece-ready .how-step p{max-width:none}
++  .showpiece-ready .payment-card{padding-top:104px;background:linear-gradient(100deg,#14141bf5 52%,#14141b22)}
++  .showpiece-ready .closing{background:linear-gradient(180deg,#e11d1d55 230px,#e11d1df2 360px)}
++  .showpiece-ready .closing__top{min-height:200px;align-items:flex-start}
++  .showpiece-ready .cart-dialog .order-panel{padding-top:12px;background:transparent}
++}
++
++/* Font-independent diagonal arrow, including mobile controls and marquees. */
++svg.icon-arrow-up-right{display:inline-block;width:1em;height:1em;flex-shrink:0;vertical-align:-.125em;pointer-events:none}
+--- before/script.js
++++ after/script.js
+@@ -123,6 +123,15 @@
+   dialog.addEventListener('click', event => { if (event.target !== dialog) return; const box = dialog.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDialog(dialog); });
+ }
+ 
++// Vector icon avoids mobile font/emoji substitution for the diagonal arrow.
++function arrowUpRight() {
++  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
++  for (const [name, value] of Object.entries({class:'icon-arrow-up-right', viewBox:'0 0 24 24', width:'1em', height:'1em', fill:'none', stroke:'currentColor', 'stroke-width':'1.8', 'stroke-linecap':'round', 'stroke-linejoin':'round', 'aria-hidden':'true', focusable:'false'})) svg.setAttribute(name, value);
++  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
++  path.setAttribute('d', 'M5 19 19 5M5 5h14v14'); svg.append(path); return svg;
++}
++function setArrowLabel(node, label) { node.textContent = label + ' '; node.append(arrowUpRight()); }
++
+ /* 03 / Config-driven content and metadata */
+ function initContent() {
+   $$('[data-copy]').forEach(node => { const content = CONFIG.copy[node.dataset.copy]; if (content !== undefined) { node.textContent = content; node.style.whiteSpace = 'pre-line'; } });
+@@ -131,7 +140,7 @@
+   $('#copyright').textContent = `© ${CONFIG.copyrightYear} ${CONFIG.shopName}`;
+   CONFIG.benefits.forEach(([icon, title, text],index) => { const item = el('article', 'benefit'); item.dataset['3dAnchor']=`benefit-${index+1}`; item.tabIndex=0; const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('aria-hidden','true'); svg.innerHTML = icons[icon] || icons.tag; item.append(svg, el('h3','',title), el('p','',text)); $('#benefit-list').append(item); });
+   CONFIG.reasons.forEach(([title, text]) => { const item = el('article', 'why-item'); const check = el('span', 'check', '✓'); check.setAttribute('aria-hidden', 'true'); const copy = el('div'); copy.append(el('h3','',title), el('p','',text)); item.append(check,copy); $('#why-list').append(item); });
+-  CONFIG.steps.forEach(([title, text], index) => { const item = el('li', 'how-step'); item.dataset['3dAnchor']=`step-${index+1}`; const number = el('span','how-step__number',String(index + 1).padStart(2,'0')); number.setAttribute('aria-hidden','true'); const arrow = el('span','how-step__arrow',index === CONFIG.steps.length - 1 ? '✓' : '↗'); arrow.setAttribute('aria-hidden','true'); item.append(number,arrow,el('h3','',title),el('p','',text)); $('#how-steps').append(item); });
++  CONFIG.steps.forEach(([title, text], index) => { const item = el('li', 'how-step'); item.dataset['3dAnchor']=`step-${index+1}`; const number = el('span','how-step__number',String(index + 1).padStart(2,'0')); number.setAttribute('aria-hidden','true'); const arrow = el('span','how-step__arrow',index === CONFIG.steps.length - 1 ? '✓' : ''); arrow.setAttribute('aria-hidden','true'); if (index !== CONFIG.steps.length - 1) arrow.append(arrowUpRight()); item.append(number,arrow,el('h3','',title),el('p','',text)); $('#how-steps').append(item); });
+   const siteUrl = CONFIG.siteUrl.startsWith('https://') ? safeUrl(CONFIG.siteUrl) : '';
+   if (siteUrl) { const canonical = el('link'); canonical.rel = 'canonical'; canonical.href = siteUrl; const og = el('meta'); og.setAttribute('property','og:url'); og.content = siteUrl; document.head.append(canonical,og); }
+   if (CONFIG.socialImage.startsWith('https://')) { const ogImage = el('meta'); ogImage.setAttribute('property','og:image'); ogImage.content = safeUrl(CONFIG.socialImage); document.head.append(ogImage); }
+@@ -192,14 +201,14 @@
+       if (saved && saved === bestSaving) faceCell.append(el('span','best-tag','TIẾT KIỆM NHẤT'));
+       const compare = el('td','compare-price',saved ? `Rẻ hơn ${money(saved)}` : 'Không đổi giá');
+       const actionCell = el('td'); const actions = el('div','row-actions');
+-      const buy = externalLink('buy-button','Mua ↗'); buy.setAttribute('aria-label',`Mua ${brand.name} ${money(face)}`); buy.dataset.contact = '';
++      const buy = externalLink('buy-button','Mua'); setArrowLabel(buy, 'Mua'); buy.setAttribute('aria-label',`Mua ${brand.name} ${money(face)}`); buy.dataset.contact = '';
+       buy.addEventListener('click', () => prepareOrderForChat([{ brand:brand.id, face, qty:1 }]));
+       const add = el('button','add-button','+ Thêm vào đơn'); add.type = 'button'; add.setAttribute('aria-label',`Thêm ${brand.name} ${money(face)} vào đơn`); add.addEventListener('click', () => addToCart(brand.id,face,row));
+       actions.append(buy,add); actionCell.append(actions); row.append(faceCell,saleCell,saveCell,compare,actionCell); tbody.append(row);
+     });
+     table.append(tbody); panel.append(table);
+     const announceRow=event=>{const row=event.target.closest('tr[data-face]');if(row)window.dispatchEvent(new CustomEvent('rowhover',{detail:{id:brand.id,face:+row.dataset.face,sale:+row.dataset.sale,saved:+row.dataset.saved,row}}));};
+-    tbody.addEventListener('pointerover',announceRow);tbody.addEventListener('focusin',announceRow); panels.append(panel);
++    tbody.addEventListener('pointerover',announceRow);tbody.addEventListener('pointerdown',announceRow);tbody.addEventListener('focusin',announceRow); panels.append(panel);
+     tab.addEventListener('click', () => selectBrand(brand.id));
+   });
+   const tabs = $$('[role="tab"]');
+@@ -273,9 +282,9 @@
+   Object.entries(CONFIG.methods).forEach(([key,name])=>{
+     const card = el('article','payment-card');card.dataset['3dAnchor']=`payment-${key}`; const top = el('div','payment-card__top'); const brand = el('h3','payment-card__brand'); const mark = el('span',`payment-mark${key==='vcb'?' payment-mark--vcb':''}`,key==='momo'?'mo':'VCB'); mark.setAttribute('aria-hidden','true'); brand.append(mark,document.createTextNode(name)); top.append(brand,el('span','micro',key==='momo'?'VÍ ĐIỆN TỬ':'NGÂN HÀNG'));
+     const bottom = el('div','payment-card__bottom'); const holder = el('p','payment-holder',verifiedHolder?`Chủ tài khoản: ${CONFIG.payment.holder}`:'Tên người nhận: xác nhận với shop');
+-    const copy = el('button','button button--outline copy-button','Sao chép ↗'); copy.setAttribute('aria-label',`Sao chép số ${name}`);
++    const copy = el('button','button button--outline copy-button'); setArrowLabel(copy, 'Sao chép'); copy.setAttribute('aria-label',`Sao chép số ${name}`);
+     let resetTimer;
+-    copy.addEventListener('click',async()=>{if(await copyText(CONFIG.payment[key])){copy.textContent='Đã sao chép ✓';window.dispatchEvent(new CustomEvent('copysuccess',{detail:{id:key,element:card}}));toast(`Đã sao chép số ${name}: ${CONFIG.payment[key]}`);clearTimeout(resetTimer);resetTimer=setTimeout(()=>copy.textContent='Sao chép ↗',1600);}else{toast(`Số ${name}: ${CONFIG.payment[key]}. Chạm giữ hoặc chọn số để sao chép.`);}});
++    copy.addEventListener('click',async()=>{if(await copyText(CONFIG.payment[key])){copy.textContent='Đã sao chép ✓';window.dispatchEvent(new CustomEvent('copysuccess',{detail:{id:key,element:card}}));toast(`Đã sao chép số ${name}: ${CONFIG.payment[key]}`);clearTimeout(resetTimer);resetTimer=setTimeout(()=>setArrowLabel(copy, 'Sao chép'),1600);}else{toast(`Số ${name}: ${CONFIG.payment[key]}. Chạm giữ hoặc chọn số để sao chép.`);}});
+     bottom.append(holder,copy); card.append(top,el('p','payment-card__label',key==='momo'?'Số điện thoại nhận tiền':'Số tài khoản'),el('p','payment-card__number',CONFIG.payment[key]),bottom); $('#payment-cards').append(card);
+   });
+   $('#holder-note').textContent = verifiedHolder ? '' : 'Vui lòng xác nhận tên người nhận với Minh Thuận trước khi chuyển khoản.';
+@@ -285,15 +294,16 @@
+ }
+ 
+ /* 08 / Motion. The functional page never depends on CDN availability. */
+-function motionEnabled(){return !motionQuery.matches&&!state.motionPaused;}
+-function desktopFXEligible(){return innerWidth>=1100&&(navigator.hardwareConcurrency||4)>4&&(navigator.deviceMemory||8)>4&&new URLSearchParams(location.search).get('fx')!=='min';}
++/* FULL-EFFECTS MODE: motion is always on; neither prefers-reduced-motion nor the pause button stops it. */
++function motionEnabled(){return true;}
++function desktopFXEligible(){const q=new URLSearchParams(location.search);return q.get('fx')!=='min'&&!['off','lite'].includes(q.get('3d'));}
+ function initPreloader(){
+-  const loader=$('#preloader');if(innerWidth<1100||!motionEnabled()||readSession(CONFIG.introKey))return;
+-  writeSession(CONFIG.introKey,'1');loader.hidden=false;const start=performance.now();let finished=false;
+-  window.gamecardIntro={start,deadline:start+2250,desktop:desktopFXEligible()};loader.classList.toggle('preloader--continuous',window.gamecardIntro.desktop);
++  const loader=$('#preloader');if(new URLSearchParams(location.search).get('3d')==='off')return;
++  if(desktopFXEligible()){history.scrollRestoration='manual';window.scrollTo(0,0);state.lenis?.scrollTo(0,{immediate:true,force:true});}loader.hidden=false;const start=performance.now();let finished=false;
++  window.gamecardIntro={start,deadline:start+6000,desktop:desktopFXEligible(),pending:true};loader.classList.toggle('preloader--continuous',window.gamecardIntro.desktop);
+   const timer=setInterval(()=>{$('#load-count').textContent=String(Math.min(95,Math.round((performance.now()-start)/23))).padStart(2,'0');},80);
+   const finish=()=>{if(finished)return;finished=true;clearInterval(timer);clearTimeout(deadline);window.removeEventListener('scene-ready',finish);window.removeEventListener('desktop-intro-ready',finish);$('#load-count').textContent='100';loader.style.transition=window.gamecardIntro?.desktop?'opacity 180ms':'transform 240ms cubic-bezier(.22,1,.36,1)';if(window.gamecardIntro?.desktop)loader.style.opacity='0';else loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.hidden=true;},240);};
+-  const deadline=setTimeout(finish,2250);window.addEventListener(window.gamecardIntro.desktop?'desktop-intro-ready':'scene-ready',finish);
++  const deadline=setTimeout(finish,6000);window.addEventListener(window.gamecardIntro.desktop?'desktop-intro-ready':'scene-ready',finish);
+   if(window.gamecardSceneStatus&&!window.gamecardIntro.desktop)finish();
+ }
+ function initLenis(){
+@@ -301,7 +311,7 @@
+   try {
+     if(!window.Lenis)throw new Error('CDN did not provide Lenis');
+     const lenis=new window.Lenis({
+-      smoothWheel:true, duration:motionQuery.matches ? 0.6 : 1.2, infinite:false,
++      smoothWheel:true, duration:1.2, infinite:false,
+       orientation:'vertical', gestureOrientation:'vertical', autoRaf:true, autoToggle:true,
+       anchors:{ offset:-72 }, allowNestedScroll:true, syncTouch:false, stopInertiaOnNavigate:true,
+       // v1.3.26 otherwise bypasses smoothing entirely. We explicitly honor the preference with 0.6s.
+@@ -324,7 +334,7 @@
+ function initHero(){
+   if(!window.gsap||!motionEnabled())return;
+   // Only animate the initial entrance near the page top; content stays readable after preference changes.
+-  if(window.scrollY<100)gsap.fromTo('.line-mask>span',{yPercent:105},{yPercent:0,duration:.8,delay:readSession(CONFIG.introKey)?0:.2,stagger:.08,ease:'power3.out',clearProps:'transform'});
++  if(window.scrollY<100)gsap.fromTo('.line-mask>span',{yPercent:105},{yPercent:0,duration:.8,delay:.2,stagger:.08,ease:'power3.out',clearProps:'transform'});
+   const floats=$$('.game-card').map((card,index)=>gsap.to(card,{y:index%2?9:-9,duration:3.5+index*.5,repeat:-1,yoyo:true,ease:'sine.inOut'}));
+   let inView=true;
+   const syncFloats=()=>floats.forEach(animation=>inView&&!document.hidden&&!document.body.classList.contains('webgl-ready')?animation.resume():animation.pause());
+@@ -361,10 +371,10 @@
+ function stopMotion(){state.motionContext?.revert();state.motionContext=null;[...state.motionCleanups].reverse().forEach(cleanup=>cleanup());state.motionCleanups=[];}
+ function startMotion(){stopMotion();document.body.classList.toggle('motion-paused',!motionEnabled()||document.hidden);window.dispatchEvent(new CustomEvent('motionchange',{detail:{enabled:motionEnabled(),reduced:motionQuery.matches}}));if(!motionEnabled())return;if(window.gsap)state.motionContext=gsap.context(()=>{initHero();initScrollScenes();});initMarquee();initCursor();}
+ function initMotion(){
+-  state.motionPaused=readSession(CONFIG.motionKey)==='paused';
+-  const button=$('#motion-toggle');const update=()=>{button.setAttribute('aria-pressed',String(state.motionPaused));button.setAttribute('aria-label',state.motionPaused?'Bật hiệu ứng chuyển động':'Tạm dừng hiệu ứng chuyển động');button.firstElementChild.textContent=state.motionPaused?'▷':'Ⅱ';const fixed=$('#fx-toggle');if(fixed){fixed.setAttribute('aria-pressed',String(state.motionPaused));fixed.textContent=state.motionPaused?'Bật hiệu ứng':'Tạm dừng hiệu ứng';}};
++  state.motionPaused=false;
++  const button=$('#motion-toggle');button.hidden=true;$('#fx-toggle')?.remove();const update=()=>{button.setAttribute('aria-pressed',String(state.motionPaused));button.setAttribute('aria-label',state.motionPaused?'Bật hiệu ứng chuyển động':'Tạm dừng hiệu ứng chuyển động');button.firstElementChild.textContent=state.motionPaused?'▷':'Ⅱ';const fixed=$('#fx-toggle');if(fixed){fixed.setAttribute('aria-pressed',String(state.motionPaused));fixed.textContent=state.motionPaused?'Bật hiệu ứng':'Tạm dừng hiệu ứng';}};
+   $('#fx-toggle')?.addEventListener('click',()=>button.click());
+-  button.addEventListener('click',()=>{state.motionPaused=!state.motionPaused;writeSession(CONFIG.motionKey,state.motionPaused?'paused':'on');update();startMotion();});motionQuery.addEventListener('change',()=>{if(state.lenis)state.lenis.options.duration=motionQuery.matches ? 0.6 : 1.2;update();startMotion();});finePointer.addEventListener('change',startMotion);
++  button.addEventListener('click',()=>{state.motionPaused=false;update();window.dispatchEvent(new CustomEvent('motionchange',{detail:{enabled:true,reduced:motionQuery.matches}}));});motionQuery.addEventListener('change',()=>{if(state.lenis)state.lenis.options.duration=1.2;update();startMotion();});finePointer.addEventListener('change',startMotion);
+   document.addEventListener('visibilitychange',()=>{document.body.classList.toggle('motion-paused',document.hidden||!motionEnabled());if(document.hidden)state.lenis?.stop();else syncModalLock();});
+   update();initLenis();initPreloader();startMotion();
+ }
+@@ -417,4 +427,4 @@
+ window.addEventListener('load',refreshScroll,{once:true});
+ $$('img').forEach(image=>{if(!image.complete)image.addEventListener('load',refreshScroll,{once:true});});
+ window.addEventListener('pagehide',()=>{stopMotion();state.lenis?.destroy();state.lenis=null;delete window.lenis;});
+-window.addEventListener('pageshow',event=>{if(event.persisted){initLenis();startMotion();refreshScroll();initDebug();}});
++window.addEventListener('pageshow',event=>{if(event.persisted){initLenis();startMotion();refreshScroll();initDebug();}});--- before/mobile-policy.js
++++ after/mobile-policy.js
+@@ -1,38 +1,12 @@
+-/* Mobile budgets are independent of the existing desktop Director. */
+-(function (root) {
++/* Full-effects policy: device hints and frame rate never reduce visual quality. */
++(function(root){
+   'use strict';
+-  function chooseTier({ flag, memory = 4, cores = 6, saveData = false, effectiveType = '' }) {
+-    if (flag === 'off') return 'OFF';
+-    if (flag === 'lite') return 'LOW';
+-    if (flag === 'high') return 'HIGH';
+-    if (memory <= 3 || cores <= 4 || saveData || /(^|-)2g$|^3g$/.test(effectiveType)) return 'LOW';
+-    return memory >= 6 && cores >= 8 ? 'HIGH' : 'MEDIUM';
+-  }
+-  const budgets = Object.freeze({
+-    HIGH: { dpr: 1.5, cards: 3, coins: 8, particles: 300, texture: 1024 },
+-    MEDIUM: { dpr: 1.25, cards: 3, coins: 4, particles: 150, texture: 512 },
+-    LOW: { dpr: 1, cards: 1, coins: 2, particles: 0, texture: 512 }
+-  });
+-  function resizeNeeded(width, height, previousWidth, previousHeight) {
+-    return width !== previousWidth || Math.abs(height - previousHeight) > 150;
+-  }
+-  function frameRate(tier, overlay, idle) { return overlay ? 15 : idle ? 20 : tier === 'LOW' ? 30 : 60; }
+-  class Monitor {
+-    constructor(tier, apply) { this.tier = tier; this.apply = apply; this.reset(); }
+-    reset() { this.seconds = this.frames = this.slow = 0; }
+-    sample(dt, intentionalCap = false) {
+-      if (intentionalCap) { this.reset(); return; }
+-      this.seconds += dt; this.frames++;
+-      if (this.seconds < .5) return;
+-      const fps = this.frames / this.seconds, low = this.tier === 'LOW';
+-      this.slow = fps < (low ? 25 : 40) ? this.slow + this.seconds : 0;
+-      this.seconds = this.frames = 0;
+-      if (this.slow >= (low ? 3 : 2) && this.tier !== 'OFF') {
+-        this.tier = low ? 'OFF' : 'LOW'; this.reset(); this.apply(this.tier);
+-      }
+-    }
+-  }
+-  const api = { chooseTier, budgets, resizeNeeded, frameRate, Monitor };
+-  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+-  else root.MobileFX = api;
+-})(typeof window === 'undefined' ? globalThis : window);
++  function chooseTier({flag}={}){return flag==='off'?'OFF':'HIGH';}
++  const full=Object.freeze({dpr:2,cards:3,coins:10,particles:700,texture:1024});
++  const budgets=Object.freeze({HIGH:full,MEDIUM:full,LOW:full});
++  function resizeNeeded(width,height,previousWidth,previousHeight){return width!==previousWidth||Math.abs(height-previousHeight)>=150;}
++  function frameRate(){return Infinity;}
++  class Monitor{constructor(tier='HIGH',apply){this.tier=tier;this.apply=apply;}sample(){}reset(){}}
++  const api={chooseTier,budgets,resizeNeeded,frameRate,Monitor};
++  if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.MobileFX=api;
++})(typeof window==='undefined'?globalThis:window);

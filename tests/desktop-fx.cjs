@@ -1,0 +1,27 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+const app = fs.readFileSync(path.join(__dirname, '../script.js'), 'utf8');
+const primitives = html.slice(html.indexOf('    class Spring'), html.indexOf('    /* D0 / Desktop showpiece'));
+const context = vm.createContext({Math});
+vm.runInContext(primitives + '\nthis.Spring=Spring;this.Governor=PerformanceGovernor;', context);
+const spring = new context.Spring(0, 9, .8);
+spring.target = 1;
+for (let i=0; i<300; i++) spring.step(1/60);
+assert.ok(Math.abs(spring.value-1)<1e-5, 'spring settles without residual jitter');
+spring.target = -4;
+for (let i=0; i<100; i++) spring.step(.1);
+assert.ok(Number.isFinite(spring.value) && Math.abs(spring.value+4)<1e-4, 'substeps remain stable at 10 FPS');
+const changes=[];
+const governor = new context.Governor(level=>changes.push(level));
+for(const fps of [60,30,15,5,1]){for(let i=0;i<fps*65;i++)governor.sample(1/fps);assert.equal(governor.level,0,'full effects never downgrade, even during 65 seconds at '+fps+' FPS');}
+assert.deepEqual(changes,[]);
+governor.reset();assert.equal(governor.frames,0);
+assert.ok(!/requestAnimationFrame/.test(html.slice(html.indexOf('function createDesktopFX'),html.indexOf('function createScene(T'))),'desktop never creates a second RAF loop');
+const scenes=[...html.matchAll(/director\.add\('([^']+)'/g)].map(m=>m[1]);
+for(const name of ['hero','ribbon','benefits','pricing','steps','payment','faq','closing'])assert.ok(scenes.includes(name),name+' is registered');
+for(const match of html.matchAll(/text3D\('([^']+)'/g))assert.match(match[1],/^[\x20-\x7e]*$/);
+for(const name of ['rowhover','addtocart','copysuccess','tabchange','brandchange'])assert.ok(app.includes("CustomEvent('"+name+"'"),name+' is dispatched by UI');
+console.log('PASS: spring convergence; full-quality governor at 1–60 FPS; one RAF owner; scene registry; ASCII text; UI events.');
