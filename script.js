@@ -1,13 +1,13 @@
 /* 01 / EDIT HERE — shop, prices, copy and business assumptions */
 const CONFIG = {
-  shopName: 'minhthuangamecard',
-  contactUrl: 'https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr',
-  facebook: 'https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr',
+  shopName: 'Minh Thuận GameCard',
+  contactUrl: 'https://m.me/1253052787885007',
+  facebook: 'https://www.facebook.com/1253052787885007',
   instagram: 'https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y',
   // TODO: Set the final HTTPS domain; no invented canonical or social image is published.
-  siteUrl: '',
+  siteUrl: 'https://minhthuangamecard.vercel.app',
   socialImage: '',
-  payment: { momo: '0376271084', vcb: '9376271084', holder: '' }, // TODO: Confirm account holder before launch.
+  payment: { momo: '0376271084', vcb: '9376271084', holder: 'Lê Minh Thuận' },
   // TODO: Enable only after this account is linked in SePay.
   // TODO: Payment confirmation requires a server webhook; until then, verify the customer's bill manually.
   sepay: { enabled:false, bank:'Vietcombank', account:'9376271084', threshold:100000, prefix:'MTGC' },
@@ -22,7 +22,7 @@ const CONFIG = {
     heroEyebrow: 'THẺ GAME CHÍNH HÃNG · GIÁ TỐT MỖI NGÀY',
     heroLine1: 'BẢNG GIÁ', heroLine2: 'THẺ GAME',
     heroTagline: 'Nạp game rẻ hơn.\nTiết kiệm hơn mỗi ngày.',
-    heroDescription: 'Chọn thẻ bạn cần, xem ngay giá thật.\nPhần còn lại, để Minh Thuận lo.',
+    heroDescription: 'Chọn thẻ bạn cần, xem ngay giá thật.\nNhận đơn 06:00–11:00 mỗi ngày · Phản hồi trong 5 phút.',
     heroProof: 'Giá công khai. Thanh toán rõ ràng.',
     pricingIntro: 'Mệnh giá rõ ràng, tiết kiệm cụ thể.\nChọn một thẻ hoặc ghép thành đơn của bạn.',
     pricingFootnote: 'Giá tính cho 01 thẻ. Mua số lượng lớn? Nhắn shop để hỏi ưu đãi.',
@@ -53,11 +53,11 @@ const CONFIG = {
     ['Gửi bill & nhận mã', 'Gửi ảnh giao dịch thành công trong chat. Shop kiểm tra và gửi mã thẻ cho bạn.']
   ],
   faq: [
-    ['Bao lâu thì mình nhận được thẻ?', 'Shop gửi mã sau khi xác nhận đơn và kiểm tra thanh toán. Thời gian phản hồi tùy thời điểm; bạn hãy hỏi shop trước khi chuyển khoản nếu cần thẻ gấp.'],
+    ['Bao lâu thì mình nhận được thẻ?', 'Shop gửi mã qua Messenger sau khi xác nhận thanh toán. Trong giờ mở cửa 06:00 – 11:00 mỗi ngày, Thuận phản hồi trong 5 phút.'],
     ['Nhận mã rồi, mình nạp thẻ thế nào?', 'Vào trang hoặc ứng dụng nạp chính thức của trò chơi, chọn đúng loại thẻ rồi làm theo hướng dẫn của nhà phát hành. Kiểm tra trò chơi và khu vực được hỗ trợ trước khi mua; không cung cấp mật khẩu cho shop.'],
     ['Nếu mã thẻ báo lỗi thì sao?', 'Giữ lại bill và chụp thông báo lỗi, sau đó nhắn lại đúng cuộc trò chuyện đã đặt hàng để shop kiểm tra. Không đăng công khai mã thẻ. Cách xử lý hoặc hoàn tiền sẽ được shop xác nhận theo tình trạng thực tế.'],
-    ['Shop nhận thanh toán bằng hình thức nào?', 'Bạn có thể chọn MoMo hoặc Vietcombank. Số tài khoản được công khai ở mục Thanh toán. Xác nhận tên người nhận và nội dung đơn với shop trước khi chuyển.'],
-    ['Mình liên hệ hỗ trợ ở đâu?', 'Bạn có thể nhắn Facebook hoặc Instagram được liên kết trên trang. Khi hỏi về đơn đã mua, hãy gửi kèm loại thẻ, mệnh giá và bill để shop dễ kiểm tra.']
+    ['Shop nhận thanh toán bằng hình thức nào?', 'Bạn có thể chuyển khoản MoMo hoặc Vietcombank (chủ tài khoản: Lê Minh Thuận). Số tài khoản hiển thị ở mục Thanh toán và gửi riêng trong chat khi chốt đơn.'],
+    ['Mình liên hệ hỗ trợ ở đâu?', 'Bạn có thể nhắn trực tiếp qua Messenger Fanpage Minh Thuận GameCard (m.me/1253052787885007). Minh Thuận trực chat mỗi ngày 06:00 – 11:00.']
   ]
 };
 const CARDS = [
