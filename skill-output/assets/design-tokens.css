@@ -1,0 +1,22 @@
+/* Source: style.css :root. Only brand token names generalized. */
+:root {
+  --bg:#07070b;
+  --bg-2:#0e0e15;
+  --surface:rgba(255,255,255,.04);
+  --text:#f4f4ef;
+  --muted:#a1a1ac;
+  --line:rgba(255,255,255,.14);
+  --brand-primary:#e11d1d;
+  --brand-secondary:#1e6fff;
+  --brand-tertiary:#ff8a00;
+  --save:#22c55e;
+  --gold:#f5c542;
+  --accent:var(--brand-primary);
+  --pill:999px;
+  --card:20px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --body:'Be Vietnam Pro',Arial,sans-serif;
+  --display:'Anton','Be Vietnam Pro',sans-serif;
+  --max:1280px;
+  --header-height:80px;
+}

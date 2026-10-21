@@ -1,0 +1,21 @@
+{
+  "module hash": true,
+  "importmap hash": true,
+  "style hash": true,
+  "static blank links": {
+    "count": 20,
+    "unsafe": []
+  },
+  "style.css?v=20261015checkout.1 SRI": true,
+  "mobile-policy.js?v=20261015checkout.1 SRI": true,
+  "script.js?v=20261015checkout.1 SRI": true,
+  "style.css unchanged": true,
+  "script.js unchanged": true,
+  "mobile-policy.js unchanged": true,
+  "inline module unchanged": true,
+  "headers /": true,
+  "headers /index.html": true,
+  "headers /script.js": true,
+  "headers /style.css": true,
+  "headers /mobile-policy.js": true
+}

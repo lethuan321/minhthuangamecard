@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap&subset=vietnamese,latin-ext" rel="stylesheet">
   <style>html{background:#07070b}body{margin:0;color:#f4f4ef}.preloader[hidden]{display:none}.hero{min-height:100svh}#webgl{position:fixed;inset:0;pointer-events:none}@media(max-width:767px){.hero h1{font-size:clamp(3rem,16vw,6rem)}.hero__art{height:240px}}</style>
-  <link rel="stylesheet" href="style.css?v=20261015arrow.1">
+  <link rel="stylesheet" href="style.css?v=20261015checkout.1">
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js">
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js">
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js">
@@ -28,8 +28,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script defer src="mobile-policy.js?v=20261015arrow.1"></script>
-  <script defer src="script.js?v=20261015arrow.1"></script>
+  <script defer src="mobile-policy.js?v=20261015checkout.1"></script>
+  <script defer src="script.js?v=20261015checkout.1"></script>
 </head>
 <body>
   <canvas id="webgl" aria-hidden="true" data-status="loading"></canvas>
@@ -110,6 +110,17 @@
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   <button id="fx-toggle" class="fx-toggle" type="button" aria-pressed="false">Tạm dừng hiệu ứng</button>
   <!-- Inline module: no local-module fetch, so the document remains file:// compatible. -->
+  <dialog aria-modal="true" class="qr-dialog" id="qr-dialog" aria-labelledby="qr-title" data-lenis-prevent>
+    <div class="dialog-heading"><h2 id="qr-title">Thanh toán QR</h2><button class="icon-button" id="qr-close" type="button" aria-label="Đóng thanh toán QR">×</button></div>
+    <ul id="qr-items" class="qr-items"></ul>
+    <dl class="qr-summary"><div><dt>Mệnh giá</dt><dd id="qr-face"></dd></div><div><dt>Tiết kiệm</dt><dd id="qr-saved"></dd></div><div><dt>Giá phải trả</dt><dd><strong id="qr-amount"></strong></dd></div></dl>
+    <img id="qr-image" width="256" height="256" alt="Mã QR chuyển khoản" loading="eager" referrerpolicy="no-referrer" hidden>
+    <p id="qr-image-fallback" role="status" hidden>Không tải được ảnh QR. Dùng số tài khoản và nội dung chuyển khoản bên dưới.</p>
+    <dl class="qr-details"><div><dt>Ngân hàng</dt><dd id="qr-bank"></dd></div><div><dt>Số tài khoản</dt><dd id="qr-account"></dd></div><div><dt>Nội dung chuyển khoản</dt><dd id="qr-code"></dd></div></dl>
+    <div class="qr-copy-actions"><button type="button" class="button button--outline" id="qr-copy-account">Sao chép số tài khoản</button><button type="button" class="button button--outline" id="qr-copy-amount">Sao chép số tiền</button><button type="button" class="button button--outline" id="qr-copy-code">Sao chép nội dung CK</button></div>
+    <p class="qr-instructions">Chuyển đúng số tiền và đúng nội dung. Sau khi chuyển, gửi bill cho shop để nhận mã thẻ.</p>
+    <a class="button button--red" id="qr-bill" data-contact target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr">Gửi bill qua Facebook</a>
+  </dialog>
   <script type="module">
     const canvas = document.getElementById('webgl');
     let sceneController = null;

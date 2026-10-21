@@ -1,0 +1,10 @@
+{
+  "logs": [],
+  "dom": {
+    "classes": "cursor-enabled webgl-ready showpiece-ready mobile-actions-visible mobile-actions-away",
+    "lenis": "lenis lenis-autoToggle",
+    "rows": 20,
+    "status": "running",
+    "unsafeLinks": 0
+  }
+}

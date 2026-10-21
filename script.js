@@ -8,6 +8,9 @@ const CONFIG = {
   siteUrl: '',
   socialImage: '',
   payment: { momo: '0376271084', vcb: '9376271084', holder: '' }, // TODO: Confirm account holder before launch.
+  // TODO: Enable only after this account is linked in SePay.
+  // TODO: Payment confirmation requires a server webhook; until then, verify the customer's bill manually.
+  sepay: { enabled:false, bank:'Vietcombank', account:'9376271084', threshold:100000, prefix:'MTGC' },
   orderMessageTemplate: 'Chào shop, mình muốn mua:\n{lines}\nTổng: {total}\nTiết kiệm: {saved}\nMình sẽ chuyển khoản qua {method} và gửi bill sau khi shop xác nhận đơn.',
   maxQuantity: 99,
   copyrightYear: 2026,
@@ -58,12 +61,12 @@ const CONFIG = {
   ]
 };
 const CARDS = [
-  { id: 'garena', name: 'Thẻ Garena', accent: '--garena', items: [[5000,5000],[10000,10000],[20000,19000],[50000,48000],[100000,96000],[200000,190000],[500000,480000]] },
-  { id: 'zing', name: 'Thẻ Zing', accent: '--zing', items: [[20000,20000],[50000,49000],[100000,98000],[200000,195000],[500000,485000],[1000000,970000]] },
+  { id: 'garena', name: 'Thẻ Garena', accent: '--garena', items: [[5000,5000],[10000,10000],[20000,19000],[50000,49000],[100000,97000],[200000,195000],[500000,485000]] },
+  { id: 'zing', name: 'Thẻ Zing', accent: '--zing', items: [[20000,20000],[50000,49000],[100000,99000],[200000,197000],[500000,490000],[1000000,975000]] },
   { id: 'vcoin', name: 'Thẻ VCoin', accent: '--vcoin', items: [[20000,20000],[50000,48000],[100000,96000],[200000,192000],[300000,288000],[500000,480000],[1000000,960000]] }
 ];
 
-/* 02 / Small shared utilities. No external requests or tracking. */
+/* 02 / Small shared utilities */
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const moneyFormatter = new Intl.NumberFormat('vi-VN');
@@ -191,20 +194,21 @@ function initPricing() {
     const panel = el('div','price-panel'); panel.id = `panel-${brand.id}`; panel.setAttribute('role','tabpanel'); panel.setAttribute('aria-labelledby',tab.id); panel.tabIndex = 0; panel.hidden = brand.id !== state.activeBrand;
     const header = el('div','catalog-brand'); header.append(el('h3','',brand.name.toUpperCase()),el('p','',`${brand.items.length} mệnh giá · Chọn theo cách bạn chơi`)); panel.append(header);
     const table = el('table','price-table'); table.setAttribute('aria-label',`Bảng giá ${brand.name}`);
-    const thead = el('thead'); const headRow = el('tr'); ['Mệnh giá','Giá bán','Tiết kiệm','So với nạp gốc','Đặt thẻ'].forEach(label => { const th = el('th','',label); th.scope = 'col'; headRow.append(th); }); thead.append(headRow); table.append(thead);
+    const thead = el('thead'); const headRow = el('tr'); ['Mệnh giá','Tiết kiệm','Giá phải trả','Đặt thẻ'].forEach(label => { const th = el('th','',label); th.scope = 'col'; headRow.append(th); }); thead.append(headRow); table.append(thead);
     const tbody = el('tbody'); const bestSaving = Math.max(...brand.items.map(([face,sale]) => face - sale));
     brand.items.forEach(([face,sale]) => {
-      const saved = face - sale, percent = saved / face * 100;
+      const saved = face - sale;
       const row = el('tr'); row.dataset.brand=brand.id;row.dataset.best=String(saved===bestSaving&&saved>0);row.dataset.face = String(face); row.dataset.sale = String(sale); row.dataset.saved = String(saved);
-      const faceCell = el('td','',money(face)); const saleCell = el('td','',money(sale));
-      const saveCell = el('td'); const pill = el('span',`save-pill${saved ? '' : ' save-pill--neutral'}`,saved ? `↓ ${money(saved)}` : 'Giữ nguyên'); pill.title = saved ? `Tiết kiệm ${moneyFormatter.format(percent)}%` : 'Giá bán bằng mệnh giá'; saveCell.append(pill);
+      const faceCell = el('td','price-face'); faceCell.append(el('span','price-face__value',money(face))); const saleCell = el('td','price-pay'); saleCell.append(el('strong','',money(sale)));
+      const saveCell = el('td','price-saved compare-price'); const pill = el('span',`save-pill${saved ? '' : ' save-pill--neutral'}`,saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên'); pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá'; saveCell.append(pill);
       if (saved && saved === bestSaving) faceCell.append(el('span','best-tag','TIẾT KIỆM NHẤT'));
-      const compare = el('td','compare-price',saved ? `Rẻ hơn ${money(saved)}` : 'Không đổi giá');
-      const actionCell = el('td'); const actions = el('div','row-actions');
+      const actionCell = el('td','price-actions'); const actions = el('div','row-actions');
       const buy = externalLink('buy-button','Mua'); setArrowLabel(buy, 'Mua'); buy.setAttribute('aria-label',`Mua ${brand.name} ${money(face)}`); buy.dataset.contact = '';
-      buy.addEventListener('click', () => prepareOrderForChat([{ brand:brand.id, face, qty:1 }]));
+      const selection = [{ brand:brand.id, face, qty:1 }];
+      if (CONFIG.sepay.enabled && qrEligible(selection)) { buy.textContent = 'Thanh toán QR'; buy.setAttribute('aria-label',`Thanh toán QR ${brand.name} ${money(face)}`); }
+      buy.addEventListener('click', event => { if (tryOpenQRPayment(selection)) { event.preventDefault(); return; } prepareOrderForChat(selection); });
       const add = el('button','add-button','+ Thêm vào đơn'); add.type = 'button'; add.setAttribute('aria-label',`Thêm ${brand.name} ${money(face)} vào đơn`); add.addEventListener('click', () => addToCart(brand.id,face,row));
-      actions.append(buy,add); actionCell.append(actions); row.append(faceCell,saleCell,saveCell,compare,actionCell); tbody.append(row);
+      actions.append(buy,add); actionCell.append(actions); row.append(faceCell,saveCell,saleCell,actionCell); tbody.append(row);
     });
     table.append(tbody); panel.append(table);
     const announceRow=event=>{const row=event.target.closest('tr[data-face]');if(row)window.dispatchEvent(new CustomEvent('rowhover',{detail:{id:brand.id,face:+row.dataset.face,sale:+row.dataset.sale,saved:+row.dataset.saved,row}}));};
@@ -253,6 +257,8 @@ function renderCart(focusId) {
   });
   const sum = totals(); $('#order-count').textContent = String(sum.count); $('#mobile-count').textContent = String(sum.count);
   $('#cart-face').textContent = money(sum.face); $('#cart-saved').textContent = money(sum.saved); $('#cart-total').textContent = money(sum.sale); $('#mobile-total').textContent = money(sum.sale);
+  const sendOrder = $('#send-order');
+  if (CONFIG.sepay.enabled && qrEligible(state.cart)) sendOrder.textContent = 'Thanh toán QR'; else setArrowLabel(sendOrder, 'Gửi đơn qua Facebook');
   $('#send-order').setAttribute('aria-disabled',String(!sum.count)); $('#preview-order').disabled = !sum.count;
   if (focusId) { const target = document.getElementById(focusId); if (target && !target.disabled) target.focus({preventScroll:true}); else $('.quantity button:not(:disabled)',container)?.focus({preventScroll:true}); }
 }
@@ -262,10 +268,73 @@ function prepareOrderForChat(cart) {
   // The supplied share URL cannot guarantee Messenger-prefill; native links preserve popup activation.
   copyText(message).then(success => { if (success) toast('Đã sao chép nội dung đơn – dán vào tin nhắn nhé!'); else { showOrderPreview(message); toast('Chưa thể sao chép tự động. Bạn có thể chọn và sao chép nội dung đơn.'); } });
 }
+/* Optional QR checkout. Prices and quantities always come from the current catalog. */
+function qrEligible(cart) {
+  const threshold = Number(CONFIG.sepay.threshold);
+  if (!Number.isSafeInteger(threshold) || threshold <= 0) return false;
+  return Array.isArray(cart) && cart.length > 0 && cart.every(item => item && product(item.brand,item.face) && item.face >= threshold && Number.isInteger(item.qty) && item.qty > 0 && item.qty <= CONFIG.maxQuantity);
+}
+function transferCode() {
+  const prefix = CONFIG.sepay.prefix;
+  if (typeof prefix !== 'string' || !/^[A-Z0-9]{1,20}$/.test(prefix)) throw new Error('Invalid transfer prefix');
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let suffix = '';
+  while (suffix.length < 6) {
+    const bytes = new Uint8Array(12); crypto.getRandomValues(bytes);
+    for (const byte of bytes) { if (byte < 252) suffix += alphabet[byte % alphabet.length]; if (suffix.length === 6) break; }
+  }
+  return prefix + suffix;
+}
+function buildQRPayment(cart) {
+  if (!qrEligible(cart)) throw new Error('Selection is not eligible for QR');
+  const sum = totals(cart), amount = sum.sale;
+  if (!Number.isSafeInteger(amount) || amount <= 0 || amount > 100000000) throw new RangeError('Invalid payment amount');
+  const { account, bank } = CONFIG.sepay;
+  if (typeof account !== 'string' || !/^[0-9]{6,30}$/.test(account) || typeof bank !== 'string' || !bank.trim()) throw new Error('Invalid payment account');
+  const code = transferCode();
+  const params = new URLSearchParams({ acc:account, bank:bank.trim(), amount:String(amount), des:code });
+  return { ...sum, amount, account, bank:bank.trim(), code, url:'https://qr.sepay.vn/img?' + params.toString() };
+}
+function tryOpenQRPayment(cart) {
+  if (!CONFIG.sepay.enabled || !qrEligible(cart)) return false;
+  let payment;
+  try { payment = buildQRPayment(cart); } catch { return false; }
+  const dialog = $('#qr-dialog'); if (!dialog) return false;
+  const items = $('#qr-items'); items.replaceChildren();
+  for (const item of cart) items.append(el('li','',`${product(item.brand,item.face).brand.name} · ${money(item.face)} × ${item.qty}`));
+  $('#qr-face').textContent = money(payment.face);
+  $('#qr-saved').textContent = payment.saved ? money(payment.saved) : 'Giữ nguyên';
+  $('#qr-amount').textContent = money(payment.amount);
+  $('#qr-bank').textContent = payment.bank; $('#qr-account').textContent = payment.account; $('#qr-code').textContent = payment.code;
+  $('#qr-copy-account').dataset.copyValue = payment.account;
+  $('#qr-copy-amount').dataset.copyValue = String(payment.amount);
+  $('#qr-copy-code').dataset.copyValue = payment.code;
+  const image = $('#qr-image'); image.hidden = false; $('#qr-image-fallback').hidden = true;
+  image.alt = `Mã QR ${payment.bank}, số tiền ${money(payment.amount)}, nội dung ${payment.code}`;
+  image.src = payment.url;
+  $('#qr-bill').href = safeUrl(CONFIG.contactUrl);
+  openDialog(dialog); return true;
+}
+function initQRDialog() {
+  const dialog = $('#qr-dialog'); wireDialog(dialog,$('#qr-close'));
+  $('#qr-image').addEventListener('error',()=>{ $('#qr-image').hidden = true; $('#qr-image-fallback').hidden = false; });
+  for (const field of ['account','amount','code']) {
+    const button = $('#qr-copy-' + field);
+    button.addEventListener('click',async()=>{
+      const value = button.dataset.copyValue; if (!value) return;
+      if (await copyText(value)) {
+        window.dispatchEvent(new CustomEvent('copysuccess',{detail:{id:'vcb',element:button,field}}));
+        toast('Đã sao chép thông tin chuyển khoản.');
+      } else toast('Chạm giữ thông tin bên trên để sao chép.');
+    });
+  }
+}
+
 function initOrderBuilder() {
+  initQRDialog();
   restoreCart(); $('#order-title').tabIndex = -1; renderCart();
   $$('input[name="method"]').forEach(radio => { radio.checked = radio.value === state.method; radio.addEventListener('change',()=>{state.method=radio.value;saveCart();}); });
-  $('#send-order').addEventListener('click',event=>{if(!state.cart.length){event.preventDefault();toast('Thêm thẻ vào đơn trước nhé.');return;}prepareOrderForChat(state.cart);});
+  $('#send-order').addEventListener('click',event=>{if(!state.cart.length){event.preventDefault();toast('Thêm thẻ vào đơn trước nhé.');return;}if(tryOpenQRPayment(state.cart)){event.preventDefault();return;}prepareOrderForChat(state.cart);});
   $('#preview-order').addEventListener('click',()=>showOrderPreview(orderMessage()));
   wireDialog($('#message-dialog'),$('#message-close'));
   $('#copy-order').addEventListener('click',async()=>{if(await copyText($('#order-message').value)) toast('Đã sao chép nội dung đơn – dán vào tin nhắn nhé!'); else { $('#order-message').focus(); $('#order-message').select(); toast('Nhấn Ctrl+C hoặc chạm giữ để sao chép nội dung đã chọn.'); }});
