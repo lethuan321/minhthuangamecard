@@ -65,6 +65,13 @@ const CARDS = [
   { id: 'zing', name: 'Thẻ Zing', accent: '--zing', items: [[20000,20000],[50000,49000],[100000,99000],[200000,197000],[500000,490000],[1000000,975000]] },
   { id: 'vcoin', name: 'Thẻ VCoin', accent: '--vcoin', items: [[20000,20000],[50000,48000],[100000,96000],[200000,192000],[300000,288000],[500000,480000],[1000000,960000]] }
 ];
+const GARENA_GAMES = {
+  lq: { id:'lq', name:'Liên Quân Mobile', shortName:'Liên Quân', icon:'⚔️', unit:'Quân Huy', unitShort:'QH', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
+  ff: { id:'ff', name:'Free Fire', shortName:'Free Fire', icon:'🔥', unit:'Kim Cương', unitShort:'KC', rates:{ 5000:'25', 10000:'51', 20000:'113', 50000:'283', 100000:'566', 200000:'1.132', 500000:'2.830' } },
+  fco: { id:'fco', name:'FC Online', shortName:'FC Online', icon:'⚽', unit:'FC', unitShort:'FC', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
+  fcm: { id:'fcm', name:'FC Mobile', shortName:'FC Mobile', icon:'📱', unit:'FV', unitShort:'FV', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
+  df: { id:'df', name:'Delta Force', shortName:'Delta Force', icon:'🎯', unit:'Delta Coin', unitShort:'Coin', rates:{ 5000:'20', 10000:'40', 20000:'80', 50000:'200', 100000:'410', 200000:'820', 500000:'2.050' } }
+};
 
 /* 02 / Small shared utilities */
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -74,7 +81,7 @@ const money = value => `${moneyFormatter.format(value)}đ`;
 const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const desktopQuery = window.matchMedia('(min-width: 1100px)');
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-const state = { cart: [], method: 'momo', activeBrand: 'garena', lenis: null, motionContext: null, motionCleanups: [], motionPaused: false };
+const state = { cart: [], method: 'momo', activeBrand: 'garena', selectedGarenaGame: 'lq', lenis: null, motionContext: null, motionCleanups: [], motionPaused: false };
 const icons = {
   tag: '<path d="M3 4h9l9 9-8 8-10-10V4Z"/><circle cx="8" cy="9" r="1.5"/>',
   bolt: '<path d="m14 2-9 12h6l-1 8 9-12h-6l1-8Z"/>',
@@ -193,36 +200,254 @@ function initPricing() {
     const tab = $(`#tab-${brand.id}`); $('.tab-count',tab).textContent = String(brand.items.length).padStart(2,'0');
     const panel = el('div','price-panel'); panel.id = `panel-${brand.id}`; panel.setAttribute('role','tabpanel'); panel.setAttribute('aria-labelledby',tab.id); panel.tabIndex = 0; panel.hidden = brand.id !== state.activeBrand;
     const header = el('div','catalog-brand'); header.append(el('h3','',brand.name.toUpperCase()),el('p','',`${brand.items.length} mệnh giá · Chọn theo cách bạn chơi`)); panel.append(header);
-    const table = el('table','price-table'); table.setAttribute('aria-label',`Bảng giá ${brand.name}`);
-    const thead = el('thead'); const headRow = el('tr'); ['Mệnh giá','Tiết kiệm','Giá phải trả','Đặt thẻ'].forEach(label => { const th = el('th','',label); th.scope = 'col'; headRow.append(th); }); thead.append(headRow); table.append(thead);
-    const tbody = el('tbody'); const bestSaving = Math.max(...brand.items.map(([face,sale]) => face - sale));
-    brand.items.forEach(([face,sale]) => {
-      const saved = face - sale;
-      const row = el('tr'); row.dataset.brand=brand.id;row.dataset.best=String(saved===bestSaving&&saved>0);row.dataset.face = String(face); row.dataset.sale = String(sale); row.dataset.saved = String(saved);
-      const faceCell = el('td','price-face'); faceCell.append(el('span','price-face__value',money(face))); const saleCell = el('td','price-pay'); saleCell.append(el('strong','',money(sale)));
-      const saveCell = el('td','price-saved compare-price'); const pill = el('span',`save-pill${saved ? '' : ' save-pill--neutral'}`,saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên'); pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá'; saveCell.append(pill);
-      if (saved && saved === bestSaving) faceCell.append(el('span','best-tag','TIẾT KIỆM NHẤT'));
-      const actionCell = el('td','price-actions'); const actions = el('div','row-actions');
-      const buy = externalLink('buy-button','Mua'); setArrowLabel(buy, 'Mua'); buy.setAttribute('aria-label',`Mua ${brand.name} ${money(face)}`); buy.dataset.contact = '';
-      const selection = [{ brand:brand.id, face, qty:1 }];
-      if (CONFIG.sepay.enabled && qrEligible(selection)) { buy.textContent = 'Thanh toán QR'; buy.setAttribute('aria-label',`Thanh toán QR ${brand.name} ${money(face)}`); }
-      buy.addEventListener('click', event => { if (tryOpenQRPayment(selection)) { event.preventDefault(); return; } prepareOrderForChat(selection); });
-      const add = el('button','add-button','+ Thêm vào đơn'); add.type = 'button'; add.setAttribute('aria-label',`Thêm ${brand.name} ${money(face)} vào đơn`); add.addEventListener('click', () => addToCart(brand.id,face,row));
-      actions.append(buy,add); actionCell.append(actions); row.append(faceCell,saveCell,saleCell,actionCell); tbody.append(row);
-    });
-    table.append(tbody); panel.append(table);
-    const announceRow=event=>{const row=event.target.closest('tr[data-face]');if(row)window.dispatchEvent(new CustomEvent('rowhover',{detail:{id:brand.id,face:+row.dataset.face,sale:+row.dataset.sale,saved:+row.dataset.saved,row}}));};
-    tbody.addEventListener('pointerover',announceRow);tbody.addEventListener('pointerdown',announceRow);tbody.addEventListener('focusin',announceRow); panels.append(panel);
+
+    if (brand.id === 'garena') {
+      const selectorBox = el('div', 'game-selector-box');
+      const selectorHeader = el('div', 'game-selector-header');
+      selectorHeader.innerHTML = '<span class="game-selector-badge">Quy đổi vật phẩm</span><span class="game-selector-title">Xem số vật phẩm nhận được theo game bạn chơi:</span>';
+      const gameTabs = el('div', 'game-tabs');
+      gameTabs.setAttribute('aria-label', 'Chọn game nạp thẻ Garena');
+
+      Object.values(GARENA_GAMES).forEach(game => {
+        const btn = el('button', `game-tab${state.selectedGarenaGame === game.id ? ' is-active' : ''}`);
+        btn.type = 'button';
+        btn.dataset.game = game.id;
+        btn.setAttribute('aria-pressed', String(state.selectedGarenaGame === game.id));
+        btn.innerHTML = `<span class="game-icon">${game.icon}</span><span class="game-name">${game.shortName}</span><span class="game-unit">(${game.unit})</span>`;
+        btn.addEventListener('click', () => switchGarenaGame(game.id));
+        gameTabs.append(btn);
+      });
+
+      const allBtn = el('button', `game-tab game-tab--all${state.selectedGarenaGame === 'all' ? ' is-active' : ''}`);
+      allBtn.type = 'button';
+      allBtn.dataset.game = 'all';
+      allBtn.setAttribute('aria-pressed', String(state.selectedGarenaGame === 'all'));
+      allBtn.innerHTML = '<span class="game-icon">📊</span><span class="game-name">Tất cả game</span>';
+      allBtn.addEventListener('click', () => switchGarenaGame('all'));
+      gameTabs.append(allBtn);
+
+      selectorBox.append(selectorHeader, gameTabs);
+      panel.append(selectorBox);
+
+      const table = el('table', 'price-table price-table--reward');
+      table.setAttribute('aria-label', 'Bảng giá Thẻ Garena và quy đổi vật phẩm');
+      const thead = el('thead');
+      const headRow = el('tr');
+      const currentGame = GARENA_GAMES[state.selectedGarenaGame] || GARENA_GAMES.lq;
+      ['Mệnh giá', 'Giá phải trả', `Nhận trong game (${currentGame.unit})`, 'Tiết kiệm', 'Đặt thẻ'].forEach((label, idx) => {
+        const th = el('th', '', label);
+        th.scope = 'col';
+        if (idx === 2) th.id = 'garena-reward-th';
+        headRow.append(th);
+      });
+      thead.append(headRow);
+      table.append(thead);
+
+      const tbody = el('tbody');
+      const bestSaving = Math.max(...brand.items.map(([face, sale]) => face - sale));
+      brand.items.forEach(([face, sale]) => {
+        const saved = face - sale;
+        const row = el('tr');
+        row.dataset.brand = brand.id;
+        row.dataset.best = String(saved === bestSaving && saved > 0);
+        row.dataset.face = String(face);
+        row.dataset.sale = String(sale);
+        row.dataset.saved = String(saved);
+
+        const faceCell = el('td', 'price-face');
+        faceCell.append(el('span', 'price-face__value', money(face)));
+        if (saved && saved === bestSaving) faceCell.append(el('span', 'best-tag', 'TIẾT KIỆM NHẤT'));
+
+        const saleCell = el('td', 'price-pay');
+        saleCell.append(el('strong', '', money(sale)));
+
+        const rewardCell = el('td', 'price-reward');
+        rewardCell.dataset.face = String(face);
+        const badge = el('span', 'reward-badge');
+        badge.innerHTML = `<span class="reward-icon">${currentGame.icon}</span><strong class="reward-val">${currentGame.rates[face] || '—'}</strong> <span class="reward-unit">${currentGame.unit}</span>`;
+        rewardCell.append(badge);
+
+        const saveCell = el('td', 'price-saved compare-price');
+        const pill = el('span', `save-pill${saved ? '' : ' save-pill--neutral'}`, saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên');
+        pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá';
+        saveCell.append(pill);
+
+        const actionCell = el('td', 'price-actions');
+        const actions = el('div', 'row-actions');
+        const buy = externalLink('buy-button', 'Mua');
+        setArrowLabel(buy, 'Mua');
+        buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`);
+        buy.dataset.contact = '';
+        const selection = [{ brand: brand.id, face, qty: 1 }];
+        if (CONFIG.sepay.enabled && qrEligible(selection)) {
+          buy.textContent = 'Thanh toán QR';
+          buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`);
+        }
+        buy.addEventListener('click', event => {
+          if (tryOpenQRPayment(selection)) { event.preventDefault(); return; }
+          prepareOrderForChat(selection);
+        });
+        const add = el('button', 'add-button', '+ Thêm vào đơn');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`);
+        add.addEventListener('click', () => addToCart(brand.id, face, row));
+        actions.append(buy, add);
+        actionCell.append(actions);
+
+        row.append(faceCell, saleCell, rewardCell, saveCell, actionCell);
+        tbody.append(row);
+      });
+      table.append(tbody);
+      panel.append(table);
+
+      const allWrap = el('div', 'all-games-table-wrap');
+      allWrap.hidden = state.selectedGarenaGame !== 'all';
+      const allTable = el('table', 'price-table all-games-table');
+      allTable.setAttribute('aria-label', 'Bảng quy đổi tất cả game nạp thẻ Garena');
+      const allThead = el('thead');
+      const allHeadRow = el('tr');
+      allHeadRow.innerHTML = `
+        <th scope="col">Mệnh giá</th>
+        <th scope="col">Giá phải trả</th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">⚔️</span>LQ Mobile</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🔥</span>Free Fire</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">⚽</span>FC Online</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">📱</span>FC Mobile</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🎯</span>Delta Force</span></th>
+        <th scope="col">Đặt thẻ</th>
+      `;
+      allThead.append(allHeadRow);
+      allTable.append(allThead);
+
+      const allTbody = el('tbody');
+      brand.items.forEach(([face, sale]) => {
+        const row = el('tr');
+        row.dataset.brand = brand.id;
+        row.dataset.face = String(face);
+        row.dataset.sale = String(sale);
+        row.dataset.saved = String(face - sale);
+
+        const faceTd = el('td', 'price-face');
+        faceTd.append(el('span', 'price-face__value', money(face)));
+
+        const saleTd = el('td', 'price-pay');
+        saleTd.append(el('strong', '', money(sale)));
+
+        const lqTd = el('td', 'matrix-cell matrix-cell--lq', `${GARENA_GAMES.lq.rates[face]} QH`);
+        const ffTd = el('td', 'matrix-cell matrix-cell--ff', `${GARENA_GAMES.ff.rates[face]} KC`);
+        const fcoTd = el('td', 'matrix-cell matrix-cell--fco', `${GARENA_GAMES.fco.rates[face]} FC`);
+        const fcmTd = el('td', 'matrix-cell matrix-cell--fcm', `${GARENA_GAMES.fcm.rates[face]} FV`);
+        const dfTd = el('td', 'matrix-cell matrix-cell--df', `${GARENA_GAMES.df.rates[face]} Coin`);
+
+        const actionTd = el('td', 'price-actions');
+        const actions = el('div', 'row-actions');
+        const buy = externalLink('buy-button', 'Mua');
+        setArrowLabel(buy, 'Mua');
+        buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`);
+        buy.dataset.contact = '';
+        const selection = [{ brand: brand.id, face, qty: 1 }];
+        if (CONFIG.sepay.enabled && qrEligible(selection)) {
+          buy.textContent = 'Thanh toán QR';
+          buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`);
+        }
+        buy.addEventListener('click', event => {
+          if (tryOpenQRPayment(selection)) { event.preventDefault(); return; }
+          prepareOrderForChat(selection);
+        });
+        const add = el('button', 'add-button', '+ Thêm vào đơn');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`);
+        add.addEventListener('click', () => addToCart(brand.id, face, row));
+        actions.append(buy, add);
+        actionTd.append(actions);
+
+        row.append(faceTd, saleTd, lqTd, ffTd, fcoTd, fcmTd, dfTd, actionTd);
+        allTbody.append(row);
+      });
+      allTable.append(allTbody);
+      allWrap.append(allTable);
+      panel.append(allWrap);
+
+      const note = el('div', 'garena-info-note');
+      note.innerHTML = '<span>💡 <strong>Nạp chính thức</strong>: Nạp thẻ Garena tại trang web <a href="https://napthe.vn" target="_blank" rel="noopener noreferrer">napthe.vn</a> hoặc trực tiếp trong game. Tỷ lệ quy đổi vật phẩm được cập nhật chính xác theo tỷ lệ chuẩn của Garena.</span>';
+      panel.append(note);
+
+      const announceRow = event => {
+        const row = event.target.closest('tr[data-face]');
+        if (row) window.dispatchEvent(new CustomEvent('rowhover', { detail: { id: brand.id, face: +row.dataset.face, sale: +row.dataset.sale, saved: +row.dataset.saved, row } }));
+      };
+      tbody.addEventListener('pointerover', announceRow); tbody.addEventListener('pointerdown', announceRow); tbody.addEventListener('focusin', announceRow);
+      allTbody.addEventListener('pointerover', announceRow); allTbody.addEventListener('pointerdown', announceRow); allTbody.addEventListener('focusin', announceRow);
+    } else {
+      const table = el('table', 'price-table'); table.setAttribute('aria-label', `Bảng giá ${brand.name}`);
+      const thead = el('thead'); const headRow = el('tr'); ['Mệnh giá', 'Tiết kiệm', 'Giá phải trả', 'Đặt thẻ'].forEach(label => { const th = el('th', '', label); th.scope = 'col'; headRow.append(th); }); thead.append(headRow); table.append(thead);
+      const tbody = el('tbody'); const bestSaving = Math.max(...brand.items.map(([face, sale]) => face - sale));
+      brand.items.forEach(([face, sale]) => {
+        const saved = face - sale;
+        const row = el('tr'); row.dataset.brand = brand.id; row.dataset.best = String(saved === bestSaving && saved > 0); row.dataset.face = String(face); row.dataset.sale = String(sale); row.dataset.saved = String(saved);
+        const faceCell = el('td', 'price-face'); faceCell.append(el('span', 'price-face__value', money(face))); const saleCell = el('td', 'price-pay'); saleCell.append(el('strong', '', money(sale)));
+        const saveCell = el('td', 'price-saved compare-price'); const pill = el('span', `save-pill${saved ? '' : ' save-pill--neutral'}`, saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên'); pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá'; saveCell.append(pill);
+        if (saved && saved === bestSaving) faceCell.append(el('span', 'best-tag', 'TIẾT KIỆM NHẤT'));
+        const actionCell = el('td', 'price-actions'); const actions = el('div', 'row-actions');
+        const buy = externalLink('buy-button', 'Mua'); setArrowLabel(buy, 'Mua'); buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`); buy.dataset.contact = '';
+        const selection = [{ brand: brand.id, face, qty: 1 }];
+        if (CONFIG.sepay.enabled && qrEligible(selection)) { buy.textContent = 'Thanh toán QR'; buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`); }
+        buy.addEventListener('click', event => { if (tryOpenQRPayment(selection)) { event.preventDefault(); return; } prepareOrderForChat(selection); });
+        const add = el('button', 'add-button', '+ Thêm vào đơn'); add.type = 'button'; add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`); add.addEventListener('click', () => addToCart(brand.id, face, row));
+        actions.append(buy, add); actionCell.append(actions); row.append(faceCell, saveCell, saleCell, actionCell); tbody.append(row);
+      });
+      table.append(tbody); panel.append(table);
+      const announceRow = event => { const row = event.target.closest('tr[data-face]'); if (row) window.dispatchEvent(new CustomEvent('rowhover', { detail: { id: brand.id, face: +row.dataset.face, sale: +row.dataset.sale, saved: +row.dataset.saved, row } })); };
+      tbody.addEventListener('pointerover', announceRow); tbody.addEventListener('pointerdown', announceRow); tbody.addEventListener('focusin', announceRow);
+    }
+    panels.append(panel);
     tab.addEventListener('click', () => selectBrand(brand.id));
   });
-  const tabs = $$('[role="tab"]');
-  $('.brand-tabs').addEventListener('keydown', event => { const current = tabs.indexOf(document.activeElement); if (current < 0) return; let next; if (event.key === 'ArrowRight') next = (current+1)%tabs.length; if (event.key === 'ArrowLeft') next = (current-1+tabs.length)%tabs.length; if (event.key === 'Home') next = 0; if (event.key === 'End') next = tabs.length-1; if (next === undefined) return; event.preventDefault(); tabs[next].focus(); selectBrand(tabs[next].dataset.brand); });
+  const tabs = $('.brand-tabs [role="tab"]');
+  $('.brand-tabs').addEventListener('keydown', event => { const current = tabs.indexOf(document.activeElement); if (current < 0) return; let next; if (event.key === 'ArrowRight') next = (current + 1) % tabs.length; if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length; if (event.key === 'Home') next = 0; if (event.key === 'End') next = tabs.length - 1; if (next === undefined) return; event.preventDefault(); tabs[next].focus(); selectBrand(tabs[next].dataset.brand); });
 }
+
+function switchGarenaGame(gameId) {
+  state.selectedGarenaGame = gameId;
+  const isAll = gameId === 'all';
+  const garenaPanel = $('#panel-garena');
+  if (!garenaPanel) return;
+  $$('.game-tab', garenaPanel).forEach(btn => {
+    const active = btn.dataset.game === gameId;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-pressed', String(active));
+  });
+  const mainTable = $('.price-table--reward', garenaPanel);
+  const allWrap = $('.all-games-table-wrap', garenaPanel);
+  if (isAll) {
+    if (mainTable) mainTable.hidden = true;
+    if (allWrap) allWrap.hidden = false;
+  } else {
+    if (mainTable) mainTable.hidden = false;
+    if (allWrap) allWrap.hidden = true;
+    const game = GARENA_GAMES[gameId];
+    if (!game) return;
+    const rewardTh = $('#garena-reward-th');
+    if (rewardTh) rewardTh.textContent = `Nhận trong game (${game.unit})`;
+    $$('.price-reward', mainTable).forEach(cell => {
+      const face = cell.dataset.face;
+      const count = game.rates[face] || '—';
+      const badge = $('.reward-badge', cell);
+      if (badge) {
+        badge.innerHTML = `<span class="reward-icon">${game.icon}</span><strong class="reward-val">${count}</strong> <span class="reward-unit">${game.unit}</span>`;
+        if (motionEnabled() && window.gsap) {
+          gsap.fromTo(badge, { scale: 0.9, opacity: 0.7 }, { scale: 1, opacity: 1, duration: 0.22 });
+        }
+      }
+    });
+  }
+}
+
 function selectBrand(id) {
   state.activeBrand = id; const brand = CARDS.find(item => item.id === id); $('#bang-gia').style.setProperty('--accent',`var(${brand.accent})`);
-  $$('[role="tab"]').forEach(tab => { const selected = tab.dataset.brand === id; tab.setAttribute('aria-selected',String(selected)); tab.tabIndex = selected ? 0 : -1; });
-  $$('.price-panel').forEach(panel => { panel.hidden = panel.id !== `panel-${id}`; });
-  if (motionEnabled() && window.gsap) gsap.fromTo($$('tbody tr',$(`#panel-${id}`)),{ y:8, opacity:.45 },{ y:0, opacity:1, duration:.35, stagger:.025, clearProps:'transform,opacity' });
+  $('.brand-tabs [role="tab"]').forEach(tab => { const selected = tab.dataset.brand === id; tab.setAttribute('aria-selected',String(selected)); tab.tabIndex = selected ? 0 : -1; });
+  $('.price-panel').forEach(panel => { panel.hidden = panel.id !== `panel-${id}`; });
+  if (motionEnabled() && window.gsap) gsap.fromTo($('tbody tr',$(`#panel-${id}`)),{ y:8, opacity:.45 },{ y:0, opacity:1, duration:.35, stagger:.025, clearProps:'transform,opacity' });
   if(innerWidth<1100){const tab=$('#tab-'+id),strip=$('.brand-tabs');strip.scrollTo({left:tab.offsetLeft-(strip.clientWidth-tab.offsetWidth)/2,behavior:motionEnabled()?'smooth':'auto'});}
   refreshScroll();
   window.dispatchEvent(new CustomEvent('brandchange', { detail:{ id } }));
