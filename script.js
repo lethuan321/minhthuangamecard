@@ -207,7 +207,7 @@ function initPricing() {
   const panels = $('#price-panels');
   CARDS.forEach(brand => {
     const tab = $(`#tab-${brand.id}`);
-    $('.tab-count', tab).textContent = `${brand.items.length} mệnh giá`;
+    $('.tab-count', tab).innerHTML = `<span class="tab-count__num">${brand.items.length}</span><span class="tab-count__unit"> mệnh giá</span>`;
     const panel = el('div', 'price-panel');
     panel.id = `panel-${brand.id}`;
     panel.setAttribute('role', 'tabpanel');
