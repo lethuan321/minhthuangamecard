@@ -66,11 +66,11 @@ const CARDS = [
   { id: 'vcoin', name: 'Thẻ VCoin', accent: '--vcoin', items: [[20000,20000],[50000,48000],[100000,96000],[200000,192000],[300000,288000],[500000,480000],[1000000,960000]] }
 ];
 const GARENA_GAMES = {
-  lq: { id:'lq', name:'Liên Quân Mobile', shortName:'Liên Quân', icon:'⚔️', unit:'Quân Huy', unitShort:'QH', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
-  ff: { id:'ff', name:'Free Fire', shortName:'Free Fire', icon:'🔥', unit:'Kim Cương', unitShort:'KC', rates:{ 5000:'25', 10000:'51', 20000:'113', 50000:'283', 100000:'566', 200000:'1.132', 500000:'2.830' } },
-  fco: { id:'fco', name:'FC Online', shortName:'FC Online', icon:'⚽', unit:'FC', unitShort:'FC', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
-  fcm: { id:'fcm', name:'FC Mobile', shortName:'FC Mobile', icon:'📱', unit:'FV', unitShort:'FV', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
-  df: { id:'df', name:'Delta Force', shortName:'Delta Force', icon:'🎯', unit:'Delta Coin', unitShort:'Coin', rates:{ 5000:'20', 10000:'40', 20000:'80', 50000:'200', 100000:'410', 200000:'820', 500000:'2.050' } }
+  lq: { id:'lq', name:'Liên Quân Mobile', shortName:'Liên Quân', icon:'⚔️', unit:'Quân Huy', unitShort:'QH', color:'#3b82f6', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
+  ff: { id:'ff', name:'Free Fire', shortName:'Free Fire', icon:'🔥', unit:'Kim Cương', unitShort:'KC', color:'#f97316', rates:{ 5000:'25', 10000:'51', 20000:'113', 50000:'283', 100000:'566', 200000:'1.132', 500000:'2.830' } },
+  fco: { id:'fco', name:'FC Online', shortName:'FC Online', icon:'⚽', unit:'FC', unitShort:'FC', color:'#10b981', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
+  fcm: { id:'fcm', name:'FC Mobile', shortName:'FC Mobile', icon:'📱', unit:'FV', unitShort:'FV', color:'#a855f7', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
+  df: { id:'df', name:'Delta Force', shortName:'Delta Force', icon:'🎯', unit:'Delta Coin', unitShort:'Coin', color:'#f59e0b', rates:{ 5000:'20', 10000:'40', 20000:'80', 50000:'200', 100000:'410', 200000:'820', 500000:'2.050' } }
 };
 
 /* 02 / Small shared utilities */
@@ -197,14 +197,14 @@ function initHeader() {
 function initPricing() {
   const panels = $('#price-panels');
   CARDS.forEach(brand => {
-    const tab = $(`#tab-${brand.id}`); $('.tab-count',tab).textContent = String(brand.items.length).padStart(2,'0');
+    const tab = $(`#tab-${brand.id}`); $('.tab-count',tab).textContent = `${brand.items.length} mệnh giá`;
     const panel = el('div','price-panel'); panel.id = `panel-${brand.id}`; panel.setAttribute('role','tabpanel'); panel.setAttribute('aria-labelledby',tab.id); panel.tabIndex = 0; panel.hidden = brand.id !== state.activeBrand;
     const header = el('div','catalog-brand'); header.append(el('h3','',brand.name.toUpperCase()),el('p','',`${brand.items.length} mệnh giá · Chọn theo cách bạn chơi`)); panel.append(header);
 
     if (brand.id === 'garena') {
       const selectorBox = el('div', 'game-selector-box');
       const selectorHeader = el('div', 'game-selector-header');
-      selectorHeader.innerHTML = '<span class="game-selector-badge">Quy đổi vật phẩm</span><span class="game-selector-title">Xem số vật phẩm nhận được theo game bạn chơi:</span>';
+      selectorHeader.innerHTML = '<span class="game-selector-badge"><span aria-hidden="true">🎮</span> Quy đổi vật phẩm</span><span class="game-selector-title">Tỷ lệ nạp chính thức theo game bạn chơi:</span>';
       const gameTabs = el('div', 'game-tabs');
       gameTabs.setAttribute('aria-label', 'Chọn game nạp thẻ Garena');
 
@@ -212,7 +212,7 @@ function initPricing() {
         const btn = el('button', `game-tab${state.selectedGarenaGame === game.id ? ' is-active' : ''}`);
         btn.type = 'button';
         btn.dataset.game = game.id;
-        btn.setAttribute('aria-pressed', String(state.selectedGarenaGame === game.id));
+        btn.setAttribute('aria-pressed', String(state.selectedGarenaGame === game.id)); btn.style.setProperty('--game-color', game.color);
         btn.innerHTML = `<span class="game-icon">${game.icon}</span><span class="game-name">${game.shortName}</span><span class="game-unit">(${game.unit})</span>`;
         btn.addEventListener('click', () => switchGarenaGame(game.id));
         gameTabs.append(btn);
@@ -227,7 +227,7 @@ function initPricing() {
       gameTabs.append(allBtn);
 
       selectorBox.append(selectorHeader, gameTabs);
-      panel.append(selectorBox);
+      panel.style.setProperty('--game-accent', (GARENA_GAMES[state.selectedGarenaGame] || GARENA_GAMES.lq).color); panel.append(selectorBox);
 
       const table = el('table', 'price-table price-table--reward');
       table.setAttribute('aria-label', 'Bảng giá Thẻ Garena và quy đổi vật phẩm');
@@ -365,7 +365,7 @@ function initPricing() {
         allTbody.append(row);
       });
       allTable.append(allTbody);
-      allWrap.append(allTable);
+      const scrollHint = el('div', 'matrix-scroll-hint', '↔ Vuốt ngang để so sánh tất cả 5 game'); scrollHint.setAttribute('aria-hidden', 'true'); allWrap.append(scrollHint, allTable);
       panel.append(allWrap);
 
       const note = el('div', 'garena-info-note');
@@ -412,6 +412,9 @@ function switchGarenaGame(gameId) {
   const isAll = gameId === 'all';
   const garenaPanel = $('#panel-garena');
   if (!garenaPanel) return;
+  const activeGame = GARENA_GAMES[gameId];
+  if (activeGame) garenaPanel.style.setProperty('--game-accent', activeGame.color);
+  else if (isAll) garenaPanel.style.setProperty('--game-accent', 'var(--gold)');
   $$('.game-tab', garenaPanel).forEach(btn => {
     const active = btn.dataset.game === gameId;
     btn.classList.toggle('is-active', active);

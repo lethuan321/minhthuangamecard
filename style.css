@@ -261,44 +261,52 @@ body.webgl-ready .pricing .section-heading__note{
 /* --- Garena Game Selector & In-Game Items --- */
 .game-selector-box {
   background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin: 16px 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin: 18px 0 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+  transition: border-color .3s;
 }
 .game-selector-header {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 .game-selector-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
-  padding: 3px 8px;
+  letter-spacing: .08em;
+  padding: 4px 10px;
   border-radius: var(--pill);
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-  color: var(--accent);
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--game-accent, var(--garena)) 18%, transparent);
+  color: var(--game-accent, #ff7582);
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--garena)) 35%, transparent);
+  transition: all .25s ease;
 }
 .game-selector-title {
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
 }
 .game-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  -webkit-overflow-scrolling: touch;
 }
 .game-tab {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
+  gap: 7px;
+  padding: 9px 15px;
+  min-height: 44px;
   border-radius: var(--pill);
   border: 1px solid var(--line);
   background: var(--surface);
@@ -306,81 +314,210 @@ body.webgl-ready .pricing .section-heading__note{
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
+  transition: transform .2s var(--ease), background .25s, border-color .25s, color .25s, box-shadow .25s;
 }
 .game-tab .game-icon {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
 }
 .game-tab .game-name {
   font-weight: 600;
 }
 .game-tab .game-unit {
-  font-size: 10px;
+  font-size: 11px;
   opacity: .75;
 }
 .game-tab:hover {
-  border-color: var(--accent);
+  border-color: var(--game-color, var(--accent));
   color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-1px);
 }
 .game-tab.is-active {
-  background: color-mix(in srgb, var(--accent) 20%, var(--surface));
-  border-color: var(--accent);
+  background: color-mix(in srgb, var(--game-color, var(--accent)) 22%, var(--surface));
+  border-color: var(--game-color, var(--accent));
   color: #fff;
-  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 30%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--game-color, var(--accent)) 30%, transparent);
 }
 .game-tab--all {
   border-style: dashed;
+}
+
+/* Tab count badge polish */
+.tab-count {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 8px;
+  border-radius: var(--pill);
+  margin-left: 6px;
+  letter-spacing: normal;
+}
+.brand-tabs button[aria-selected="true"] .tab-count {
+  color: #fff;
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
 }
 
 /* Reward badge in Garena price table */
 .reward-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--accent) 14%, rgba(0,0,0,.35));
-  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  color: #ff8591;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--game-accent, var(--accent)) 14%, rgba(10, 10, 16, 0.85));
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 38%, transparent);
+  color: var(--game-accent, #ff8591);
   font-size: 13px;
   letter-spacing: -.01em;
-  transition: transform .2s, background-color .2s;
+  transition: transform .25s var(--ease), background .25s, border-color .25s, box-shadow .25s;
 }
 .reward-badge .reward-icon {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
 }
 .reward-badge .reward-val {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: #fff;
   letter-spacing: -.02em;
 }
 .reward-badge .reward-unit {
-  font-size: 11px;
-  color: #ff9ea7;
-  font-weight: 500;
+  font-size: 12px;
+  color: var(--game-accent, #ff9ea7);
+  font-weight: 600;
+}
+.price-table tbody tr:hover .reward-badge {
+  box-shadow: 0 0 14px color-mix(in srgb, var(--game-accent, var(--accent)) 30%, transparent);
+  border-color: var(--game-accent, var(--accent));
 }
 
-/* 5-column Garena table column widths */
+/* 5-column Garena table column widths on desktop */
 @media(min-width: 700px) {
-  .price-table--reward th:nth-child(1) { width: 17%; }
-  .price-table--reward th:nth-child(2) { width: 21%; }
-  .price-table--reward th:nth-child(3) { width: 24%; }
-  .price-table--reward th:nth-child(4) { width: 18%; }
+  .price-table--reward th:nth-child(1) { width: 18%; }
+  .price-table--reward th:nth-child(2) { width: 20%; }
+  .price-table--reward th:nth-child(3) { width: 25%; }
+  .price-table--reward th:nth-child(4) { width: 17%; }
   .price-table--reward th:nth-child(5) { width: 20%; }
+}
+
+/* Matrix comparison table styling */
+.all-games-table-wrap {
+  overflow-x: auto;
+  margin: 14px 0 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: var(--surface);
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+.matrix-scroll-hint {
+  display: none;
+  padding: 8px 14px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+@media(max-width: 900px) {
+  .matrix-scroll-hint { display: block; }
+}
+.all-games-table {
+  min-width: 780px;
+  border-collapse: collapse;
+}
+.all-games-table th {
+  padding: 14px 12px;
+  font-size: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+  background: rgba(14, 14, 21, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.all-games-table th:first-child,
+.all-games-table th:nth-child(2) {
+  text-align: left;
+}
+.all-games-table th:last-child {
+  text-align: right;
+}
+.matrix-th {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+.matrix-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+.matrix-cell {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 16px 12px !important;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid var(--line);
+}
+.matrix-cell--lq { color: #60a5fa; }
+.matrix-cell--ff { color: #f97316; }
+.matrix-cell--fco { color: #34d399; }
+.matrix-cell--fcm { color: #a78bfa; }
+.matrix-cell--df { color: #fbbf24; }
+.all-games-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Garena info note */
+.garena-info-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  padding: 13px 18px;
+  background: rgba(255, 255, 255, 0.025);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  margin: 18px 0 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.garena-info-note a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.garena-info-note a:hover {
+  color: #fff;
 }
 
 /* Responsive Garena table on mobile */
 @media(max-width: 699px) {
+  .game-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .game-tabs::-webkit-scrollbar { display: none; }
+  .game-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 8px 13px;
+  }
   .price-table--reward tr {
-    min-height: 295px;
-    gap: 8px;
+    min-height: 310px;
+    gap: 10px;
+    padding: 18px 14px;
   }
   .price-table--reward td.price-reward {
-    grid-column: 1;
+    grid-column: 1/-1;
     grid-row: 3;
     display: flex;
     flex-direction: column;
@@ -399,82 +536,17 @@ body.webgl-ready .pricing .section-heading__note{
   .price-table--reward td.price-reward .reward-badge {
     width: 100%;
     justify-content: flex-start;
-    padding: 5px 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
   }
   .price-table--reward td.price-saved {
-    grid-column: 1;
+    grid-column: 1/-1;
     grid-row: 4;
-    min-height: 22px;
+    min-height: 24px;
   }
   .price-table--reward td.price-actions {
-    grid-column: 1;
+    grid-column: 1/-1;
     grid-row: 5;
+    margin-top: 4px;
   }
-}
-
-/* All-games matrix comparison table */
-.all-games-table-wrap {
-  overflow-x: auto;
-  margin: 12px 0 20px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-  -webkit-overflow-scrolling: touch;
-}
-.all-games-table {
-  min-width: 780px;
-  border-collapse: collapse;
-}
-.all-games-table th {
-  padding: 12px 10px;
-  font-size: 9px;
-  text-align: center;
-}
-.all-games-table th:first-child,
-.all-games-table th:nth-child(2) {
-  text-align: left;
-}
-.all-games-table th:last-child {
-  text-align: right;
-}
-.matrix-th {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.matrix-icon {
-  font-size: 13px;
-  line-height: 1;
-}
-.matrix-cell {
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  padding: 16px 10px !important;
-}
-.matrix-cell--lq { color: #60a5fa; }
-.matrix-cell--ff { color: #f97316; }
-.matrix-cell--fco { color: #34d399; }
-.matrix-cell--fcm { color: #a78bfa; }
-.matrix-cell--df { color: #fbbf24; }
-
-/* Garena info note */
-.garena-info-note {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.6;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 8px 8px 0;
-  margin: 16px 0 8px;
-}
-.garena-info-note a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.garena-info-note a:hover {
-  color: #fff;
 }
