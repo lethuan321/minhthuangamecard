@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Design Engineer"
+  short_description: "Build and refine polished browser experiences"
+  default_prompt: "Use $web-design-engineer to build or refine a polished browser experience from this brief."

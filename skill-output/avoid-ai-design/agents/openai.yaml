@@ -1,0 +1,4 @@
+interface:
+  display_name: "Avoid AI Design"
+  short_description: "Audit and refine generic frontend design patterns"
+  default_prompt: "Use $avoid-ai-design to audit this UI and refine generic choices while preserving its design system and behavior."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Premium Web Design"
+  short_description: "Craft restrained, premium website experiences"
+  default_prompt: "Use $premium-web-design to refine this website into a premium experience that fits its brand and audience."
