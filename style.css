@@ -46,15 +46,15 @@ body{isolation:isolate}main,.footer{position:relative;z-index:1}
 @media(forced-colors:active){.debug-hud{background:Canvas;color:CanvasText}.webgl-ready .catalog{background:Canvas;box-shadow:none}}
 /* 13 / Responsive */
 @media(min-width:1440px){.hero{padding-top:140px}.hero__grid{grid-template-columns:1.12fr 1fr;gap:36px}.hero__art{height:550px}.game-card{width:282px;height:365px}.game-card--garena{top:144px;left:70px}.game-card--vcoin{top:93px;right:3px}.game-card--zing{left:22px}.circle-badge{top:334px;left:-15px}.hero h1{font-size:144px}.hero__tagline{margin-top:30px}.hero__buttons{margin-top:30px}}
-@media(max-width:1199px){.wrap{width:calc(100% - 64px)}.desktop-nav{gap:17px}.header__inner{gap:18px}.header__actions .social-icon{display:none}.shop-layout{gap:24px;grid-template-columns:minmax(0,1fr) 285px}.order-panel{padding:20px}.game-card{width:235px;height:315px}.game-card--garena{left:45px}.game-card--zing{left:15px}.game-card--vcoin{right:-5px}.art-orbit{width:350px;height:400px}.hero__art{height:480px}.circle-badge{top:300px;left:-17px}.hero__tagline{font-size:22px}.hero__buttons .button{padding-inline:20px;gap:20px}.why,.faq{gap:60px}.price-table th{font-size:7px}.price-table td{padding-inline:5px}.price-table td:nth-child(2){font-size:15px}.save-pill{font-size:8px;padding:4px 6px}.compare-price{font-size:8px}.best-tag{font-size:6px}}
-@media(max-width:1099px){.shop-layout{display:block}#order-slot{display:none}.cart-toggle{display:flex;bottom:max(16px,env(safe-area-inset-bottom))}.footer{padding-bottom:105px}.toast{bottom:90px}.price-table th{font-size:10px}.price-table td:nth-child(2){font-size:21px}.price-table td:first-child{font-size:16px}.save-pill{font-size:11px}.compare-price{font-size:11px}.best-tag{font-size:8px}.buy-button{min-height:44px;font-size:12px;min-width:100px}.add-button{font-size:10px;min-height:44px}.brand-tabs{padding-bottom:15px}.how__steps{gap:30px}.hero__grid{grid-template-columns:1.15fr 1fr;gap:0}.hero h1{font-size:10vw}.game-card{width:210px;height:285px;padding:18px}.game-card__word{font-size:53px}.game-card--garena{left:31px;top:165px}.game-card--zing{left:5px;top:65px}.game-card--vcoin{right:-4px;top:130px}.circle-badge{width:95px;height:95px;top:334px;left:-20px}.circle-badge>span{font-size:45px}.saving-note{bottom:-15px}.hero__buttons{gap:8px}.hero__buttons .button{font-size:10px;padding-inline:17px;gap:13px}.hero__edition{font-size:8px}}
+@media(max-width:1199px){.wrap{width:calc(100% - 64px)}.desktop-nav{gap:17px}.header__inner{gap:18px}.header__actions .social-icon{display:none}.shop-layout{gap:24px;grid-template-columns:minmax(0,1fr) 285px}.order-panel{padding:20px}.game-card{width:235px;height:315px}.game-card--garena{left:45px}.game-card--zing{left:15px}.game-card--vcoin{right:-5px}.art-orbit{width:350px;height:400px}.hero__art{height:480px}.circle-badge{top:300px;left:-17px}.hero__tagline{font-size:22px}.hero__buttons .button{padding-inline:20px;gap:20px}.why,.faq{gap:60px}}
+@media(max-width:1099px){.shop-layout{display:block}#order-slot{display:none}.cart-toggle{display:flex;bottom:max(16px,env(safe-area-inset-bottom))}.footer{padding-bottom:105px}.toast{bottom:90px}.brand-tabs{padding-bottom:15px}.how__steps{gap:30px}.hero__grid{grid-template-columns:1.15fr 1fr;gap:0}.hero h1{font-size:10vw}.game-card{width:210px;height:285px;padding:18px}.game-card__word{font-size:53px}.game-card--garena{left:31px;top:165px}.game-card--zing{left:5px;top:65px}.game-card--vcoin{right:-4px;top:130px}.circle-badge{width:95px;height:95px;top:334px;left:-20px}.circle-badge>span{font-size:45px}.saving-note{bottom:-15px}.hero__buttons{gap:8px}.hero__buttons .button{font-size:10px;padding-inline:17px;gap:13px}.hero__edition{font-size:8px}}
 @media(max-width:900px){.desktop-nav{display:none}.menu-toggle{display:block}.header__actions .social-icon{display:grid}.hero__edition{display:none}.hero__art{height:470px}.art-coordinate{top:28px}.benefit{padding-inline:18px}.benefit h3{font-size:12px}.benefit p{font-size:10px}.why,.faq{gap:40px}.payment-card{padding:24px}.payment-card__bottom{align-items:flex-start;flex-direction:column}.payment-holder{max-width:none}.closing{min-height:70svh}}
 @media(max-width:767px){:root{--header-height:72px}.wrap{width:calc(100% - 40px)}.header__inner{gap:10px}.wordmark{font-size:11px;gap:9px}.wordmark__symbol{font-size:34px;width:31px;height:31px}.wordmark__sub{font-size:7px}.header__buy{margin-left:0;font-size:8px;min-height:38px;padding:9px 13px;gap:16px}.header__actions{gap:2px}.header__actions .social-icon{display:none}.hero{padding-top:96px;min-height:auto}.hero__eyebrow{font-size:8px;letter-spacing:.07em}.hero__grid{grid-template-columns:1fr;padding:20px 0 10px}.hero__copy{padding:10px 0 0}.hero h1{font-size:clamp(74px,17.5vw,130px);line-height:1.1;letter-spacing:-.01em}.hero__tagline{font-size:23px;line-height:1.4;margin-top:22px}.hero__tagline br{display:none}.hero__description{font-size:12px;margin-top:13px}.hero__buttons{margin-top:25px;gap:10px}.hero__buttons .button{min-height:48px;font-size:10px;gap:20px;padding:13px 20px}.hero__proof{margin-top:15px;font-size:9px}.hero__art{height:435px;width:400px;max-width:100%;margin:20px auto 0}.game-card{width:205px;height:275px}.game-card--zing{top:33px;left:20px}.game-card--vcoin{top:80px;right:13px}.game-card--garena{top:110px;left:76px}.circle-badge{top:267px;left:18px;width:91px;height:91px}.circle-badge>span{font-size:43px}.art-coordinate{top:10px;right:0;font-size:7px}.art-orbit{height:360px;width:300px;left:40px;top:10px}.saving-note{bottom:4px;right:10px;font-size:7px}.saving-note__arrow{font-size:27px}.hero__bottom{padding:12px 0}.hero__bottom-note{display:none}.scroll-cue{font-size:8px}.marquee{padding:18px 0}.marquee__track{font-size:29px}.marquee__track--reverse{font-size:24px}.marquee__track i{padding-inline:16px}.benefits{padding-block:36px}.benefits__grid{grid-template-columns:1fr 1fr;row-gap:28px}.benefit{padding-inline:20px}.benefit:nth-child(2){border-right:0;padding-right:0}.benefit:nth-child(3){padding-left:0}.benefit h3{font-size:12px}.benefit p{font-size:10px;max-width:160px}.benefit svg{margin-bottom:12px}.section-space{padding-block:72px}.section-heading{display:block;margin-bottom:30px}.section-kicker{font-size:8px;margin-bottom:17px}.section-heading h2{font-size:clamp(39px,8.9vw,64px)}.section-heading__note{margin-top:23px;font-size:12px}.brand-tabs button{font-size:12px;gap:7px;padding:10px 8px;min-height:48px}.tab-count{font-size:8px;margin-left:3px}.catalog-brand{margin-top:24px}.catalog-brand h3{font-size:23px}.catalog-brand p{font-size:9px}.why,.faq{grid-template-columns:1fr;gap:40px}.why__heading{position:static}.why h2,.faq h2{font-size:49px}.why__heading>p:not(.micro){font-size:12px;margin:20px 0 12px}.why-item h3{font-size:15px}.why-item{padding:23px 0}.how{padding:56px 0}.how__heading{grid-template-columns:1fr 1fr;gap:22px}.how__heading>.micro{grid-column:1/-1;font-size:8px;padding-top:0}.how__heading h2{font-size:50px}.how__heading>p:last-child{font-size:10px}.how__steps{grid-template-columns:1fr;gap:32px;margin-top:37px}.how-step{display:grid;grid-template-columns:75px 1fr;column-gap:19px;align-items:start;padding-top:22px}.how-step__number{grid-row:1/3;font-size:60px}.how-step h3{margin:6px 0 8px;font-size:17px;padding-right:25px}.how-step p{font-size:11px;max-width:none}.how-step__arrow{font-size:23px;top:23px}.payment__grid{grid-template-columns:1fr;gap:16px}.payment-card{padding:24px}.payment-card__top{margin-bottom:25px}.payment-card__number{font-size:38px}.payment-card__bottom{flex-direction:row;align-items:center}.payment-holder{max-width:165px}.payment__banner{gap:17px;margin-top:29px;padding-block:22px}.payment__banner p{font-size:15px}.payment__banner>.micro{display:none}.payment__banner>span:first-child{font-size:30px}.holder-note,.payment__safety{font-size:10px;line-height:1.9}.faq{padding-top:0}.faq summary{font-size:13px;min-height:73px;gap:16px}.faq__answer{font-size:11px;padding-right:22px}.closing{min-height:660px;padding:48px 0 64px}.closing>.wrap{gap:60px}.closing__top{font-size:8px;max-width:100%}.closing__top>span:first-child{max-width:240px}.closing h2{font-size:14vw;line-height:1.25;margin-left:-2px}.closing h2>span:last-child{white-space:normal;font-size:1em;max-width:100%}.closing__star{font-size:.7em;margin-left:14px}.closing__bottom{display:block}.closing__bottom>p{font-size:12px}.closing__actions{margin-top:26px;gap:10px}.closing__actions .button{min-width:0;flex:1;font-size:10px;padding:14px 20px;gap:20px}.footer__top{flex-wrap:wrap;gap:20px;padding-bottom:25px}.footer__top>.micro{order:3;width:100%;font-size:8px}.footer__bottom{display:flex;flex-wrap:wrap;gap:15px;font-size:9px}.footer__bottom p{order:3;max-width:none;line-height:1.9}.footer__bottom>div{margin-left:auto;gap:14px}.footer__bottom a{min-height:30px}.cart-toggle{left:16px;right:16px;font-size:11px;padding-inline:18px}.toast{font-size:11px;padding:13px 17px}.cart-items{max-height:none}.cart-dialog .quantity button{width:44px;height:44px}.cart-dialog .remove-item{min-height:44px}.cart-dialog .cart-item h4{font-size:12px}.cart-dialog .order-send{font-size:11px}.cart-dialog .payment-choice label{min-height:44px;font-size:12px}}
-@media(max-width:699px){.price-table,.price-table tbody{display:block;width:100%}.price-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.price-table tbody{display:grid;grid-template-columns:1fr 1fr;gap:12px}.price-table tr{display:grid;grid-template-columns:1fr 1fr;align-content:start;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 14px;gap:9px 5px;min-width:0}.price-table tr:hover{box-shadow:inset 2px 0 var(--accent)}.price-table td{border:0;padding:0!important;display:block}.price-table td:first-child{font-size:14px;grid-column:1/-1;color:#b6b6bf}.price-table td:first-child::before{content:'Mệnh giá ';font-weight:400;font-size:10px}.price-table td:nth-child(2){font-size:23px;grid-column:1/-1;letter-spacing:-.055em}.price-table td:nth-child(3){grid-column:1/-1;min-height:27px}.price-table td:nth-child(4){grid-column:1/-1;font-size:9px;min-height:17px}.price-table td:last-child{grid-column:1/-1}.price-table .save-pill{font-size:9px;padding:4px 7px}.best-tag{font-size:7px}.row-actions{align-items:stretch;margin-top:4px}.buy-button{font-size:10px;min-height:44px}.add-button{font-size:9px;min-height:44px}.pricing__footnote{font-size:9px;margin-top:18px}.price-table tr:has(.best-tag){border-color:#f5c54255}}
+@media(max-width:699px){.pricing__footnote{font-size:11px;margin-top:18px}}
 @media(max-width:479px){.hero__tagline{max-width:295px}.hero__tagline br{display:block}.hero__buttons .button{padding-inline:17px;gap:12px;font-size:9px}.hero__art{height:410px;margin-top:26px}.game-card{width:182px;height:250px;padding:16px}.game-card__word{font-size:46px}.game-card__top,.game-card__bottom{font-size:6px}.game-card--zing{left:9px;top:36px}.game-card--vcoin{right:7px;top:89px}.game-card--garena{left:64px;top:122px}.circle-badge{top:269px;left:8px;width:84px;height:84px}.art-orbit{width:260px;height:340px;left:26px}.hero__art::before{inset:0}.saving-note{bottom:0;right:0}.circle-badge>span{font-size:38px}.payment-card__number{font-size:34px}.payment-card__brand{font-size:14px}.payment-card__bottom{flex-wrap:wrap;gap:16px}.payment-card__top>.micro{font-size:7px}.payment-card{padding:21px}.payment-holder{max-width:130px}.copy-button{min-width:116px;font-size:8px}.how__heading{gap:20px 10px}.how__heading h2{font-size:45px}.how__heading>p:last-child{font-size:9px}.closing{min-height:620px}.closing h2{font-size:14.8vw}.message-dialog{padding:19px}.dialog-heading h2{font-size:15px}.message-dialog__actions{flex-direction:column}.message-dialog__actions .button{flex:auto}}
 @media(max-width:767px){.hero__grid{grid-template-columns:minmax(0,1fr)}.hero__copy{min-width:0}.hero__art{width:min(400px,100%);overflow:clip}.game-card--vcoin{right:30px}.hero__eyebrow{font-size:8px}.hero__proof{font-size:10px}.game-card--zing .game-card__word{font-size:46px;top:66px}.brand-tabs .tab-count{font-size:9px}.benefit p{font-size:11px}.benefit h3{font-size:13px}}
 @media(min-width:768px) and (max-width:1099px){.hero__art{scale:.88;transform-origin:40% 50%}.game-card--vcoin{right:22px}.art-orbit{max-width:100%}}
-@media(max-width:479px){.price-table tbody{grid-template-columns:1fr}.price-table tr{padding:17px 16px;gap:12px 8px}.price-table td:first-child{grid-column:1;grid-row:1;align-self:center;font-size:14px}.price-table td:first-child::before{display:block;font-size:10px;margin-bottom:2px}.price-table td:nth-child(2){grid-column:2;grid-row:1;text-align:right;align-self:center;font-size:24px}.price-table td:nth-child(3){grid-column:1;grid-row:2}.price-table td:nth-child(4){grid-column:2;grid-row:2;text-align:right;align-self:center;font-size:10px}.price-table td:last-child{grid-row:3}.price-table .save-pill{font-size:10px}.row-actions{flex-direction:row;justify-content:space-between;align-items:center;margin:0}.buy-button{order:2;min-width:104px;font-size:11px}.add-button{font-size:10px}.best-tag{font-size:8px}.catalog-brand p{max-width:132px;text-align:right;font-size:9px}}
+@media(max-width:479px){.catalog-brand p{max-width:160px;text-align:right;font-size:11px}.wrap{width:calc(100% - 24px)}}
 @media(hover:hover) and (pointer:fine){.cursor-enabled .cursor-dot,.cursor-enabled .cursor-ring{display:block}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.lenis.lenis-autoToggle{transition:overflow 1ms allow-discrete!important}.grain,.cursor-dot,.cursor-ring,.preloader{display:none!important}.motion-toggle{display:none}.marquee__track{transform:none!important}.game-card{transform:rotate(var(--tilt))!important}}
 @media(forced-colors:active){:root{--bg:Canvas;--bg-2:Canvas;--text:CanvasText;--muted:CanvasText;--line:ButtonBorder;--garena:LinkText;--save:CanvasText;--gold:Highlight}.grain,.cursor-dot,.cursor-ring{display:none}.button,.brand-tabs button,.save-pill,.game-card,.payment-card,.order-panel{border:1px solid ButtonBorder}.marquee__track--reverse{color:CanvasText;-webkit-text-stroke:0}.red,.how-step__number{color:LinkText}.button--red,.closing,.how,.cart-toggle{background:Canvas;color:CanvasText}.check{color:CanvasText}}
@@ -210,13 +210,24 @@ body.webgl-ready .pricing .section-heading__note{
   background:radial-gradient(ellipse closest-side,rgba(7,7,11,.24) 35%,rgba(7,7,11,0) 100%);
 }
 
-/* Catalog: harmonized font scale, clean column proportions, and responsive card view */
-.price-table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; text-align: left; table-layout: fixed; }
+/* Catalog: harmonized font scale, zero-overflow mobile cards, and compact game selector */
+.catalog { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.price-panels { width: 100%; max-width: 100%; box-sizing: border-box; }
+.price-panel { width: 100%; max-width: 100%; box-sizing: border-box; }
+.price-table { border-collapse: collapse; width: 100%; max-width: 100%; font-variant-numeric: tabular-nums; text-align: left; table-layout: fixed; box-sizing: border-box; }
 .price-table th { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; color: var(--muted); padding: 14px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 .price-table:not(.price-table--reward) th:nth-child(1) { width: 24%; }
 .price-table:not(.price-table--reward) th:nth-child(2) { width: 26%; }
 .price-table:not(.price-table--reward) th:nth-child(3) { width: 24%; }
 .price-table:not(.price-table--reward) th:nth-child(4) { width: 26%; }
+
+/* 5-column Garena & Zing table column widths on desktop */
+.price-table--reward th:nth-child(1) { width: 18%; }
+.price-table--reward th:nth-child(2) { width: 20%; }
+.price-table--reward th:nth-child(3) { width: 26%; }
+.price-table--reward th:nth-child(4) { width: 16%; }
+.price-table--reward th:nth-child(5) { width: 20%; }
+
 .price-table td { border-bottom: 1px solid var(--line); padding: 18px 10px; transition: background .2s; vertical-align: middle; }
 .price-table tbody tr { position: relative; transition: background .2s, box-shadow .2s; }
 .price-table tbody tr:hover { background: var(--surface); box-shadow: inset 3px 0 var(--game-accent, var(--accent)); }
@@ -229,12 +240,37 @@ body.webgl-ready .pricing .section-heading__note{
 .price-table td.price-saved::before { content: none; }
 .save-pill { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; white-space: nowrap; padding: 4px 9px; border-radius: var(--pill); background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.28); line-height: 1.4; }
 .save-pill--neutral { background: var(--surface); color: var(--muted); border-color: var(--line); }
+
+/* Reward badge */
+.reward-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--game-accent, var(--accent)) 14%, rgba(10, 10, 16, 0.85));
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 38%, transparent);
+  color: var(--game-accent, #ff8591);
+  font-size: 13px;
+  letter-spacing: -.01em;
+  transition: transform .2s var(--ease), background .25s, border-color .25s, box-shadow .25s;
+}
+.reward-badge .reward-icon { font-size: 15px; line-height: 1; }
+.reward-badge .reward-val { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -.02em; }
+.reward-badge .reward-unit { font-size: 12px; color: var(--game-accent, #ff9ea7); font-weight: 600; }
+.price-table tbody tr:hover .reward-badge {
+  box-shadow: 0 0 14px color-mix(in srgb, var(--game-accent, var(--accent)) 30%, transparent);
+  border-color: var(--game-accent, var(--accent));
+}
+
 .price-table td.price-actions { font-size: 12px; text-align: right; }
 .row-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .buy-button { border: 1px solid var(--line); border-radius: var(--pill); min-height: 40px; min-width: 82px; padding: 8px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; background: transparent; color: var(--text); cursor: pointer; transition: background .2s, border-color .2s, color .2s, transform .15s; }
 .buy-button:hover { border-color: var(--game-accent, var(--accent)); background: var(--game-accent, var(--accent)); color: #fff; transform: translateY(-1px); }
 .add-button { font-size: 11px; font-weight: 500; min-height: 34px; color: var(--muted); padding: 4px 8px; background: transparent; border: none; cursor: pointer; transition: color .2s; }
 .add-button:hover { color: #fff; }
+
+/* Desktop table structure */
 @media(min-width: 700px) {
   .price-table { display: table; }
   .price-table thead { display: table-header-group; position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
@@ -242,189 +278,331 @@ body.webgl-ready .pricing .section-heading__note{
   .price-table tr { display: table-row; }
   .price-table td { display: table-cell; }
 }
-@media(max-width: 699px) {
-  .price-table { display: block; width: 100%; }
-  .price-table thead { display: none; }
-  .price-table tbody { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; }
-  .price-table tr { display: grid; grid-template-columns: minmax(0, 1fr); padding: 14px 12px; gap: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); transition: border-color .2s; }
-  .price-table tbody tr:hover { box-shadow: none; border-color: var(--game-accent, var(--accent)); }
-  .price-table td { padding: 0 !important; border: none !important; }
-  .price-table td.price-face { grid-column: 1; grid-row: 1; font-size: 13px; font-weight: 600; text-align: left; }
-  .price-table td.price-face::before { content: 'Mệnh giá'; display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 2px; }
-  .price-table tr:not([data-saved="0"]) .price-face__value { text-decoration: line-through; opacity: .85; }
-  .price-table td.price-pay { grid-column: 1; grid-row: 2; font-size: 18px; font-weight: 700; color: #fff; text-align: left; }
-  .price-table td.price-pay::before { content: 'Giá phải trả'; display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 2px; }
-  .price-table:not(.price-table--reward) td.price-saved { grid-column: 1; grid-row: 3; min-height: 24px; margin: 2px 0 4px; }
-  .price-table:not(.price-table--reward) td.price-actions { grid-column: 1; grid-row: 4; align-self: end; }
-  .price-table .save-pill { font-size: 10px; padding: 3px 8px; }
-  .price-table .row-actions { flex-direction: column; align-items: stretch; gap: 6px; width: 100%; }
-  .price-table .buy-button { width: 100%; min-width: 0; min-height: 44px; font-size: 11px; font-weight: 600; justify-content: center; background: var(--game-accent, var(--accent)); border-color: var(--game-accent, var(--accent)); color: #fff; }
-  .price-table .add-button { width: 100%; min-width: 0; min-height: 38px; font-size: 11px; font-weight: 500; justify-content: center; border: 1px solid var(--line); border-radius: var(--pill); }
-}
-@media(max-width: 440px) {
-  .price-table tbody { grid-template-columns: 1fr; }
-}
-/* QR is an intentional modal surface, independent of the decorative canvas. */
-.qr-dialog{width:min(540px,calc(100% - 24px));max-height:90dvh;overflow:auto;border-radius:16px}
-.qr-dialog h2{font-size:30px}.qr-items{padding-left:20px;font-size:13px}
-.qr-summary,.qr-details{display:grid;gap:10px;margin:16px 0}
-.qr-summary>div,.qr-details>div{display:flex;justify-content:space-between;gap:16px}
-.qr-dialog dt{color:var(--muted);font-size:12px}.qr-dialog dd{margin:0;text-align:right;overflow-wrap:anywhere}
-#qr-amount{font-size:24px}#qr-account,#qr-code{user-select:text;font-variant-numeric:tabular-nums}
-#qr-image{display:block;max-width:100%;height:auto;margin:20px auto;background:#fff;border-radius:8px}
-#qr-image-fallback{font-size:13px;color:var(--gold)}
-.qr-copy-actions{display:grid;gap:8px}.qr-copy-actions .button{justify-content:center;font-size:12px;min-height:44px}
-.qr-instructions{font-size:13px;line-height:1.7;margin:18px 0}#qr-bill{width:100%;justify-content:center;font-size:12px}
 
-
-/* --- Game Dropdown Selector & In-Game Items --- */
+/* --- Compact Game Selector Box (Streamlined & Touch-Optimized) --- */
 .game-selector-box {
   background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 16px 20px;
-  margin: 18px 0 22px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
-  transition: border-color .3s, box-shadow .3s;
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 25%, rgba(255, 255, 255, 0.08));
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin: 10px 0 16px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  z-index: 5;
+  transition: border-color .3s;
 }
-.game-selector-box:hover {
-  border-color: color-mix(in srgb, var(--game-accent, var(--accent)) 40%, rgba(255, 255, 255, 0.1));
-}
-.game-selector-header {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.game-selector-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  padding: 5px 11px;
-  border-radius: var(--pill);
-  background: color-mix(in srgb, var(--game-accent, var(--accent)) 16%, transparent);
-  color: var(--game-accent, #ff7582);
-  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 35%, transparent);
-  transition: all .25s ease;
-}
-.game-selector-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.game-selector-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -.01em;
-}
-.game-selector-sub {
-  font-size: 12px;
-  color: var(--muted);
-}
-.game-dropdown-row {
+.game-selector-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.game-selector-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+.game-selector-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+.game-selector-title {
+  letter-spacing: -.01em;
 }
 .game-select-wrap {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 1 1 300px;
-  max-width: 440px;
+  flex: 1 1 auto;
+  max-width: 320px;
+  min-width: 0;
+  height: 38px;
   background: var(--surface);
-  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 32%, rgba(255, 255, 255, 0.12));
-  border-radius: 10px;
-  transition: border-color .25s, box-shadow .25s, background .25s;
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 35%, rgba(255, 255, 255, 0.15));
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+  cursor: pointer;
 }
-.game-select-wrap:hover {
+.game-select-wrap:hover, .game-select-wrap:focus-within {
   border-color: var(--game-accent, var(--accent));
-  box-shadow: 0 0 16px color-mix(in srgb, var(--game-accent, var(--accent)) 22%, transparent);
-}
-.game-select-wrap:focus-within {
-  border-color: var(--game-accent, var(--accent));
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--game-accent, var(--accent)) 30%, transparent);
-}
-.game-select-lead-icon {
-  position: absolute;
-  left: 14px;
-  font-size: 18px;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--game-accent, var(--accent)) 25%, transparent);
 }
 .game-dropdown-select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   width: 100%;
-  min-height: 46px;
-  padding: 10px 42px 10px 44px;
+  height: 100%;
+  padding: 0 28px 0 12px;
   background: transparent;
   border: none;
   outline: none;
   color: #fff;
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .game-dropdown-select option {
   background: #14141d;
   color: #fff;
   padding: 8px 12px;
+  font-size: 13px;
 }
 .game-dropdown-caret {
   position: absolute;
-  right: 14px;
-  font-size: 12px;
+  right: 10px;
+  font-size: 11px;
   color: var(--muted);
   pointer-events: none;
-  user-select: none;
+  z-index: 1;
 }
-.game-active-chip {
+
+/* Quick 1-tap game chips */
+.game-quick-chips {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding: 6px 0 2px;
+  margin-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.game-quick-chips::-webkit-scrollbar {
+  display: none;
+}
+.game-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
+  gap: 4px;
+  padding: 4px 9px;
+  min-height: 28px;
   border-radius: var(--pill);
-  background: color-mix(in srgb, var(--game-accent, var(--accent)) 12%, rgba(255, 255, 255, 0.03));
-  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 25%, transparent);
-  font-size: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.game-chip:hover {
+  border-color: var(--game-accent, var(--accent));
   color: var(--text);
 }
-.game-active-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--game-accent, var(--accent));
-  box-shadow: 0 0 8px var(--game-accent, var(--accent));
-}
-.game-active-label strong {
+.game-chip.is-active {
+  background: color-mix(in srgb, var(--game-accent, var(--accent)) 24%, var(--surface));
+  border-color: var(--game-accent, var(--accent));
   color: #fff;
   font-weight: 600;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--game-accent, var(--accent)) 25%, transparent);
 }
+.game-chip--all {
+  border-style: dashed;
+}
+
+/* Mobile: Perfectly Contained Single-Column Cards, Zero Left-Overflow */
 @media(max-width: 699px) {
-  .game-dropdown-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+  .game-selector-box {
+    padding: 8px 10px;
+    margin: 8px 0 14px;
+  }
+  .game-selector-bar {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
   }
   .game-select-wrap {
+    max-width: none;
+    flex: 1 1 auto;
+    height: 42px;
+  }
+  .game-dropdown-select {
+    font-size: 16px; /* CRITICAL: Prevents iOS Safari automatic viewport auto-zoom */
+  }
+  .price-table {
+    display: block;
+    width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
+  }
+  .price-table thead {
+    display: none;
+  }
+  .price-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .price-table tr {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    gap: 7px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    transition: border-color .2s;
+  }
+  .price-table tbody tr:hover {
+    box-shadow: none;
+    border-color: var(--game-accent, var(--accent));
+  }
+  .price-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 !important;
+    border: none !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Row 1: Mệnh giá */
+  .price-table td.price-face {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .price-table td.price-face::before {
+    content: 'Mệnh giá';
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+  .price-table tr:not([data-saved="0"]) .price-face__value {
+    text-decoration: line-through;
+    opacity: .75;
+  }
+
+  /* Row 2: Giá phải trả */
+  .price-table td.price-pay {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08) !important;
+    padding-bottom: 6px !important;
+  }
+  .price-table td.price-pay::before {
+    content: 'Giá phải trả';
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* Row 3 (Garena & Zing): Nhận trong game */
+  .price-table--reward td.price-reward {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .price-table--reward td.price-reward::before {
+    content: 'Quy đổi game';
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+  .price-table--reward td.price-reward .reward-badge {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  .price-table--reward td.price-reward .reward-val {
+    font-size: 14px;
+  }
+  .price-table--reward td.price-reward .reward-unit {
+    font-size: 11px;
+  }
+
+  /* Row 4: Tiết kiệm */
+  .price-table td.price-saved {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .price-table td.price-saved::before {
+    content: 'Ưu đãi';
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+  .price-table .save-pill {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  /* Row 5: Actions */
+  .price-table td.price-actions {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding-top: 4px !important;
+  }
+  .price-table .row-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
     width: 100%;
   }
-  .game-active-chip {
+  .price-table .buy-button {
     width: 100%;
-    justify-content: flex-start;
+    min-width: 0;
+    min-height: 44px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    justify-content: center;
+    background: var(--game-accent, var(--accent));
+    border-color: var(--game-accent, var(--accent));
+    color: #fff;
+    border-radius: var(--pill);
+  }
+  .price-table .add-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    font-size: 11px;
+    font-weight: 500;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: var(--pill);
+    color: var(--text);
   }
 }
 
@@ -589,54 +767,3 @@ body.webgl-ready .pricing .section-heading__note{
   color: #fff;
 }
 
-/* Responsive Garena & Zing reward table on mobile */
-@media(max-width: 699px) {
-  .price-table--reward tr {
-    min-height: 300px;
-    gap: 8px;
-    padding: 14px 12px;
-  }
-  .price-table--reward td.price-reward {
-    grid-column: 1;
-    grid-row: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    margin: 2px 0;
-  }
-  .price-table--reward td.price-reward::before {
-    content: 'Nhận trong game';
-    display: block;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    color: var(--muted);
-    margin-bottom: 2px;
-  }
-  .price-table--reward td.price-reward .reward-badge {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 7px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-  }
-  .price-table--reward td.price-reward .reward-val {
-    font-size: 14px;
-  }
-  .price-table--reward td.price-reward .reward-unit {
-    font-size: 11px;
-  }
-  .price-table--reward td.price-saved {
-    grid-column: 1;
-    grid-row: 4;
-    min-height: 24px;
-    margin: 2px 0 4px;
-  }
-  .price-table--reward td.price-actions {
-    grid-column: 1;
-    grid-row: 5;
-    align-self: end;
-  }
-}

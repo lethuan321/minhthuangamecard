@@ -91,6 +91,7 @@ function findAllSelector(root, sel) {
         } else if (child.attributes && child.attributes[attr] !== undefined) match = true;
       } else if (sel.toLowerCase() === child.tagName?.toLowerCase()) match = true;
       else if (sel === 'tbody tr' && child.tagName === 'TR') match = true;
+      else if (sel.includes('.game-chip') && child.classList?.contains('game-chip')) match = true;
       else if (sel === '.price-reward' && child.classList?.contains('price-reward')) match = true;
       else if (sel === '.game-dropdown-select' && child.classList?.contains('game-dropdown-select')) match = true;
       else if (sel === '.price-table--reward' && child.classList?.contains('price-table--reward')) match = true;
@@ -191,6 +192,15 @@ vm.runInContext(`
   assert.equal(garenaSelect.value, 'ff', 'Dropdown value syncs with switchGarenaGame');
   assert.ok(gRewardCell100k.children[0].textContent.includes('566'), '100k Garena gives 566 Kim Cuong');
   assert.ok(gRewardCell100k.children[0].textContent.includes('Kim Cương'), 'Unit is Kim Cương');
+
+  // Test chip click on Free Fire
+  const garenaChips = garenaSelectorBox.children.find(c => c.id === 'garena-quick-chips');
+  assert.ok(garenaChips, 'Garena quick chips row exists for 1-tap mobile selection');
+  const lqChip = garenaChips.children.find(c => c.dataset.game === 'lq');
+  assert.ok(lqChip, 'LQ chip exists');
+  lqChip.dispatchEvent({ type: 'click' });
+  assert.equal(garenaSelect.value, 'lq', 'Clicking quick chip switches dropdown value');
+  assert.ok(gRewardCell100k.children[0].textContent.includes('204'), '100k Garena switches back to 204 Quan Huy');
 
   // Test Delta Force switch
   switchGarenaGame('df');

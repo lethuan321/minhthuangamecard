@@ -222,17 +222,15 @@ function initPricing() {
       const currentGame = GARENA_GAMES[state.selectedGarenaGame] || GARENA_GAMES.lq;
       panel.style.setProperty('--game-accent', currentGame.color);
 
-      // Dropdown selector box
+      // Compact Dropdown Selector box for Garena
       const selectorBox = el('div', 'game-selector-box');
-      const selectorHeader = el('div', 'game-selector-header');
-      selectorHeader.innerHTML = '<span class="game-selector-badge"><span aria-hidden="true">🎮</span> Quy đổi vật phẩm</span><div class="game-selector-copy"><strong class="game-selector-title">Chọn game nạp thẻ Garena:</strong><span class="game-selector-sub">Xem số vật phẩm nhận được ở từng mệnh giá</span></div>';
+      
+      const bar = el('div', 'game-selector-bar');
+      const label = el('label', 'game-selector-label');
+      label.setAttribute('for', 'game-select-garena');
+      label.innerHTML = `<span class="game-selector-icon" id="garena-select-lead-icon" aria-hidden="true">${currentGame.icon}</span><span class="game-selector-title">Quy đổi game:</span>`;
 
-      const dropdownRow = el('div', 'game-dropdown-row');
       const selectWrap = el('div', 'game-select-wrap');
-      const leadIcon = el('span', 'game-select-lead-icon', currentGame.icon);
-      leadIcon.id = 'garena-select-lead-icon';
-      leadIcon.setAttribute('aria-hidden', 'true');
-
       const select = el('select', 'game-dropdown-select');
       select.id = 'game-select-garena';
       select.setAttribute('aria-label', 'Chọn game nạp thẻ Garena để xem quy đổi vật phẩm');
@@ -250,17 +248,35 @@ function initPricing() {
 
       const caret = el('span', 'game-dropdown-caret', '▾');
       caret.setAttribute('aria-hidden', 'true');
-      selectWrap.append(leadIcon, select, caret);
+      selectWrap.append(select, caret);
+      bar.append(label, selectWrap);
 
-      const activeChip = el('div', 'game-active-chip');
-      activeChip.id = 'garena-active-chip';
-      activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${currentGame.shortName}</strong> (${currentGame.unit})</span>`;
+      // Quick 1-tap game chips for instant touch switching on mobile
+      const chips = el('div', 'game-quick-chips');
+      chips.id = 'garena-quick-chips';
+      chips.setAttribute('role', 'group');
+      chips.setAttribute('aria-label', 'Chọn nhanh tựa game Garena');
+      Object.values(GARENA_GAMES).forEach(game => {
+        const chip = el('button', `game-chip${state.selectedGarenaGame === game.id ? ' is-active' : ''}`);
+        chip.type = 'button';
+        chip.dataset.game = game.id;
+        chip.innerHTML = `<span class="chip-icon">${game.icon}</span> <span class="chip-name">${game.shortName}</span>`;
+        chip.addEventListener('click', () => switchGarenaGame(game.id));
+        chips.append(chip);
+      });
+      const allChip = el('button', `game-chip game-chip--all${state.selectedGarenaGame === 'all' ? ' is-active' : ''}`);
+      allChip.type = 'button';
+      allChip.dataset.game = 'all';
+      allChip.innerHTML = '<span class="chip-icon">📊</span> <span class="chip-name">Tất cả</span>';
+      allChip.addEventListener('click', () => switchGarenaGame('all'));
+      chips.append(allChip);
 
-      dropdownRow.append(selectWrap, activeChip);
-      selectorBox.append(selectorHeader, dropdownRow);
+      selectorBox.append(bar, chips);
       panel.append(selectorBox);
 
       select.addEventListener('change', e => switchGarenaGame(e.target.value));
+      select.addEventListener('input', e => switchGarenaGame(e.target.value));
+      selectWrap.addEventListener('pointerdown', () => { select.focus(); });
 
       // Main Garena table
       const table = el('table', 'price-table price-table--reward');
@@ -418,17 +434,15 @@ function initPricing() {
       const currentGame = ZING_GAMES[state.selectedZingGame] || ZING_GAMES.val;
       panel.style.setProperty('--game-accent', currentGame.color);
 
-      // Dropdown selector box for Zing
+      // Compact Dropdown Selector box for Zing
       const selectorBox = el('div', 'game-selector-box');
-      const selectorHeader = el('div', 'game-selector-header');
-      selectorHeader.innerHTML = '<span class="game-selector-badge"><span aria-hidden="true">🎮</span> Quy đổi vật phẩm</span><div class="game-selector-copy"><strong class="game-selector-title">Chọn game nạp thẻ Zing (ZingPay):</strong><span class="game-selector-sub">Xem số vật phẩm nhận được theo 7 tựa game phổ biến nhất</span></div>';
+      
+      const bar = el('div', 'game-selector-bar');
+      const label = el('label', 'game-selector-label');
+      label.setAttribute('for', 'game-select-zing');
+      label.innerHTML = `<span class="game-selector-icon" id="zing-select-lead-icon" aria-hidden="true">${currentGame.icon}</span><span class="game-selector-title">Quy đổi game:</span>`;
 
-      const dropdownRow = el('div', 'game-dropdown-row');
       const selectWrap = el('div', 'game-select-wrap');
-      const leadIcon = el('span', 'game-select-lead-icon', currentGame.icon);
-      leadIcon.id = 'zing-select-lead-icon';
-      leadIcon.setAttribute('aria-hidden', 'true');
-
       const select = el('select', 'game-dropdown-select');
       select.id = 'game-select-zing';
       select.setAttribute('aria-label', 'Chọn game nạp thẻ Zing để xem quy đổi vật phẩm');
@@ -446,17 +460,35 @@ function initPricing() {
 
       const caret = el('span', 'game-dropdown-caret', '▾');
       caret.setAttribute('aria-hidden', 'true');
-      selectWrap.append(leadIcon, select, caret);
+      selectWrap.append(select, caret);
+      bar.append(label, selectWrap);
 
-      const activeChip = el('div', 'game-active-chip');
-      activeChip.id = 'zing-active-chip';
-      activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${currentGame.shortName}</strong> (${currentGame.unit})</span>`;
+      // Quick 1-tap game chips for instant touch switching on mobile
+      const chips = el('div', 'game-quick-chips');
+      chips.id = 'zing-quick-chips';
+      chips.setAttribute('role', 'group');
+      chips.setAttribute('aria-label', 'Chọn nhanh tựa game Zing');
+      Object.values(ZING_GAMES).forEach(game => {
+        const chip = el('button', `game-chip${state.selectedZingGame === game.id ? ' is-active' : ''}`);
+        chip.type = 'button';
+        chip.dataset.game = game.id;
+        chip.innerHTML = `<span class="chip-icon">${game.icon}</span> <span class="chip-name">${game.shortName}</span>`;
+        chip.addEventListener('click', () => switchZingGame(game.id));
+        chips.append(chip);
+      });
+      const allChip = el('button', `game-chip game-chip--all${state.selectedZingGame === 'all' ? ' is-active' : ''}`);
+      allChip.type = 'button';
+      allChip.dataset.game = 'all';
+      allChip.innerHTML = '<span class="chip-icon">📊</span> <span class="chip-name">Tất cả</span>';
+      allChip.addEventListener('click', () => switchZingGame('all'));
+      chips.append(allChip);
 
-      dropdownRow.append(selectWrap, activeChip);
-      selectorBox.append(selectorHeader, dropdownRow);
+      selectorBox.append(bar, chips);
       panel.append(selectorBox);
 
       select.addEventListener('change', e => switchZingGame(e.target.value));
+      select.addEventListener('input', e => switchZingGame(e.target.value));
+      selectWrap.addEventListener('pointerdown', () => { select.focus(); });
 
       // Main Zing table
       const table = el('table', 'price-table price-table--reward');
@@ -714,16 +746,19 @@ function switchGarenaGame(gameId) {
   const select = $('#game-select-garena', garenaPanel);
   if (select && select.value !== gameId) select.value = gameId;
 
+  // Sync quick chips
+  $$('#garena-quick-chips .game-chip', garenaPanel).forEach(chip => {
+    chip.classList.toggle('is-active', chip.dataset.game === gameId);
+  });
+
   const mainTable = $('.price-table--reward', garenaPanel);
   const allWrap = $('.all-games-table-wrap', garenaPanel);
   const leadIcon = $('#garena-select-lead-icon', garenaPanel);
-  const activeChip = $('#garena-active-chip', garenaPanel);
 
   if (isAll) {
     if (mainTable) mainTable.hidden = true;
     if (allWrap) allWrap.hidden = false;
     if (leadIcon) leadIcon.textContent = '📊';
-    if (activeChip) activeChip.innerHTML = '<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>So sánh tất cả 5 game</strong></span>';
     garenaPanel.style.setProperty('--game-accent', 'var(--gold)');
   } else {
     if (mainTable) mainTable.hidden = false;
@@ -731,7 +766,6 @@ function switchGarenaGame(gameId) {
     const game = GARENA_GAMES[gameId];
     if (!game) return;
     if (leadIcon) leadIcon.textContent = game.icon;
-    if (activeChip) activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${game.shortName}</strong> (${game.unit})</span>`;
     garenaPanel.style.setProperty('--game-accent', game.color);
     const rewardTh = $('#garena-reward-th');
     if (rewardTh) rewardTh.textContent = `Nhận trong game (${game.unit})`;
@@ -758,16 +792,19 @@ function switchZingGame(gameId) {
   const select = $('#game-select-zing', zingPanel);
   if (select && select.value !== gameId) select.value = gameId;
 
+  // Sync quick chips
+  $$('#zing-quick-chips .game-chip', zingPanel).forEach(chip => {
+    chip.classList.toggle('is-active', chip.dataset.game === gameId);
+  });
+
   const mainTable = $('.price-table--reward', zingPanel);
   const allWrap = $('.all-games-table-wrap', zingPanel);
   const leadIcon = $('#zing-select-lead-icon', zingPanel);
-  const activeChip = $('#zing-active-chip', zingPanel);
 
   if (isAll) {
     if (mainTable) mainTable.hidden = true;
     if (allWrap) allWrap.hidden = false;
     if (leadIcon) leadIcon.textContent = '📊';
-    if (activeChip) activeChip.innerHTML = '<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>So sánh tất cả 7 game</strong></span>';
     zingPanel.style.setProperty('--game-accent', 'var(--gold)');
   } else {
     if (mainTable) mainTable.hidden = false;
@@ -775,7 +812,6 @@ function switchZingGame(gameId) {
     const game = ZING_GAMES[gameId];
     if (!game) return;
     if (leadIcon) leadIcon.textContent = game.icon;
-    if (activeChip) activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${game.shortName}</strong> (${game.unit})</span>`;
     zingPanel.style.setProperty('--game-accent', game.color);
     const rewardTh = $('#zing-reward-th');
     if (rewardTh) rewardTh.textContent = `Nhận trong game (${game.unit})`;
