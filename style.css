@@ -141,12 +141,7 @@ button{user-select:none;-webkit-user-select:none}
   .payment-card{padding:20px}.payment-card__brand{font-size:18px}.payment-card__bottom{flex-wrap:wrap}.payment-card .copy-button{flex:1 0 100%;min-height:48px}.closing__actions{flex-direction:column}.closing__actions .button{width:100%;font-size:14px}.closing__top>span:first-child{max-width:90%}.closing{min-height:100svh}.closing h2{font-size:clamp(44px,13.5vw,96px)}
 }
 @media(max-width:699px){
-  .price-table tbody{grid-template-columns:1fr;gap:16px}.price-table tr{padding:20px 16px;gap:12px;grid-template-columns:1fr 1fr;min-height:240px}
-  .price-table td:first-child{grid-column:1/-1;grid-row:1;font-size:14px;text-decoration:line-through}.price-table td:first-child::before{content:'Mệnh giá ';display:inline;text-decoration:none;font-size:12px}.price-table .best-tag{font-size:12px;text-decoration:none}
-  .price-table td:nth-child(2){grid-column:1/-1;grid-row:2;text-align:left;font-size:30px}.price-table td:nth-child(2)::before{content:'Giá bán ';font-size:14px;font-weight:400;letter-spacing:0}
-  .price-table td:nth-child(3){grid-column:1;grid-row:3}.price-table td:nth-child(4){grid-column:2;grid-row:3;font-size:12px;text-align:right}.price-table td:last-child{grid-column:1/-1;grid-row:4}
-  .price-table .save-pill{font-size:12px}.row-actions{flex-direction:column;gap:8px;align-items:stretch}.buy-button{order:0;min-height:56px;width:100%;font-size:14px;background:var(--accent);border-color:var(--accent);color:white}.add-button{font-size:14px;min-height:48px;padding:12px;width:100%;border:1px solid var(--line);border-radius:30px}
-  .catalog-brand{align-items:flex-start;gap:12px}.catalog-brand p{font-size:12px;max-width:150px}.pricing__footnote{font-size:12px}
+  .catalog-brand{align-items:flex-start;gap:12px}.catalog-brand p{font-size:12px;max-width:180px}.pricing__footnote{font-size:12px}
 }
 @media(min-width:700px) and (max-width:1099px){.price-table th{font-size:12px}.price-table .best-tag,.price-table .save-pill,.compare-price,.add-button{font-size:12px}.price-table th:nth-child(5){width:23%}.row-actions{gap:8px}.buy-button{min-height:48px}.benefits__grid{grid-template-columns:1fr 1fr}}
 @media(max-width:1099px) and (orientation:landscape) and (max-height:600px){.mobile-actions{display:none!important}.cart-toggle{bottom:calc(8px + env(safe-area-inset-bottom,0px))!important}.hero{min-height:100svh}.mobile-menu nav{margin:12px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}.mobile-menu nav a{font-size:28px}.mobile-menu__socials{margin-top:12px}}
@@ -215,35 +210,59 @@ body.webgl-ready .pricing .section-heading__note{
   background:radial-gradient(ellipse closest-side,rgba(7,7,11,.24) 35%,rgba(7,7,11,0) 100%);
 }
 
-/* Catalog: face value, saving, payable amount, then actions. */
-.price-table th:nth-child(1){width:20%}.price-table th:nth-child(2){width:25%}
-.price-table th:nth-child(3){width:25%}.price-table th:nth-child(4){width:30%}
-.price-table td.price-face{text-decoration:none}
-.price-table td.price-saved{font-size:12px;font-weight:400;letter-spacing:normal;text-align:left}
-.price-table td.price-pay{font-size:23px;font-weight:700;letter-spacing:-.04em;text-align:left}
-.price-table td.price-actions{font-size:12px;text-align:left}
-.price-table td.price-face::before,.price-table td.price-saved::before,.price-table td.price-pay::before{content:none}
-.price-table .save-pill{white-space:normal}
-.price-table .buy-button{min-width:0;padding-inline:10px}
-@media(min-width:700px){
-  .price-table{display:table}.price-table tbody{display:table-row-group}
-  .price-table thead{display:table-header-group;position:static;width:auto;height:auto;overflow:visible;clip-path:none}
-  .price-table tr{display:table-row}.price-table td{display:table-cell;border-bottom:1px solid var(--line);padding:20px 8px!important}
+/* Catalog: harmonized font scale, clean column proportions, and responsive card view */
+.price-table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; text-align: left; table-layout: fixed; }
+.price-table th { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; color: var(--muted); padding: 14px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.price-table:not(.price-table--reward) th:nth-child(1) { width: 24%; }
+.price-table:not(.price-table--reward) th:nth-child(2) { width: 26%; }
+.price-table:not(.price-table--reward) th:nth-child(3) { width: 24%; }
+.price-table:not(.price-table--reward) th:nth-child(4) { width: 26%; }
+.price-table td { border-bottom: 1px solid var(--line); padding: 18px 10px; transition: background .2s; vertical-align: middle; }
+.price-table tbody tr { position: relative; transition: background .2s, box-shadow .2s; }
+.price-table tbody tr:hover { background: var(--surface); box-shadow: inset 3px 0 var(--game-accent, var(--accent)); }
+.price-table td.price-face { font-size: 14px; font-weight: 600; color: var(--text); text-decoration: none; }
+.price-table td.price-face::before { content: none; }
+.price-table .best-tag { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .04em; color: var(--gold); margin-top: 4px; text-transform: uppercase; }
+.price-table td.price-pay { font-size: 19px; font-weight: 700; letter-spacing: -.02em; color: #fff; text-align: left; }
+.price-table td.price-pay::before { content: none; }
+.price-table td.price-saved { font-size: 12px; font-weight: 400; letter-spacing: normal; text-align: left; }
+.price-table td.price-saved::before { content: none; }
+.save-pill { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; white-space: nowrap; padding: 4px 9px; border-radius: var(--pill); background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.28); line-height: 1.4; }
+.save-pill--neutral { background: var(--surface); color: var(--muted); border-color: var(--line); }
+.price-table td.price-actions { font-size: 12px; text-align: right; }
+.row-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.buy-button { border: 1px solid var(--line); border-radius: var(--pill); min-height: 40px; min-width: 82px; padding: 8px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; background: transparent; color: var(--text); cursor: pointer; transition: background .2s, border-color .2s, color .2s, transform .15s; }
+.buy-button:hover { border-color: var(--game-accent, var(--accent)); background: var(--game-accent, var(--accent)); color: #fff; transform: translateY(-1px); }
+.add-button { font-size: 11px; font-weight: 500; min-height: 34px; color: var(--muted); padding: 4px 8px; background: transparent; border: none; cursor: pointer; transition: color .2s; }
+.add-button:hover { color: #fff; }
+@media(min-width: 700px) {
+  .price-table { display: table; }
+  .price-table thead { display: table-header-group; position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .price-table tbody { display: table-row-group; }
+  .price-table tr { display: table-row; }
+  .price-table td { display: table-cell; }
 }
-@media(max-width:699px){
-  .price-table tbody{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .price-table tr{grid-template-columns:minmax(0,1fr);padding:14px 10px;gap:10px;min-height:260px}
-  .price-table td.price-face{grid-column:1;grid-row:1;font-size:12px;text-align:left}
-  .price-table td.price-face::before{content:'Mệnh giá';display:block;font-size:10px;text-decoration:none}
-  .price-table tr:not([data-saved="0"]) .price-face__value{text-decoration:line-through}
-  .price-table td.price-saved{grid-column:1;grid-row:2;min-height:26px}
-  .price-table .save-pill{font-size:10px;padding:4px 6px;letter-spacing:0}
-  .price-table td.price-pay{grid-column:1;grid-row:3;font-size:clamp(18px,5.5vw,26px);min-height:48px}
-  .price-table td.price-pay::before{content:'Giá phải trả';display:block;font-size:11px;font-weight:400;letter-spacing:0}
-  .price-table td.price-actions{grid-column:1;grid-row:4;align-self:end}
-  .price-table .row-actions{flex-direction:column;align-items:stretch;gap:6px;margin:0}
-  .price-table .buy-button,.price-table .add-button{width:100%;min-width:0;min-height:44px;padding:8px 5px;font-size:11px;gap:6px;white-space:normal;text-align:center}
-  .price-table .best-tag{font-size:8px;letter-spacing:0;text-decoration:none}
+@media(max-width: 699px) {
+  .price-table { display: block; width: 100%; }
+  .price-table thead { display: none; }
+  .price-table tbody { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; }
+  .price-table tr { display: grid; grid-template-columns: minmax(0, 1fr); padding: 14px 12px; gap: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); transition: border-color .2s; }
+  .price-table tbody tr:hover { box-shadow: none; border-color: var(--game-accent, var(--accent)); }
+  .price-table td { padding: 0 !important; border: none !important; }
+  .price-table td.price-face { grid-column: 1; grid-row: 1; font-size: 13px; font-weight: 600; text-align: left; }
+  .price-table td.price-face::before { content: 'Mệnh giá'; display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 2px; }
+  .price-table tr:not([data-saved="0"]) .price-face__value { text-decoration: line-through; opacity: .85; }
+  .price-table td.price-pay { grid-column: 1; grid-row: 2; font-size: 18px; font-weight: 700; color: #fff; text-align: left; }
+  .price-table td.price-pay::before { content: 'Giá phải trả'; display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 2px; }
+  .price-table:not(.price-table--reward) td.price-saved { grid-column: 1; grid-row: 3; min-height: 24px; margin: 2px 0 4px; }
+  .price-table:not(.price-table--reward) td.price-actions { grid-column: 1; grid-row: 4; align-self: end; }
+  .price-table .save-pill { font-size: 10px; padding: 3px 8px; }
+  .price-table .row-actions { flex-direction: column; align-items: stretch; gap: 6px; width: 100%; }
+  .price-table .buy-button { width: 100%; min-width: 0; min-height: 44px; font-size: 11px; font-weight: 600; justify-content: center; background: var(--game-accent, var(--accent)); border-color: var(--game-accent, var(--accent)); color: #fff; }
+  .price-table .add-button { width: 100%; min-width: 0; min-height: 38px; font-size: 11px; font-weight: 500; justify-content: center; border: 1px solid var(--line); border-radius: var(--pill); }
+}
+@media(max-width: 440px) {
+  .price-table tbody { grid-template-columns: 1fr; }
 }
 /* QR is an intentional modal surface, independent of the decorative canvas. */
 .qr-dialog{width:min(540px,calc(100% - 24px));max-height:90dvh;overflow:auto;border-radius:16px}
@@ -258,15 +277,18 @@ body.webgl-ready .pricing .section-heading__note{
 .qr-instructions{font-size:13px;line-height:1.7;margin:18px 0}#qr-bill{width:100%;justify-content:center;font-size:12px}
 
 
-/* --- Garena Game Selector & In-Game Items --- */
+/* --- Game Dropdown Selector & In-Game Items --- */
 .game-selector-box {
   background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 16px 20px;
-  margin: 18px 0 24px;
+  margin: 18px 0 22px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
-  transition: border-color .3s;
+  transition: border-color .3s, box-shadow .3s;
+}
+.game-selector-box:hover {
+  border-color: color-mix(in srgb, var(--game-accent, var(--accent)) 40%, rgba(255, 255, 255, 0.1));
 }
 .game-selector-header {
   display: flex;
@@ -279,68 +301,131 @@ body.webgl-ready .pricing .section-heading__note{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
-  padding: 4px 10px;
+  letter-spacing: .06em;
+  padding: 5px 11px;
   border-radius: var(--pill);
-  background: color-mix(in srgb, var(--game-accent, var(--garena)) 18%, transparent);
+  background: color-mix(in srgb, var(--game-accent, var(--accent)) 16%, transparent);
   color: var(--game-accent, #ff7582);
-  border: 1px solid color-mix(in srgb, var(--game-accent, var(--garena)) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 35%, transparent);
   transition: all .25s ease;
 }
+.game-selector-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 .game-selector-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text);
+  letter-spacing: -.01em;
 }
-.game-tabs {
+.game-selector-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.game-dropdown-row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
   flex-wrap: wrap;
-  gap: 8px;
-  -webkit-overflow-scrolling: touch;
 }
-.game-tab {
+.game-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 300px;
+  max-width: 440px;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 32%, rgba(255, 255, 255, 0.12));
+  border-radius: 10px;
+  transition: border-color .25s, box-shadow .25s, background .25s;
+}
+.game-select-wrap:hover {
+  border-color: var(--game-accent, var(--accent));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--game-accent, var(--accent)) 22%, transparent);
+}
+.game-select-wrap:focus-within {
+  border-color: var(--game-accent, var(--accent));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--game-accent, var(--accent)) 30%, transparent);
+}
+.game-select-lead-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.game-dropdown-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 42px 10px 44px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.game-dropdown-select option {
+  background: #14141d;
+  color: #fff;
+  padding: 8px 12px;
+}
+.game-dropdown-caret {
+  position: absolute;
+  right: 14px;
+  font-size: 12px;
+  color: var(--muted);
+  pointer-events: none;
+  user-select: none;
+}
+.game-active-chip {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 15px;
-  min-height: 44px;
+  gap: 8px;
+  padding: 8px 14px;
   border-radius: var(--pill);
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--muted);
+  background: color-mix(in srgb, var(--game-accent, var(--accent)) 12%, rgba(255, 255, 255, 0.03));
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 25%, transparent);
   font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform .2s var(--ease), background .25s, border-color .25s, color .25s, box-shadow .25s;
+  color: var(--text);
 }
-.game-tab .game-icon {
-  font-size: 15px;
-  line-height: 1;
+.game-active-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--game-accent, var(--accent));
+  box-shadow: 0 0 8px var(--game-accent, var(--accent));
 }
-.game-tab .game-name {
+.game-active-label strong {
+  color: #fff;
   font-weight: 600;
 }
-.game-tab .game-unit {
-  font-size: 11px;
-  opacity: .75;
-}
-.game-tab:hover {
-  border-color: var(--game-color, var(--accent));
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.07);
-  transform: translateY(-1px);
-}
-.game-tab.is-active {
-  background: color-mix(in srgb, var(--game-color, var(--accent)) 22%, var(--surface));
-  border-color: var(--game-color, var(--accent));
-  color: #fff;
-  box-shadow: 0 0 16px color-mix(in srgb, var(--game-color, var(--accent)) 30%, transparent);
-}
-.game-tab--all {
-  border-style: dashed;
+@media(max-width: 699px) {
+  .game-dropdown-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .game-select-wrap {
+    max-width: 100%;
+    width: 100%;
+  }
+  .game-active-chip {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 /* Tab count badge polish */
@@ -393,12 +478,12 @@ body.webgl-ready .pricing .section-heading__note{
   border-color: var(--game-accent, var(--accent));
 }
 
-/* 5-column Garena table column widths on desktop */
+/* 5-column Garena & Zing table column widths on desktop */
 @media(min-width: 700px) {
   .price-table--reward th:nth-child(1) { width: 18%; }
   .price-table--reward th:nth-child(2) { width: 20%; }
-  .price-table--reward th:nth-child(3) { width: 25%; }
-  .price-table--reward th:nth-child(4) { width: 17%; }
+  .price-table--reward th:nth-child(3) { width: 26%; }
+  .price-table--reward th:nth-child(4) { width: 16%; }
   .price-table--reward th:nth-child(5) { width: 20%; }
 }
 
@@ -469,6 +554,13 @@ body.webgl-ready .pricing .section-heading__note{
 .matrix-cell--fco { color: #34d399; }
 .matrix-cell--fcm { color: #a78bfa; }
 .matrix-cell--df { color: #fbbf24; }
+.matrix-cell--val { color: #ff4655; }
+.matrix-cell--wr { color: #0ea5e9; }
+.matrix-cell--pubg { color: #f59e0b; }
+.matrix-cell--vltk { color: #ef4444; }
+.matrix-cell--kto { color: #10b981; }
+.matrix-cell--pt { color: #ec4899; }
+.matrix-cell--zx { color: #eab308; }
 .all-games-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.04);
 }
@@ -497,56 +589,54 @@ body.webgl-ready .pricing .section-heading__note{
   color: #fff;
 }
 
-/* Responsive Garena table on mobile */
+/* Responsive Garena & Zing reward table on mobile */
 @media(max-width: 699px) {
-  .game-tabs {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    scrollbar-width: none;
-  }
-  .game-tabs::-webkit-scrollbar { display: none; }
-  .game-tab {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    padding: 8px 13px;
-  }
   .price-table--reward tr {
-    min-height: 310px;
-    gap: 10px;
-    padding: 18px 14px;
+    min-height: 300px;
+    gap: 8px;
+    padding: 14px 12px;
   }
   .price-table--reward td.price-reward {
-    grid-column: 1/-1;
+    grid-column: 1;
     grid-row: 3;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    border-bottom: none !important;
-    padding: 0 !important;
+    margin: 2px 0;
   }
   .price-table--reward td.price-reward::before {
     content: 'Nhận trong game';
     display: block;
     font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .04em;
     color: var(--muted);
-    font-weight: 400;
+    margin-bottom: 2px;
   }
   .price-table--reward td.price-reward .reward-badge {
     width: 100%;
     justify-content: flex-start;
-    padding: 8px 12px;
+    padding: 7px 10px;
     border-radius: 8px;
+    font-size: 12px;
+  }
+  .price-table--reward td.price-reward .reward-val {
+    font-size: 14px;
+  }
+  .price-table--reward td.price-reward .reward-unit {
+    font-size: 11px;
   }
   .price-table--reward td.price-saved {
-    grid-column: 1/-1;
+    grid-column: 1;
     grid-row: 4;
     min-height: 24px;
+    margin: 2px 0 4px;
   }
   .price-table--reward td.price-actions {
-    grid-column: 1/-1;
+    grid-column: 1;
     grid-row: 5;
-    margin-top: 4px;
+    align-self: end;
   }
 }

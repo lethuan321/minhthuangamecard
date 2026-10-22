@@ -72,6 +72,15 @@ const GARENA_GAMES = {
   fcm: { id:'fcm', name:'FC Mobile', shortName:'FC Mobile', icon:'📱', unit:'FV', unitShort:'FV', color:'#a855f7', rates:{ 5000:'10', 10000:'20', 20000:'40', 50000:'102', 100000:'204', 200000:'408', 500000:'1.020' } },
   df: { id:'df', name:'Delta Force', shortName:'Delta Force', icon:'🎯', unit:'Delta Coin', unitShort:'Coin', color:'#f59e0b', rates:{ 5000:'20', 10000:'40', 20000:'80', 50000:'200', 100000:'410', 200000:'820', 500000:'2.050' } }
 };
+const ZING_GAMES = {
+  val: { id:'val', name:'VALORANT', shortName:'VALORANT', icon:'🎯', unit:'VP', unitShort:'VP', color:'#ff4655', rates:{ 20000:'110', 50000:'275', 100000:'610', 200000:'1.220', 500000:'3.040', 1000000:'6.550' } },
+  wr: { id:'wr', name:'LMHT: Tốc Chiến', shortName:'Tốc Chiến', icon:'⚡', unit:'Wild Cores', unitShort:'WC', color:'#0ea5e9', rates:{ 20000:'100', 50000:'250', 100000:'525', 200000:'1.050', 500000:'2.825', 1000000:'5.825' } },
+  pubg: { id:'pubg', name:'PUBG Mobile VN', shortName:'PUBG Mobile', icon:'🪖', unit:'UC', unitShort:'UC', color:'#f59e0b', rates:{ 20000:'60', 50000:'140', 100000:'300', 200000:'600', 500000:'1.500', 1000000:'3.000' } },
+  vltk: { id:'vltk', name:'Võ Lâm Truyền Kỳ Mobile', shortName:'VLTK Mobile', icon:'🗡️', unit:'Nguyên Bảo', unitShort:'KNB', color:'#ef4444', rates:{ 20000:'80', 50000:'200', 100000:'400', 200000:'800', 500000:'2.000', 1000000:'4.000' } },
+  kto: { id:'kto', name:'Kiếm Thế Origin', shortName:'Kiếm Thế Origin', icon:'⚔️', unit:'Nguyên Bảo', unitShort:'KNB', color:'#10b981', rates:{ 20000:'80', 50000:'200', 100000:'400', 200000:'800', 500000:'2.000', 1000000:'4.000' } },
+  pt: { id:'pt', name:'Play Together VNG', shortName:'Play Together', icon:'🎈', unit:'Đá Quý', unitShort:'Đá Quý', color:'#ec4899', rates:{ 20000:'20', 50000:'55', 100000:'110', 200000:'230', 500000:'600', 1000000:'1.250' } },
+  zx: { id:'zx', name:'Zing Xu (Cổng ZingPay)', shortName:'Zing Xu', icon:'🪙', unit:'Zing Xu', unitShort:'Xu', color:'#eab308', rates:{ 20000:'200', 50000:'500', 100000:'1.000', 200000:'2.000', 500000:'5.000', 1000000:'10.000' } }
+};
 
 /* 02 / Small shared utilities */
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -81,7 +90,7 @@ const money = value => `${moneyFormatter.format(value)}đ`;
 const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const desktopQuery = window.matchMedia('(min-width: 1100px)');
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-const state = { cart: [], method: 'momo', activeBrand: 'garena', selectedGarenaGame: 'lq', lenis: null, motionContext: null, motionCleanups: [], motionPaused: false };
+const state = { cart: [], method: 'momo', activeBrand: 'garena', selectedGarenaGame: 'lq', selectedZingGame: 'val', lenis: null, motionContext: null, motionCleanups: [], motionPaused: false };
 const icons = {
   tag: '<path d="M3 4h9l9 9-8 8-10-10V4Z"/><circle cx="8" cy="9" r="1.5"/>',
   bolt: '<path d="m14 2-9 12h6l-1 8 9-12h-6l1-8Z"/>',
@@ -197,43 +206,67 @@ function initHeader() {
 function initPricing() {
   const panels = $('#price-panels');
   CARDS.forEach(brand => {
-    const tab = $(`#tab-${brand.id}`); $('.tab-count',tab).textContent = `${brand.items.length} mệnh giá`;
-    const panel = el('div','price-panel'); panel.id = `panel-${brand.id}`; panel.setAttribute('role','tabpanel'); panel.setAttribute('aria-labelledby',tab.id); panel.tabIndex = 0; panel.hidden = brand.id !== state.activeBrand;
-    const header = el('div','catalog-brand'); header.append(el('h3','',brand.name.toUpperCase()),el('p','',`${brand.items.length} mệnh giá · Chọn theo cách bạn chơi`)); panel.append(header);
+    const tab = $(`#tab-${brand.id}`);
+    $('.tab-count', tab).textContent = `${brand.items.length} mệnh giá`;
+    const panel = el('div', 'price-panel');
+    panel.id = `panel-${brand.id}`;
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('aria-labelledby', tab.id);
+    panel.tabIndex = 0;
+    panel.hidden = brand.id !== state.activeBrand;
+    const header = el('div', 'catalog-brand');
+    header.append(el('h3', '', brand.name.toUpperCase()), el('p', '', `${brand.items.length} mệnh giá · Chọn theo cách bạn chơi`));
+    panel.append(header);
 
     if (brand.id === 'garena') {
+      const currentGame = GARENA_GAMES[state.selectedGarenaGame] || GARENA_GAMES.lq;
+      panel.style.setProperty('--game-accent', currentGame.color);
+
+      // Dropdown selector box
       const selectorBox = el('div', 'game-selector-box');
       const selectorHeader = el('div', 'game-selector-header');
-      selectorHeader.innerHTML = '<span class="game-selector-badge"><span aria-hidden="true">🎮</span> Quy đổi vật phẩm</span><span class="game-selector-title">Tỷ lệ nạp chính thức theo game bạn chơi:</span>';
-      const gameTabs = el('div', 'game-tabs');
-      gameTabs.setAttribute('aria-label', 'Chọn game nạp thẻ Garena');
+      selectorHeader.innerHTML = '<span class="game-selector-badge"><span aria-hidden="true">🎮</span> Quy đổi vật phẩm</span><div class="game-selector-copy"><strong class="game-selector-title">Chọn game nạp thẻ Garena:</strong><span class="game-selector-sub">Xem số vật phẩm nhận được ở từng mệnh giá</span></div>';
+
+      const dropdownRow = el('div', 'game-dropdown-row');
+      const selectWrap = el('div', 'game-select-wrap');
+      const leadIcon = el('span', 'game-select-lead-icon', currentGame.icon);
+      leadIcon.id = 'garena-select-lead-icon';
+      leadIcon.setAttribute('aria-hidden', 'true');
+
+      const select = el('select', 'game-dropdown-select');
+      select.id = 'game-select-garena';
+      select.setAttribute('aria-label', 'Chọn game nạp thẻ Garena để xem quy đổi vật phẩm');
 
       Object.values(GARENA_GAMES).forEach(game => {
-        const btn = el('button', `game-tab${state.selectedGarenaGame === game.id ? ' is-active' : ''}`);
-        btn.type = 'button';
-        btn.dataset.game = game.id;
-        btn.setAttribute('aria-pressed', String(state.selectedGarenaGame === game.id)); btn.style.setProperty('--game-color', game.color);
-        btn.innerHTML = `<span class="game-icon">${game.icon}</span><span class="game-name">${game.shortName}</span><span class="game-unit">(${game.unit})</span>`;
-        btn.addEventListener('click', () => switchGarenaGame(game.id));
-        gameTabs.append(btn);
+        const opt = el('option', '', `${game.name} — ${game.unit}`);
+        opt.value = game.id;
+        if (state.selectedGarenaGame === game.id) opt.selected = true;
+        select.append(opt);
       });
+      const allOpt = el('option', '', '📊 So sánh tất cả 5 game');
+      allOpt.value = 'all';
+      if (state.selectedGarenaGame === 'all') allOpt.selected = true;
+      select.append(allOpt);
 
-      const allBtn = el('button', `game-tab game-tab--all${state.selectedGarenaGame === 'all' ? ' is-active' : ''}`);
-      allBtn.type = 'button';
-      allBtn.dataset.game = 'all';
-      allBtn.setAttribute('aria-pressed', String(state.selectedGarenaGame === 'all'));
-      allBtn.innerHTML = '<span class="game-icon">📊</span><span class="game-name">Tất cả game</span>';
-      allBtn.addEventListener('click', () => switchGarenaGame('all'));
-      gameTabs.append(allBtn);
+      const caret = el('span', 'game-dropdown-caret', '▾');
+      caret.setAttribute('aria-hidden', 'true');
+      selectWrap.append(leadIcon, select, caret);
 
-      selectorBox.append(selectorHeader, gameTabs);
-      panel.style.setProperty('--game-accent', (GARENA_GAMES[state.selectedGarenaGame] || GARENA_GAMES.lq).color); panel.append(selectorBox);
+      const activeChip = el('div', 'game-active-chip');
+      activeChip.id = 'garena-active-chip';
+      activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${currentGame.shortName}</strong> (${currentGame.unit})</span>`;
 
+      dropdownRow.append(selectWrap, activeChip);
+      selectorBox.append(selectorHeader, dropdownRow);
+      panel.append(selectorBox);
+
+      select.addEventListener('change', e => switchGarenaGame(e.target.value));
+
+      // Main Garena table
       const table = el('table', 'price-table price-table--reward');
       table.setAttribute('aria-label', 'Bảng giá Thẻ Garena và quy đổi vật phẩm');
       const thead = el('thead');
       const headRow = el('tr');
-      const currentGame = GARENA_GAMES[state.selectedGarenaGame] || GARENA_GAMES.lq;
       ['Mệnh giá', 'Giá phải trả', `Nhận trong game (${currentGame.unit})`, 'Tiết kiệm', 'Đặt thẻ'].forEach((label, idx) => {
         const th = el('th', '', label);
         th.scope = 'col';
@@ -300,8 +333,11 @@ function initPricing() {
       table.append(tbody);
       panel.append(table);
 
+      // All-games comparison table
       const allWrap = el('div', 'all-games-table-wrap');
       allWrap.hidden = state.selectedGarenaGame !== 'all';
+      const scrollHint = el('div', 'matrix-scroll-hint', '↔ Vuốt ngang để so sánh tất cả 5 game Garena');
+      scrollHint.setAttribute('aria-hidden', 'true');
       const allTable = el('table', 'price-table all-games-table');
       allTable.setAttribute('aria-label', 'Bảng quy đổi tất cả game nạp thẻ Garena');
       const allThead = el('thead');
@@ -365,7 +401,7 @@ function initPricing() {
         allTbody.append(row);
       });
       allTable.append(allTbody);
-      const scrollHint = el('div', 'matrix-scroll-hint', '↔ Vuốt ngang để so sánh tất cả 5 game'); scrollHint.setAttribute('aria-hidden', 'true'); allWrap.append(scrollHint, allTable);
+      allWrap.append(scrollHint, allTable);
       panel.append(allWrap);
 
       const note = el('div', 'garena-info-note');
@@ -378,33 +414,295 @@ function initPricing() {
       };
       tbody.addEventListener('pointerover', announceRow); tbody.addEventListener('pointerdown', announceRow); tbody.addEventListener('focusin', announceRow);
       allTbody.addEventListener('pointerover', announceRow); allTbody.addEventListener('pointerdown', announceRow); allTbody.addEventListener('focusin', announceRow);
-    } else {
-      const table = el('table', 'price-table'); table.setAttribute('aria-label', `Bảng giá ${brand.name}`);
-      const thead = el('thead'); const headRow = el('tr'); ['Mệnh giá', 'Tiết kiệm', 'Giá phải trả', 'Đặt thẻ'].forEach(label => { const th = el('th', '', label); th.scope = 'col'; headRow.append(th); }); thead.append(headRow); table.append(thead);
-      const tbody = el('tbody'); const bestSaving = Math.max(...brand.items.map(([face, sale]) => face - sale));
+    } else if (brand.id === 'zing') {
+      const currentGame = ZING_GAMES[state.selectedZingGame] || ZING_GAMES.val;
+      panel.style.setProperty('--game-accent', currentGame.color);
+
+      // Dropdown selector box for Zing
+      const selectorBox = el('div', 'game-selector-box');
+      const selectorHeader = el('div', 'game-selector-header');
+      selectorHeader.innerHTML = '<span class="game-selector-badge"><span aria-hidden="true">🎮</span> Quy đổi vật phẩm</span><div class="game-selector-copy"><strong class="game-selector-title">Chọn game nạp thẻ Zing (ZingPay):</strong><span class="game-selector-sub">Xem số vật phẩm nhận được theo 7 tựa game phổ biến nhất</span></div>';
+
+      const dropdownRow = el('div', 'game-dropdown-row');
+      const selectWrap = el('div', 'game-select-wrap');
+      const leadIcon = el('span', 'game-select-lead-icon', currentGame.icon);
+      leadIcon.id = 'zing-select-lead-icon';
+      leadIcon.setAttribute('aria-hidden', 'true');
+
+      const select = el('select', 'game-dropdown-select');
+      select.id = 'game-select-zing';
+      select.setAttribute('aria-label', 'Chọn game nạp thẻ Zing để xem quy đổi vật phẩm');
+
+      Object.values(ZING_GAMES).forEach(game => {
+        const opt = el('option', '', `${game.name} — ${game.unit}`);
+        opt.value = game.id;
+        if (state.selectedZingGame === game.id) opt.selected = true;
+        select.append(opt);
+      });
+      const allOpt = el('option', '', '📊 So sánh tất cả 7 game');
+      allOpt.value = 'all';
+      if (state.selectedZingGame === 'all') allOpt.selected = true;
+      select.append(allOpt);
+
+      const caret = el('span', 'game-dropdown-caret', '▾');
+      caret.setAttribute('aria-hidden', 'true');
+      selectWrap.append(leadIcon, select, caret);
+
+      const activeChip = el('div', 'game-active-chip');
+      activeChip.id = 'zing-active-chip';
+      activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${currentGame.shortName}</strong> (${currentGame.unit})</span>`;
+
+      dropdownRow.append(selectWrap, activeChip);
+      selectorBox.append(selectorHeader, dropdownRow);
+      panel.append(selectorBox);
+
+      select.addEventListener('change', e => switchZingGame(e.target.value));
+
+      // Main Zing table
+      const table = el('table', 'price-table price-table--reward');
+      table.setAttribute('aria-label', 'Bảng giá Thẻ Zing và quy đổi vật phẩm');
+      const thead = el('thead');
+      const headRow = el('tr');
+      ['Mệnh giá', 'Giá phải trả', `Nhận trong game (${currentGame.unit})`, 'Tiết kiệm', 'Đặt thẻ'].forEach((label, idx) => {
+        const th = el('th', '', label);
+        th.scope = 'col';
+        if (idx === 2) th.id = 'zing-reward-th';
+        headRow.append(th);
+      });
+      thead.append(headRow);
+      table.append(thead);
+
+      const tbody = el('tbody');
+      const bestSaving = Math.max(...brand.items.map(([face, sale]) => face - sale));
       brand.items.forEach(([face, sale]) => {
         const saved = face - sale;
-        const row = el('tr'); row.dataset.brand = brand.id; row.dataset.best = String(saved === bestSaving && saved > 0); row.dataset.face = String(face); row.dataset.sale = String(sale); row.dataset.saved = String(saved);
-        const faceCell = el('td', 'price-face'); faceCell.append(el('span', 'price-face__value', money(face))); const saleCell = el('td', 'price-pay'); saleCell.append(el('strong', '', money(sale)));
-        const saveCell = el('td', 'price-saved compare-price'); const pill = el('span', `save-pill${saved ? '' : ' save-pill--neutral'}`, saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên'); pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá'; saveCell.append(pill);
+        const row = el('tr');
+        row.dataset.brand = brand.id;
+        row.dataset.best = String(saved === bestSaving && saved > 0);
+        row.dataset.face = String(face);
+        row.dataset.sale = String(sale);
+        row.dataset.saved = String(saved);
+
+        const faceCell = el('td', 'price-face');
+        faceCell.append(el('span', 'price-face__value', money(face)));
         if (saved && saved === bestSaving) faceCell.append(el('span', 'best-tag', 'TIẾT KIỆM NHẤT'));
-        const actionCell = el('td', 'price-actions'); const actions = el('div', 'row-actions');
-        const buy = externalLink('buy-button', 'Mua'); setArrowLabel(buy, 'Mua'); buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`); buy.dataset.contact = '';
+
+        const saleCell = el('td', 'price-pay');
+        saleCell.append(el('strong', '', money(sale)));
+
+        const rewardCell = el('td', 'price-reward');
+        rewardCell.dataset.face = String(face);
+        const badge = el('span', 'reward-badge');
+        badge.innerHTML = `<span class="reward-icon">${currentGame.icon}</span><strong class="reward-val">${currentGame.rates[face] || '—'}</strong> <span class="reward-unit">${currentGame.unit}</span>`;
+        rewardCell.append(badge);
+
+        const saveCell = el('td', 'price-saved compare-price');
+        const pill = el('span', `save-pill${saved ? '' : ' save-pill--neutral'}`, saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên');
+        pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá';
+        saveCell.append(pill);
+
+        const actionCell = el('td', 'price-actions');
+        const actions = el('div', 'row-actions');
+        const buy = externalLink('buy-button', 'Mua');
+        setArrowLabel(buy, 'Mua');
+        buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`);
+        buy.dataset.contact = '';
         const selection = [{ brand: brand.id, face, qty: 1 }];
-        if (CONFIG.sepay.enabled && qrEligible(selection)) { buy.textContent = 'Thanh toán QR'; buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`); }
-        buy.addEventListener('click', event => { if (tryOpenQRPayment(selection)) { event.preventDefault(); return; } prepareOrderForChat(selection); });
-        const add = el('button', 'add-button', '+ Thêm vào đơn'); add.type = 'button'; add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`); add.addEventListener('click', () => addToCart(brand.id, face, row));
-        actions.append(buy, add); actionCell.append(actions); row.append(faceCell, saveCell, saleCell, actionCell); tbody.append(row);
+        if (CONFIG.sepay.enabled && qrEligible(selection)) {
+          buy.textContent = 'Thanh toán QR';
+          buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`);
+        }
+        buy.addEventListener('click', event => {
+          if (tryOpenQRPayment(selection)) { event.preventDefault(); return; }
+          prepareOrderForChat(selection);
+        });
+        const add = el('button', 'add-button', '+ Thêm vào đơn');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`);
+        add.addEventListener('click', () => addToCart(brand.id, face, row));
+        actions.append(buy, add);
+        actionCell.append(actions);
+
+        row.append(faceCell, saleCell, rewardCell, saveCell, actionCell);
+        tbody.append(row);
       });
-      table.append(tbody); panel.append(table);
-      const announceRow = event => { const row = event.target.closest('tr[data-face]'); if (row) window.dispatchEvent(new CustomEvent('rowhover', { detail: { id: brand.id, face: +row.dataset.face, sale: +row.dataset.sale, saved: +row.dataset.saved, row } })); };
+      table.append(tbody);
+      panel.append(table);
+
+      // All-games comparison table for Zing
+      const allWrap = el('div', 'all-games-table-wrap');
+      allWrap.hidden = state.selectedZingGame !== 'all';
+      const scrollHint = el('div', 'matrix-scroll-hint', '↔ Vuốt ngang để so sánh tất cả 7 game Zing');
+      scrollHint.setAttribute('aria-hidden', 'true');
+      const allTable = el('table', 'price-table all-games-table');
+      allTable.setAttribute('aria-label', 'Bảng quy đổi tất cả game nạp thẻ Zing');
+      const allThead = el('thead');
+      const allHeadRow = el('tr');
+      allHeadRow.innerHTML = `
+        <th scope="col">Mệnh giá</th>
+        <th scope="col">Giá phải trả</th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🎯</span>VALORANT</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">⚡</span>Tốc Chiến</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🪖</span>PUBG VN</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🗡️</span>VLTK</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">⚔️</span>Kiếm Thế</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🎈</span>Play Together</span></th>
+        <th scope="col"><span class="matrix-th"><span class="matrix-icon">🪙</span>Zing Xu</span></th>
+        <th scope="col">Đặt thẻ</th>
+      `;
+      allThead.append(allHeadRow);
+      allTable.append(allThead);
+
+      const allTbody = el('tbody');
+      brand.items.forEach(([face, sale]) => {
+        const row = el('tr');
+        row.dataset.brand = brand.id;
+        row.dataset.face = String(face);
+        row.dataset.sale = String(sale);
+        row.dataset.saved = String(face - sale);
+
+        const faceTd = el('td', 'price-face');
+        faceTd.append(el('span', 'price-face__value', money(face)));
+
+        const saleTd = el('td', 'price-pay');
+        saleTd.append(el('strong', '', money(sale)));
+
+        const valTd = el('td', 'matrix-cell matrix-cell--val', `${ZING_GAMES.val.rates[face]} VP`);
+        const wrTd = el('td', 'matrix-cell matrix-cell--wr', `${ZING_GAMES.wr.rates[face]} WC`);
+        const pubgTd = el('td', 'matrix-cell matrix-cell--pubg', `${ZING_GAMES.pubg.rates[face]} UC`);
+        const vltkTd = el('td', 'matrix-cell matrix-cell--vltk', `${ZING_GAMES.vltk.rates[face]} KNB`);
+        const ktoTd = el('td', 'matrix-cell matrix-cell--kto', `${ZING_GAMES.kto.rates[face]} KNB`);
+        const ptTd = el('td', 'matrix-cell matrix-cell--pt', `${ZING_GAMES.pt.rates[face]} Đá`);
+        const zxTd = el('td', 'matrix-cell matrix-cell--zx', `${ZING_GAMES.zx.rates[face]} Xu`);
+
+        const actionTd = el('td', 'price-actions');
+        const actions = el('div', 'row-actions');
+        const buy = externalLink('buy-button', 'Mua');
+        setArrowLabel(buy, 'Mua');
+        buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`);
+        buy.dataset.contact = '';
+        const selection = [{ brand: brand.id, face, qty: 1 }];
+        if (CONFIG.sepay.enabled && qrEligible(selection)) {
+          buy.textContent = 'Thanh toán QR';
+          buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`);
+        }
+        buy.addEventListener('click', event => {
+          if (tryOpenQRPayment(selection)) { event.preventDefault(); return; }
+          prepareOrderForChat(selection);
+        });
+        const add = el('button', 'add-button', '+ Thêm vào đơn');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`);
+        add.addEventListener('click', () => addToCart(brand.id, face, row));
+        actions.append(buy, add);
+        actionTd.append(actions);
+
+        row.append(faceTd, saleTd, valTd, wrTd, pubgTd, vltkTd, ktoTd, ptTd, zxTd, actionTd);
+        allTbody.append(row);
+      });
+      allTable.append(allTbody);
+      allWrap.append(scrollHint, allTable);
+      panel.append(allWrap);
+
+      const note = el('div', 'garena-info-note');
+      note.innerHTML = '<span>💡 <strong>Nạp chính thức</strong>: Nạp thẻ Zing tại cổng nạp <a href="https://pay.zing.vn" target="_blank" rel="noopener noreferrer">pay.zing.vn</a> hoặc <a href="https://shop.vnggames.com" target="_blank" rel="noopener noreferrer">shop.vnggames.com</a>. Tỷ lệ quy đổi vật phẩm được cập nhật chính xác theo quy chuẩn của VNG.</span>';
+      panel.append(note);
+
+      const announceRow = event => {
+        const row = event.target.closest('tr[data-face]');
+        if (row) window.dispatchEvent(new CustomEvent('rowhover', { detail: { id: brand.id, face: +row.dataset.face, sale: +row.dataset.sale, saved: +row.dataset.saved, row } }));
+      };
+      tbody.addEventListener('pointerover', announceRow); tbody.addEventListener('pointerdown', announceRow); tbody.addEventListener('focusin', announceRow);
+      allTbody.addEventListener('pointerover', announceRow); allTbody.addEventListener('pointerdown', announceRow); allTbody.addEventListener('focusin', announceRow);
+    } else {
+      // VCoin: clean 4-column price table without dropdown
+      const table = el('table', 'price-table');
+      table.setAttribute('aria-label', `Bảng giá ${brand.name}`);
+      const thead = el('thead');
+      const headRow = el('tr');
+      ['Mệnh giá', 'Giá phải trả', 'Tiết kiệm', 'Đặt thẻ'].forEach(label => {
+        const th = el('th', '', label);
+        th.scope = 'col';
+        headRow.append(th);
+      });
+      thead.append(headRow);
+      table.append(thead);
+
+      const tbody = el('tbody');
+      const bestSaving = Math.max(...brand.items.map(([face, sale]) => face - sale));
+      brand.items.forEach(([face, sale]) => {
+        const saved = face - sale;
+        const row = el('tr');
+        row.dataset.brand = brand.id;
+        row.dataset.best = String(saved === bestSaving && saved > 0);
+        row.dataset.face = String(face);
+        row.dataset.sale = String(sale);
+        row.dataset.saved = String(saved);
+
+        const faceCell = el('td', 'price-face');
+        faceCell.append(el('span', 'price-face__value', money(face)));
+        if (saved && saved === bestSaving) faceCell.append(el('span', 'best-tag', 'TIẾT KIỆM NHẤT'));
+
+        const saleCell = el('td', 'price-pay');
+        saleCell.append(el('strong', '', money(sale)));
+
+        const saveCell = el('td', 'price-saved compare-price');
+        const pill = el('span', `save-pill${saved ? '' : ' save-pill--neutral'}`, saved ? `Tiết kiệm ${money(saved)}` : 'Giữ nguyên');
+        pill.title = saved ? `Tiết kiệm ${money(saved)}` : 'Giá phải trả bằng mệnh giá';
+        saveCell.append(pill);
+
+        const actionCell = el('td', 'price-actions');
+        const actions = el('div', 'row-actions');
+        const buy = externalLink('buy-button', 'Mua');
+        setArrowLabel(buy, 'Mua');
+        buy.setAttribute('aria-label', `Mua ${brand.name} ${money(face)}`);
+        buy.dataset.contact = '';
+        const selection = [{ brand: brand.id, face, qty: 1 }];
+        if (CONFIG.sepay.enabled && qrEligible(selection)) {
+          buy.textContent = 'Thanh toán QR';
+          buy.setAttribute('aria-label', `Thanh toán QR ${brand.name} ${money(face)}`);
+        }
+        buy.addEventListener('click', event => {
+          if (tryOpenQRPayment(selection)) { event.preventDefault(); return; }
+          prepareOrderForChat(selection);
+        });
+        const add = el('button', 'add-button', '+ Thêm vào đơn');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Thêm ${brand.name} ${money(face)} vào đơn`);
+        add.addEventListener('click', () => addToCart(brand.id, face, row));
+        actions.append(buy, add);
+        actionCell.append(actions);
+
+        row.append(faceCell, saleCell, saveCell, actionCell);
+        tbody.append(row);
+      });
+      table.append(tbody);
+      panel.append(table);
+
+      const announceRow = event => {
+        const row = event.target.closest('tr[data-face]');
+        if (row) window.dispatchEvent(new CustomEvent('rowhover', { detail: { id: brand.id, face: +row.dataset.face, sale: +row.dataset.sale, saved: +row.dataset.saved, row } }));
+      };
       tbody.addEventListener('pointerover', announceRow); tbody.addEventListener('pointerdown', announceRow); tbody.addEventListener('focusin', announceRow);
     }
     panels.append(panel);
     tab.addEventListener('click', () => selectBrand(brand.id));
   });
-  const tabs = $('.brand-tabs [role="tab"]');
-  $('.brand-tabs').addEventListener('keydown', event => { const current = tabs.indexOf(document.activeElement); if (current < 0) return; let next; if (event.key === 'ArrowRight') next = (current + 1) % tabs.length; if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length; if (event.key === 'Home') next = 0; if (event.key === 'End') next = tabs.length - 1; if (next === undefined) return; event.preventDefault(); tabs[next].focus(); selectBrand(tabs[next].dataset.brand); });
+
+  const tabs = $$('.brand-tabs [role="tab"]');
+  $('.brand-tabs').addEventListener('keydown', event => {
+    const current = tabs.indexOf(document.activeElement);
+    if (current < 0) return;
+    let next;
+    if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+    if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = tabs.length - 1;
+    if (next === undefined) return;
+    event.preventDefault();
+    tabs[next].focus();
+    selectBrand(tabs[next].dataset.brand);
+  });
 }
 
 function switchGarenaGame(gameId) {
@@ -412,24 +710,29 @@ function switchGarenaGame(gameId) {
   const isAll = gameId === 'all';
   const garenaPanel = $('#panel-garena');
   if (!garenaPanel) return;
-  const activeGame = GARENA_GAMES[gameId];
-  if (activeGame) garenaPanel.style.setProperty('--game-accent', activeGame.color);
-  else if (isAll) garenaPanel.style.setProperty('--game-accent', 'var(--gold)');
-  $$('.game-tab', garenaPanel).forEach(btn => {
-    const active = btn.dataset.game === gameId;
-    btn.classList.toggle('is-active', active);
-    btn.setAttribute('aria-pressed', String(active));
-  });
+
+  const select = $('#game-select-garena', garenaPanel);
+  if (select && select.value !== gameId) select.value = gameId;
+
   const mainTable = $('.price-table--reward', garenaPanel);
   const allWrap = $('.all-games-table-wrap', garenaPanel);
+  const leadIcon = $('#garena-select-lead-icon', garenaPanel);
+  const activeChip = $('#garena-active-chip', garenaPanel);
+
   if (isAll) {
     if (mainTable) mainTable.hidden = true;
     if (allWrap) allWrap.hidden = false;
+    if (leadIcon) leadIcon.textContent = '📊';
+    if (activeChip) activeChip.innerHTML = '<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>So sánh tất cả 5 game</strong></span>';
+    garenaPanel.style.setProperty('--game-accent', 'var(--gold)');
   } else {
     if (mainTable) mainTable.hidden = false;
     if (allWrap) allWrap.hidden = true;
     const game = GARENA_GAMES[gameId];
     if (!game) return;
+    if (leadIcon) leadIcon.textContent = game.icon;
+    if (activeChip) activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${game.shortName}</strong> (${game.unit})</span>`;
+    garenaPanel.style.setProperty('--game-accent', game.color);
     const rewardTh = $('#garena-reward-th');
     if (rewardTh) rewardTh.textContent = `Nhận trong game (${game.unit})`;
     $$('.price-reward', mainTable).forEach(cell => {
@@ -446,15 +749,73 @@ function switchGarenaGame(gameId) {
   }
 }
 
+function switchZingGame(gameId) {
+  state.selectedZingGame = gameId;
+  const isAll = gameId === 'all';
+  const zingPanel = $('#panel-zing');
+  if (!zingPanel) return;
+
+  const select = $('#game-select-zing', zingPanel);
+  if (select && select.value !== gameId) select.value = gameId;
+
+  const mainTable = $('.price-table--reward', zingPanel);
+  const allWrap = $('.all-games-table-wrap', zingPanel);
+  const leadIcon = $('#zing-select-lead-icon', zingPanel);
+  const activeChip = $('#zing-active-chip', zingPanel);
+
+  if (isAll) {
+    if (mainTable) mainTable.hidden = true;
+    if (allWrap) allWrap.hidden = false;
+    if (leadIcon) leadIcon.textContent = '📊';
+    if (activeChip) activeChip.innerHTML = '<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>So sánh tất cả 7 game</strong></span>';
+    zingPanel.style.setProperty('--game-accent', 'var(--gold)');
+  } else {
+    if (mainTable) mainTable.hidden = false;
+    if (allWrap) allWrap.hidden = true;
+    const game = ZING_GAMES[gameId];
+    if (!game) return;
+    if (leadIcon) leadIcon.textContent = game.icon;
+    if (activeChip) activeChip.innerHTML = `<span class="game-active-dot"></span><span class="game-active-label">Đang xem: <strong>${game.shortName}</strong> (${game.unit})</span>`;
+    zingPanel.style.setProperty('--game-accent', game.color);
+    const rewardTh = $('#zing-reward-th');
+    if (rewardTh) rewardTh.textContent = `Nhận trong game (${game.unit})`;
+    $$('.price-reward', mainTable).forEach(cell => {
+      const face = cell.dataset.face;
+      const count = game.rates[face] || '—';
+      const badge = $('.reward-badge', cell);
+      if (badge) {
+        badge.innerHTML = `<span class="reward-icon">${game.icon}</span><strong class="reward-val">${count}</strong> <span class="reward-unit">${game.unit}</span>`;
+        if (motionEnabled() && window.gsap) {
+          gsap.fromTo(badge, { scale: 0.9, opacity: 0.7 }, { scale: 1, opacity: 1, duration: 0.22 });
+        }
+      }
+    });
+  }
+}
+
 function selectBrand(id) {
-  state.activeBrand = id; const brand = CARDS.find(item => item.id === id); $('#bang-gia').style.setProperty('--accent',`var(${brand.accent})`);
-  $('.brand-tabs [role="tab"]').forEach(tab => { const selected = tab.dataset.brand === id; tab.setAttribute('aria-selected',String(selected)); tab.tabIndex = selected ? 0 : -1; });
-  $('.price-panel').forEach(panel => { panel.hidden = panel.id !== `panel-${id}`; });
-  if (motionEnabled() && window.gsap) gsap.fromTo($('tbody tr',$(`#panel-${id}`)),{ y:8, opacity:.45 },{ y:0, opacity:1, duration:.35, stagger:.025, clearProps:'transform,opacity' });
-  if(innerWidth<1100){const tab=$('#tab-'+id),strip=$('.brand-tabs');strip.scrollTo({left:tab.offsetLeft-(strip.clientWidth-tab.offsetWidth)/2,behavior:motionEnabled()?'smooth':'auto'});}
+  state.activeBrand = id;
+  const brand = CARDS.find(item => item.id === id);
+  if (!brand) return;
+  $('#bang-gia').style.setProperty('--accent', `var(${brand.accent})`);
+  $$('.brand-tabs [role="tab"]').forEach(tab => {
+    const selected = tab.dataset.brand === id;
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  });
+  $$('.price-panel').forEach(panel => {
+    panel.hidden = panel.id !== `panel-${id}`;
+  });
+  if (motionEnabled() && window.gsap) {
+    gsap.fromTo($$('tbody tr', $(`#panel-${id}`)), { y: 8, opacity: 0.45 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.025, clearProps: 'transform,opacity' });
+  }
+  if (typeof window !== 'undefined' && window.innerWidth < 1100) {
+    const tab = $('#tab-' + id), strip = $('.brand-tabs');
+    if (tab && strip) strip.scrollTo({ left: tab.offsetLeft - (strip.clientWidth - tab.offsetWidth) / 2, behavior: motionEnabled() ? 'smooth' : 'auto' });
+  }
   refreshScroll();
-  window.dispatchEvent(new CustomEvent('brandchange', { detail:{ id } }));
-  window.dispatchEvent(new CustomEvent('tabchange',{detail:{id}}));
+  window.dispatchEvent(new CustomEvent('brandchange', { detail: { id } }));
+  window.dispatchEvent(new CustomEvent('tabchange', { detail: { id } }));
 }
 
 /* 06 / Order builder, persistence, preview and clipboard */
