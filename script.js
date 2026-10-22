@@ -1,8 +1,8 @@
 /* 01 / EDIT HERE — shop, prices, copy and business assumptions */
 const CONFIG = {
   shopName: 'Minh Thuận GameCard',
-  contactUrl: 'https://m.me/1253052787885007',
-  facebook: 'https://www.facebook.com/1253052787885007',
+  contactUrl: 'https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr',
+  facebook: 'https://www.facebook.com/share/19uKNcmdx4/?mibextid=wwXIfr',
   instagram: 'https://instagram.com/minhthuan0917?srtk=bjk1b2Z2cmRwM25y',
   // TODO: Set the final HTTPS domain; no invented canonical or social image is published.
   siteUrl: 'https://minhthuangamecard.vercel.app',
@@ -57,7 +57,7 @@ const CONFIG = {
     ['Nhận mã rồi, mình nạp thẻ thế nào?', 'Vào trang hoặc ứng dụng nạp chính thức của trò chơi, chọn đúng loại thẻ rồi làm theo hướng dẫn của nhà phát hành. Kiểm tra trò chơi và khu vực được hỗ trợ trước khi mua; không cung cấp mật khẩu cho shop.'],
     ['Nếu mã thẻ báo lỗi thì sao?', 'Giữ lại bill và chụp thông báo lỗi, sau đó nhắn lại đúng cuộc trò chuyện đã đặt hàng để shop kiểm tra. Không đăng công khai mã thẻ. Cách xử lý hoặc hoàn tiền sẽ được shop xác nhận theo tình trạng thực tế.'],
     ['Shop nhận thanh toán bằng hình thức nào?', 'Bạn có thể chuyển khoản MoMo hoặc Vietcombank (chủ tài khoản: Lê Minh Thuận). Số tài khoản hiển thị ở mục Thanh toán và gửi riêng trong chat khi chốt đơn.'],
-    ['Mình liên hệ hỗ trợ ở đâu?', 'Bạn có thể nhắn trực tiếp qua Messenger Fanpage Minh Thuận GameCard (m.me/1253052787885007). Minh Thuận trực chat mỗi ngày 06:00 – 11:00.']
+    ['Mình liên hệ hỗ trợ ở đâu?', 'Bạn có thể nhắn trực tiếp qua Fanpage Facebook Minh Thuận GameCard. Minh Thuận trực chat mỗi ngày 06:00 – 11:00.']
   ]
 };
 const CARDS = [
