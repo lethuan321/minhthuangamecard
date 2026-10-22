@@ -6,7 +6,9 @@
   const budgets=Object.freeze({HIGH:full,MEDIUM:full,LOW:full});
   function resizeNeeded(width,height,previousWidth,previousHeight){return width!==previousWidth||Math.abs(height-previousHeight)>=150;}
   function frameRate(){return Infinity;}
+  function isReducedMotion(){return typeof window!=='undefined'&&Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches);}
+  function adaptiveDPR(maxDpr=2){return typeof window==='undefined'?1.5:Math.min(maxDpr,window.innerWidth<1100?Math.min(window.devicePixelRatio||1,2):Math.min(window.devicePixelRatio||1,1.5));}
   class Monitor{constructor(tier='HIGH',apply){this.tier=tier;this.apply=apply;}sample(){}reset(){}}
-  const api={chooseTier,budgets,resizeNeeded,frameRate,Monitor};
+  const api={chooseTier,budgets,resizeNeeded,frameRate,isReducedMotion,adaptiveDPR,Monitor};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.MobileFX=api;
 })(typeof window==='undefined'?globalThis:window);

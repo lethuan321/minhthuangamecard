@@ -26,7 +26,7 @@ function createDesktopFX(T,M,C) {
       const V=()=>new T.Vector3(),scratch=new T.Object3D(),v0=V(),v1=V(),v2=V(),v3=V(),rayOrigin=V(),rayDirection=V(),cameraPoint=V();
       const pointerWorld=V(),screenPointer=new T.Vector2(),raycaster=new T.Raycaster(),hits=[];
       raycaster.params.Line.threshold=.01;
-      const backgroundColor=new T.Color(0x0a0912);
+      const backgroundColor=new T.Color(0x060b17);
       const colorTemp=new T.Color(),themeColor=new T.Color(0xf5c542);
       const params=new URLSearchParams(location.search),flag=params.get('fx');
       const baseTier='HIGH';
@@ -249,7 +249,7 @@ function createDesktopFX(T,M,C) {
       }
 
       function setTheme(name){const key=name==='pricing'?S.activeBrand:name;if(key===themeKey)return;themeKey=key;const value=name==='pricing'?colors[S.activeBrand]:name==='steps'?0x49dc9c:0xf5c542;colorTemp.set(value);themeTween?.kill();const dest={r:colorTemp.r,g:colorTemp.g,b:colorTemp.b};if(moving&&window.gsap)themeTween=window.gsap.to(themeColor,{...dest,duration:1.2,ease:'power2.inOut'});else themeColor.copy(colorTemp);}
-      const fog=new T.FogExp2(0x120e18,.013);scene.fog=fog;
+      const fog=new T.FogExp2(0x0a1426,.012);scene.fog=fog;
       function updateGlobals(dt){const calm=false,speed=Math.min(1,Math.abs(S.velocity)/55);curve.getPoint(T.MathUtils.clamp(S.progress,0,1),cameraPoint);if(theme==='steps'){stepRail.getPoint(T.MathUtils.clamp(stationProgress,0,1),v3);cameraPoint.add(v3);}rig.x.target=cameraPoint.x;rig.y.target=cameraPoint.y;rig.z.target=cameraPoint.z;rig.roll.target=moving&&!calm?S.direction*speed*.009:0;rig.fov.target=moving?45+speed*7:45;camera.position.set(rig.x.step(dt),rig.y.step(dt),rig.z.step(dt));camera.rotation.z=rig.roll.step(dt);if(moving&&!calm){camera.position.x+=Math.sin(time*31)*speed*.003;camera.position.y+=Math.cos(time*27)*speed*.002;}camera.fov=rig.fov.step(dt);cameraDirty=true;syncCamera();screenToWorld((screenPointer.x+1)*metrics.width/2,(1-screenPointer.y)*metrics.height/2,.25,pointerWorld);
         fog.color.copy(themeColor).multiplyScalar(.0008).add(backgroundColor);renderer.setClearColor(fog.color,1);glowMaterial.color.copy(themeColor);brandLight.color.copy(themeColor);ambientMat.color.copy(themeColor);cyberGridMat.color.copy(themeColor);nebulaMat.color.copy(themeColor);streakMat.color.copy(themeColor).lerp(new T.Color(0xd6ecff),.75);for(let i=0;i<lights.length;i++){lights[i].color.copy(themeColor);lights[i].intensity=calm?.6:2.4;}cursorLight.position.copy(pointerWorld);cursorLight.intensity=pointerValid&&moving&&!calm?1.7:0;glow.visible=hero.live||pricing.live||closing.live;
         cyberGrid.position.z=-4.2+((time*.45+S.progress*3.5)%2);nebula.scale.set(18+Math.sin(time*.5)*1.8,14+Math.cos(time*.4)*1.4,1);nebula.position.x=Math.sin(time*.3)*.8;

@@ -1058,9 +1058,11 @@ function initScrollScenes(){
 function initCursor(){
   if(!motionEnabled()||!finePointer.matches)return;
   const dot=$('.cursor-dot'),ring=$('.cursor-ring');document.body.classList.add('cursor-enabled');
-  let scheduled=false,mouseX=0,mouseY=0,hover=false;
-  const move=event=>{mouseX=event.clientX;mouseY=event.clientY;hover=!!event.target.closest('a,button,summary,input,textarea');if(!scheduled){scheduled=true;requestAnimationFrame(()=>{const size=hover?45:26;dot.style.transform=`translate(${mouseX-2}px,${mouseY-2}px)`;ring.style.transform=`translate(${mouseX-size/2}px,${mouseY-size/2}px)`;ring.classList.toggle('is-hover',hover);dot.style.opacity='1';ring.style.opacity='1';scheduled=false;});}};
-  const leave=()=>{dot.style.opacity='0';ring.style.opacity='0';};document.addEventListener('pointermove',move,{passive:true});document.addEventListener('pointerleave',leave);state.motionCleanups.push(()=>{document.removeEventListener('pointermove',move);document.removeEventListener('pointerleave',leave);document.body.classList.remove('cursor-enabled');leave();});
+  let mouseX=0,mouseY=0,ringX=0,ringY=0,hover=false,rafId=0,active=false;
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const render=()=>{if(!active)return;ringX=lerp(ringX,mouseX,.22);ringY=lerp(ringY,mouseY,.22);const size=hover?44:26;dot.style.transform=`translate(${mouseX-2}px,${mouseY-2}px)`;ring.style.transform=`translate(${ringX-size/2}px,${ringY-size/2}px)`;ring.classList.toggle('is-hover',hover);rafId=requestAnimationFrame(render);};
+  const move=event=>{mouseX=event.clientX;mouseY=event.clientY;hover=!!event.target.closest('a,button,summary,input,textarea,.tab-btn,.buy-button,.game-chip');if(!active){active=true;ringX=mouseX;ringY=mouseY;dot.style.opacity='1';ring.style.opacity='1';rafId=requestAnimationFrame(render);}};
+  const leave=()=>{active=false;cancelAnimationFrame(rafId);dot.style.opacity='0';ring.style.opacity='0';};document.addEventListener('pointermove',move,{passive:true});document.addEventListener('pointerleave',leave);state.motionCleanups.push(()=>{active=false;cancelAnimationFrame(rafId);document.removeEventListener('pointermove',move);document.removeEventListener('pointerleave',leave);document.body.classList.remove('cursor-enabled');leave();});
 }
 function stopMotion(){state.motionContext?.revert();state.motionContext=null;[...state.motionCleanups].reverse().forEach(cleanup=>cleanup());state.motionCleanups=[];}
 function startMotion(){stopMotion();document.body.classList.toggle('motion-paused',!motionEnabled()||document.hidden);window.dispatchEvent(new CustomEvent('motionchange',{detail:{enabled:motionEnabled(),reduced:motionQuery.matches}}));if(!motionEnabled())return;if(window.gsap)state.motionContext=gsap.context(()=>{initHero();initScrollScenes();});initMarquee();initCursor();}
