@@ -1066,7 +1066,7 @@ function initCursor(){
 }
 function initCardTilt(){
   if(!motionEnabled()||!finePointer.matches)return;
-  const cards=$$('.game-card, .payment-card');
+  const cards=$$('.game-card, .payment-card, .benefit');
   const onMove=event=>{
     const card=event.currentTarget;if(!card?.getBoundingClientRect)return;
     const rect=card.getBoundingClientRect();if(!rect.width||!rect.height)return;
