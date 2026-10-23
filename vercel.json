@@ -29,7 +29,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-UK9O+rbB3KhDsGQrE55qyNAJCpV7WHc47zV2U5f4bE4=' 'sha256-kNekskyKjseytPaDB/+q0+J7jkV9F6zRAvd+Kq2F75Y='; style-src 'self' https://fonts.googleapis.com 'sha256-yuNWhRi6G23FTb8QlLurXYjXLktMFuCHPVmrW7+JjwA='; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://qr.sepay.vn; connect-src 'self' https://cdn.jsdelivr.net; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://qr.sepay.vn; connect-src 'self' https://cdn.jsdelivr.net data: blob:; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
         },
         {
           "key": "Cache-Control",
