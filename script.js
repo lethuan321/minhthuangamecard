@@ -843,7 +843,7 @@ function selectBrand(id) {
     panel.hidden = panel.id !== `panel-${id}`;
   });
   if (motionEnabled() && window.gsap) {
-    gsap.fromTo($$('tbody tr', $(`#panel-${id}`)), { y: 8, opacity: 0.45 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.025, clearProps: 'transform,opacity' });
+    gsap.fromTo($$('tbody tr', $(`#panel-${id}`)), { y: 12, opacity: 0.2 }, { y: 0, opacity: 1, duration: 0.32, stagger: 0.032, ease: 'power2.out', clearProps: 'transform,opacity' });
   }
   if (typeof window !== 'undefined' && window.innerWidth < 1100) {
     const tab = $('#tab-' + id), strip = $('.brand-tabs');
@@ -978,7 +978,7 @@ function initPayment() {
     const bottom = el('div','payment-card__bottom'); const holder = el('p','payment-holder',verifiedHolder?`Chủ tài khoản: ${CONFIG.payment.holder}`:'Tên người nhận: xác nhận với shop');
     const copy = el('button','button button--outline copy-button'); setArrowLabel(copy, 'Sao chép'); copy.setAttribute('aria-label',`Sao chép số ${name}`);
     let resetTimer;
-    copy.addEventListener('click',async()=>{if(await copyText(CONFIG.payment[key])){copy.textContent='Đã sao chép ✓';window.dispatchEvent(new CustomEvent('copysuccess',{detail:{id:key,element:card}}));toast(`Đã sao chép số ${name}: ${CONFIG.payment[key]}`);clearTimeout(resetTimer);resetTimer=setTimeout(()=>setArrowLabel(copy, 'Sao chép'),1600);}else{toast(`Số ${name}: ${CONFIG.payment[key]}. Chạm giữ hoặc chọn số để sao chép.`);}});
+    copy.addEventListener('click',async()=>{if(await copyText(CONFIG.payment[key])){copy.textContent='Đã sao chép ✓';copy.classList.add('is-copied');window.dispatchEvent(new CustomEvent('copysuccess',{detail:{id:key,element:card}}));toast(`Đã sao chép số ${name}: ${CONFIG.payment[key]}`);clearTimeout(resetTimer);resetTimer=setTimeout(()=>{copy.classList.remove('is-copied');setArrowLabel(copy, 'Sao chép');},1600);}else{toast(`Số ${name}: ${CONFIG.payment[key]}. Chạm giữ hoặc chọn số để sao chép.`);}});
     bottom.append(holder,copy); card.append(top,el('p','payment-card__label',key==='momo'?'Số điện thoại nhận tiền':'Số tài khoản'),el('p','payment-card__number',CONFIG.payment[key]),bottom); $('#payment-cards').append(card);
   });
   $('#holder-note').textContent = verifiedHolder ? '' : 'Vui lòng xác nhận tên người nhận với Minh Thuận trước khi chuyển khoản.';
@@ -1064,8 +1064,40 @@ function initCursor(){
   const move=event=>{mouseX=event.clientX;mouseY=event.clientY;hover=!!event.target.closest('a,button,summary,input,textarea,.tab-btn,.buy-button,.game-chip');if(!active){active=true;ringX=mouseX;ringY=mouseY;dot.style.opacity='1';ring.style.opacity='1';rafId=requestAnimationFrame(render);}};
   const leave=()=>{active=false;cancelAnimationFrame(rafId);dot.style.opacity='0';ring.style.opacity='0';};document.addEventListener('pointermove',move,{passive:true});document.addEventListener('pointerleave',leave);state.motionCleanups.push(()=>{active=false;cancelAnimationFrame(rafId);document.removeEventListener('pointermove',move);document.removeEventListener('pointerleave',leave);document.body.classList.remove('cursor-enabled');leave();});
 }
+function initCardTilt(){
+  if(!motionEnabled()||!finePointer.matches)return;
+  const cards=$$('.game-card, .payment-card');
+  const onMove=event=>{
+    const card=event.currentTarget;if(!card?.getBoundingClientRect)return;
+    const rect=card.getBoundingClientRect();if(!rect.width||!rect.height)return;
+    const x=event.clientX-rect.left,y=event.clientY-rect.top;
+    card.style.setProperty('--glare-x',`${(x/rect.width*100).toFixed(1)}%`);
+    card.style.setProperty('--glare-y',`${(y/rect.height*100).toFixed(1)}%`);
+    const rotX=((y/rect.height)-.5)*-12,rotY=((x/rect.width)-.5)*14;
+    card.style.setProperty('--card-rx',`${rotX.toFixed(2)}deg`);
+    card.style.setProperty('--card-ry',`${rotY.toFixed(2)}deg`);
+  };
+  const onLeave=event=>{
+    const card=event.currentTarget;if(!card?.style)return;
+    card.style.removeProperty('--card-rx');
+    card.style.removeProperty('--card-ry');
+    card.style.removeProperty('--glare-x');
+    card.style.removeProperty('--glare-y');
+  };
+  cards.forEach(card=>{
+    card.addEventListener('pointermove',onMove,{passive:true});
+    card.addEventListener('pointerleave',onLeave,{passive:true});
+  });
+  state.motionCleanups.push(()=>{
+    cards.forEach(card=>{
+      card.removeEventListener('pointermove',onMove);
+      card.removeEventListener('pointerleave',onLeave);
+      onLeave({currentTarget:card});
+    });
+  });
+}
 function stopMotion(){state.motionContext?.revert();state.motionContext=null;[...state.motionCleanups].reverse().forEach(cleanup=>cleanup());state.motionCleanups=[];}
-function startMotion(){stopMotion();document.body.classList.toggle('motion-paused',!motionEnabled()||document.hidden);window.dispatchEvent(new CustomEvent('motionchange',{detail:{enabled:motionEnabled(),reduced:motionQuery.matches}}));if(!motionEnabled())return;if(window.gsap)state.motionContext=gsap.context(()=>{initHero();initScrollScenes();});initMarquee();initCursor();}
+function startMotion(){stopMotion();document.body.classList.toggle('motion-paused',!motionEnabled()||document.hidden);window.dispatchEvent(new CustomEvent('motionchange',{detail:{enabled:motionEnabled(),reduced:motionQuery.matches}}));if(!motionEnabled())return;if(window.gsap)state.motionContext=gsap.context(()=>{initHero();initScrollScenes();});initMarquee();initCursor();initCardTilt();}
 function initMotion(){
   state.motionPaused=false;
   const button=$('#motion-toggle');button.hidden=true;$('#fx-toggle')?.remove();const update=()=>{button.setAttribute('aria-pressed',String(state.motionPaused));button.setAttribute('aria-label',state.motionPaused?'Bật hiệu ứng chuyển động':'Tạm dừng hiệu ứng chuyển động');button.firstElementChild.textContent=state.motionPaused?'▷':'Ⅱ';const fixed=$('#fx-toggle');if(fixed){fixed.setAttribute('aria-pressed',String(state.motionPaused));fixed.textContent=state.motionPaused?'Bật hiệu ứng':'Tạm dừng hiệu ứng';}};
